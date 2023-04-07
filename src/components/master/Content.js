@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
-import { useState,useEffect } from "react";
+import { toast } from "react-toastify";
+import { useState,useEffect,useCallback } from "react";
 import { Link } from "react-router-dom";
 import { UseSqlLogsContext } from "../../context/SqlllogsContextApi";
 export default function Content() {   
@@ -46,6 +47,126 @@ export default function Content() {
       GetallProxyogsCount()
       GetallBotogsCount()
  },[])
+ const [messagelistner, setMessagelistner] = useState(null);
+ const [NosqlDetectorChecked, setNosqlDetectorChecked] = useState();
+ const [SQLChecked, setSQLChecked] = useState();
+ const [HTMLChecked, setHTMLChecked] = useState();
+ const [XSSChecked, setXSSChecked] = useState();
+ const [ProxyChecked, setProxyChecked] = useState();
+ const [CommandLineinjectionChecked, setCommandLineinjectionChecked] = useState();
+ const [BotChecked, setBotChecked] = useState();
+ const [SpamChecked, setSpamChecked] = useState();
+ const [LdapChecked, setLdapChecked] = useState();
+ 
+ useEffect(()=>{
+      axios.get('security/middlwares').then((response) => {
+       console.log(response.data)
+        setNosqlDetectorChecked(response.data.NosqlDetectorMiddlware)
+        setSpamChecked(response.data.SpamMiddleware)
+        setBotChecked(response.data.BotMiddleware)
+        setSQLChecked((response.data.SqlDetectorMiddlware))
+        setHTMLChecked((response.data.checkHTMLMiddlware))
+        setXSSChecked(response.data.xssInjectionDetectorMiddlware)
+        setProxyChecked(response.data.VpnProtectMiddlware)
+        setCommandLineinjectionChecked(response.data.commandlineinjectionMiddlware)
+        setLdapChecked(response.data.ldapInjectionDetectorMiddlware)
+      }
+      ).catch((error) => {
+        console.error(error)
+      })
+    
+ })
+
+const updatemiddleware = useCallback(
+ (value) => {
+   setMessagelistner(toast.success("please wait..."))
+   axios
+     .post('security/middlwares/switch', value)
+     .then((response) => {
+       console.log(response.message);
+       setMessagelistner(toast.success(response.message))
+     })
+     .catch((error) => {
+       console.error(error.message);
+       toast.error(error.message);
+     });
+ },
+ [],
+);
+
+const handleSqlChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setSQLChecked(isChecked);
+   updatemiddleware({ SqlDetectorMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleLdapChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setLdapChecked(isChecked);
+   updatemiddleware({ ldapInjectionDetectorMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleSpamChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setSpamChecked(isChecked);
+   updatemiddleware({ SpamMiddleware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleBotChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setBotChecked(isChecked);
+   updatemiddleware({ BotMiddleware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleHtmlChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setHTMLChecked(isChecked);
+   updatemiddleware({ checkHTMLMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleXSSChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setXSSChecked(isChecked);
+   updatemiddleware({ xssInjectionDetectorMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
+
+const handleVpnChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setProxyChecked(isChecked);
+   updatemiddleware({ VpnProtectMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleCommandLineChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setCommandLineinjectionChecked(isChecked);
+   updatemiddleware({ commandlineinjectionMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
+const handleNosqlChange = useCallback(
+ (event) => {
+   const isChecked = event.target.checked;
+   setNosqlDetectorChecked(isChecked);
+   updatemiddleware({ NosqlDetectorMiddlware: isChecked });
+ },
+ [updatemiddleware],
+);
   return (
     <div className="content-wrapper">
       {/* Content Header (Page header) */}
@@ -128,55 +249,7 @@ export default function Content() {
               </div>
             </div>
             {/* 4 columns end */}
-            {/* 4 columns start*/}
-            <div className="col-sm-6 col-lg-3">
-              <div className="small-box bg-info">
-                <div className="inner">
-                  <p>SessionInfo</p>
-                </div>
-                <div className="icon">
-                  <i className="fas fa-code" />
-                </div>
-                <Link to="/sessioninfo" className="small-box-footer">View More <i className="fas fa-arrow-circle-right" /></Link>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-3">
-              <div className="small-box bg-danger">
-                <div className="inner">
-                  <h3>{BotData}</h3>
-                  <p>Bad Bots</p>
-                </div>
-                <div className="icon">
-                  <i className="fas fa-robot" />
-                </div>
-                <Link to="/Badbotlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-3">
-              <div className="small-box bg-success">
-                <div className="inner">
-                  <h3>{ProxyData}</h3>
-                  <p>Proxies</p>
-                </div>
-                <div className="icon">
-                  <i className="fas fa-globe" />
-                </div>
-                <Link to='/Proxylogs' className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-3">
-              <div className="small-box bg-warning">
-                <div className="inner">
-                  <h3>{SpamData}</h3>
-                  <p>Spammers</p>
-                </div>
-                <div className="icon">
-                  <i className="fas fa-keyboard" />
-                </div>
-                <Link to="/Spammerlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
-              </div>
-            </div>
-            {/* 4 columns end */}
+          
           </div>
           {/* /.row */}
         </div>
@@ -199,6 +272,7 @@ export default function Content() {
                 <div className="card card-body bg-light">
                   <center>
                     <strong><i className="fas fa-code" /> SQLi</strong><br />Protection<hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={SQLChecked} onChange={handleSqlChange} />
                     <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
                   </center>
                 </div>
@@ -207,6 +281,7 @@ export default function Content() {
                 <div className="card card-body bg-light">
                   <center>
                     <strong><i className="fas fa-robot" /> Bad Bots</strong><br />Protection<hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={BotChecked} onChange={handleBotChange} />
                     <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
                   </center>
                 </div>
@@ -215,6 +290,8 @@ export default function Content() {
                 <div className="card card-body bg-light">
                   <center>
                     <strong><i className="fas fa-globe" /> Proxy</strong><br />Protection<br /><hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={ProxyChecked} onChange={handleVpnChange} />
+                   
                     <h4><span className="badge badge-danger"><i className="fas fa-times" /> OFF</span></h4>
                   </center>
                 </div>
@@ -223,6 +300,7 @@ export default function Content() {
                 <div className="card card-body bg-light">
                   <center>
                     <strong><i className="fas fa-keyboard" /> Spam</strong><br />Protection<br /><hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={SpamChecked} onChange={handleSpamChange} />
                     <h4><span className="badge badge-danger"><i className="fas fa-times" /> OFF</span></h4>
                   </center>
                 </div>
@@ -232,14 +310,16 @@ export default function Content() {
               <div className="col-md-4">
                 <div className="card card-body bg-light">
                   <center>
-                    <h5><i className="fas fa-list-ul" /> &nbsp;Logging Settings</h5>
+                    <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules</h5>
                   </center>
                 </div>
               </div>
               <div className="col-md-2">
                 <div className="card card-body bg-light">
                   <center>
-                    <strong><i className="fas fa-code" /> SQLi</strong><br />Logging<hr />
+                    <strong><i className="fas fa-code" /> Commandline</strong><br />Protection<hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={CommandLineinjectionChecked} onChange={handleCommandLineChange} />
+             
                     <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
                   </center>
                 </div>
@@ -247,7 +327,9 @@ export default function Content() {
               <div className="col-md-2">
                 <div className="card card-body bg-light">
                   <center>
-                    <strong><i className="fas fa-robot" /> Bad Bots</strong><br />Logging<hr />
+                    <strong><i className="fas fa-robot" /> No Sql</strong><br />Protection<hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={NosqlDetectorChecked} onChange={handleNosqlChange} />
+             
                     <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
                   </center>
                 </div>
@@ -255,20 +337,33 @@ export default function Content() {
               <div className="col-md-2">
                 <div className="card card-body bg-light">
                   <center>
-                    <strong><i className="fas fa-globe" /> Proxy</strong><br />Logging <br /><hr />
-                    <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
+                    <strong><i className="fas fa-globe" /> Html</strong><br />Protection<br /><hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={HTMLChecked} onChange={handleHtmlChange} />
+                   
+                    <h4><span className="badge badge-danger"><i className="fas fa-times" /> OFF</span></h4>
                   </center>
                 </div>
               </div>
               <div className="col-md-2">
                 <div className="card card-body bg-light">
                   <center>
-                    <strong><i className="fas fa-keyboard" /> Spam</strong><br />Logging<br /><hr />
-                    <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
+                    <strong><i className="fas fa-keyboard" /> Xss</strong><br />Protection<br /><hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={XSSChecked} onChange={handleXSSChange} />
+                    <h4><span className="badge badge-danger"><i className="fas fa-times" /> OFF</span></h4>
+                  </center>
+                </div>
+              </div>
+              <div className="col-md-2">
+                <div className="card card-body bg-light">
+                  <center>
+                    <strong><i className="fas fa-keyboard" /> Ldap</strong><br />Protection<br /><hr />
+                    <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={LdapChecked} onChange={handleLdapChange} />
+                    <h4><span className="badge badge-danger"><i className="fas fa-times" /> OFF</span></h4>
                   </center>
                 </div>
               </div>
             </div>
+         
           </div>
         </div>
         <div className="col-lg-12">
@@ -279,7 +374,7 @@ export default function Content() {
                   <p className="text-uppercase mar-btm text-lg">SQL Injections</p>
                   <i className="fas fa-code fa-2x" />
                   <hr />
-                  <p className="h3 text-thin">1</p>
+                  <p className="h3 text-thin">{sqlData}</p>
                 </div>
               </div>
             </div>
@@ -289,7 +384,7 @@ export default function Content() {
                   <p className="text-uppercase mar-btm text-lg">Bad Bots</p>
                   <i className="fas fa-robot fa-2x" />
                   <hr />
-                  <p className="h3 text-thin">1</p>
+                  <p className="h3 text-thin">{BotData}</p>
                 </div>
               </div>
             </div>
@@ -299,7 +394,7 @@ export default function Content() {
                   <p className="text-uppercase mar-btm text-lg">Proxies</p>
                   <i className="fas fa-globe fa-2x" />
                   <hr />
-                  <p className="h3 text-thin">0</p>
+                  <p className="h3 text-thin">{ProxyData}</p>
                 </div>
               </div>
             </div>
@@ -309,7 +404,7 @@ export default function Content() {
                   <p className="text-uppercase mar-btm text-lg">Spammers</p>
                   <i className="fas fa-keyboard fa-2x" />
                   <hr />
-                  <p className="h3 text-thin">0</p>
+                  <p className="h3 text-thin">{SpamData}</p>
                 </div>
               </div>
             </div>

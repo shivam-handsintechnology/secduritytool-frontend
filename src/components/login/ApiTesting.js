@@ -22,9 +22,6 @@ export default function ApiTesting() {
         'Content-Type': 'application/json',
       },
     })
-
-  
-
   }
   Run()
   useEffect(() => {

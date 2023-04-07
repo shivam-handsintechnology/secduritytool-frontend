@@ -2,18 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState,useCallback  } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UseMiddlewaresContext } from "../../context/AuthApi";
 export default function Menu() {
-  // const [BadBotsChecked, setBadBotsChecked] = useState(false);
-  // const [SpamChecked, setSpamChecked] = useState(false);
-  // const [BadWordsChecked, setBadWordsChecked] = useState(false);
   const [messagelistner, setMessagelistner] = useState(null);
   const [NosqlDetectorChecked, setNosqlDetectorChecked] = useState();
   const [SQLChecked, setSQLChecked] = useState();
   const [HTMLChecked, setHTMLChecked] = useState();
   const [XSSChecked, setXSSChecked] = useState();
   const [ProxyChecked, setProxyChecked] = useState();
-  const [HtmlSanitizerChecked, setHtmlSanitizerChecked] = useState();
   const [CommandLineinjectionChecked, setCommandLineinjectionChecked] = useState();
   useEffect(()=>{
        axios.get('security/middlwares').then((response) => {
@@ -23,7 +18,6 @@ export default function Menu() {
          setHTMLChecked((response.data.checkHTMLMiddlware))
          setXSSChecked(response.data.xssInjectionDetectorMiddlware)
          setProxyChecked(response.data.VpnProtectMiddlware)
-         setHtmlSanitizerChecked(response.data.SanitizeinputMiddleware)
          setCommandLineinjectionChecked(response.data.commandlineinjectionMiddlware)
        }
        ).catch((error) => {
@@ -152,6 +146,11 @@ const handleNosqlChange = useCallback(
                 <i className="fas fa-user-secret" />&nbsp; <p>SSL Information</p>
               </Link>
             </li>
+            <li className="nav-item ">
+              <Link to="/sessioninfo" className="nav-link ">
+                <i className="fas fa-user-secret" />&nbsp; <p>Session Information</p>
+              </Link>
+            </li>
             <li className="nav-item has-treeview ">
               <a href="#" className="nav-link ">
                 <i className="fas fa-flag" />&nbsp; <p>Whitelist <i className="fas fa-angle-right right" />
@@ -202,7 +201,7 @@ const handleNosqlChange = useCallback(
               
               </div>
             </li>
-            <li className="nav-item " style={{display:'flex'}}>
+            {/* <li className="nav-item " style={{display:'flex'}}>
             <Link to="/XSS" className="nav-link ">
                 <i className="fas fa-code" />&nbsp; <p>HTML Sanitizer
                 </p>
@@ -211,7 +210,7 @@ const handleNosqlChange = useCallback(
                 <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={HtmlSanitizerChecked} onChange={handleHtmlSanitizerChange} />
               
               </div>
-            </li>
+            </li> */}
             <li className="nav-item "  style={{display:'flex'}}>
               <Link to="/Proxy" className="nav-link ">
                 <i className="fas fa-globe" />&nbsp; <p>Proxy Injection</p>
@@ -227,6 +226,7 @@ const handleNosqlChange = useCallback(
               </Link>
               <div className="form-check">
                 <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={CommandLineinjectionChecked} onChange={handleCommandLineChange} />
+             
               </div>
             </li> 
             <li className="nav-item "  style={{display:'flex'}}>
@@ -235,6 +235,7 @@ const handleNosqlChange = useCallback(
               </Link>
               <div className="form-check">
                 <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={NosqlDetectorChecked} onChange={handleNosqlChange} />
+             
               </div>
             </li> 
             <li className="nav-item ">
@@ -291,7 +292,7 @@ const handleNosqlChange = useCallback(
                 <i className="fab fa-php" />&nbsp; <p>PHP Configuration</p>
               </Link>
             </li> */}
-            <li className="nav-header">ANALYTICS &nbsp;
+            {/* <li className="nav-header">ANALYTICS &nbsp;
               <span className="right badge badge-success">ON</span></li>
             <li className="nav-item ">
               <Link to="/Livetraffic" className="nav-link ">
@@ -302,7 +303,7 @@ const handleNosqlChange = useCallback(
               <Link to="/Visitanalytics" className="nav-link ">
                 <i className="fas fa-chart-line" />&nbsp; <p>Visit Analytics</p>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-header">TOOLS</li>
             <li className="nav-item ">
               <Link to="/Errormonitoring" className="nav-link ">

@@ -10,7 +10,7 @@ export default Systeminfo => {
    
     const [dependesylist, setdependesylist] = useState([])
     const [Serverinfo, setServerinfo] = useState({})
-    const [Files, setFiles] = useState([])
+    // const [Files, setFiles] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     console.log(Serverinfo)
     useEffect(() => {       
@@ -19,12 +19,12 @@ export default Systeminfo => {
             await axios.get(`${API.localurl}system`).then((response) => {
                 setIsLoading(false);
                 const { data, statusCode } = response
-                const ArrayofFile = []
-                Object.entries(data.files).forEach(([key, value]) => {
-                    ArrayofFile.push({ fileextension: key, count: value })
-                })
-                setFiles(ArrayofFile)
-                setdependesylist(data.dependencylist)
+                // const ArrayofFile = []
+                // Object.entries(data.files).forEach(([key, value]) => {
+                //     ArrayofFile.push({ fileextension: key, count: value })
+                // })
+                // setFiles(ArrayofFile)
+                // setdependesylist(data.dependencylist)
                 setServerinfo(data.syteminfo)
                 
             })
@@ -133,7 +133,7 @@ export default Systeminfo => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
+                                {/* <div className="row">
                                     {
                                         Files.map((value, index) => {
                                             const { count, fileextension } = value
@@ -172,34 +172,10 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <br />
                             </div>
                             <div className="col-md-6">
-                                <div className="card card-primary card-outline">
-                                    <div className="card-header">
-                                        <h3 className="card-title">
-                                            Installed Node_modules -{" "}
-                                            <span className="badge badge-primary">46</span>
-                                        </h3>
-                                    </div>
-                                    <div className="card-body">
-                                        <pre className="bg-light">
-                                            <h1>Dependecy</h1>
-                                            <ul>
-                                                {
-                                                    dependesylist.map((values, index) => {
-                                                        return <li>{values}</li>
-                                                    })
-                                                }
-                                            </ul>
-                                        </pre>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <br />
-                            <div className="col-md-12">
                                 <h3 className="mt-none">Host Information</h3>
                                 <p>System information about the web host.</p>
                                 <div className="row">
@@ -340,7 +316,32 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div> */}
+                      
+                                
+                                {/* <div className="card card-primary card-outline">
+                                    <div className="card-header">
+                                        <h3 className="card-title">
+                                            Installed Node_modules -{" "}
+                                            <span className="badge badge-primary">46</span>
+                                        </h3>
+                                    </div>
+                                    <div className="card-body">
+                                        <pre className="bg-light">
+                                            <h1>Dependecy</h1>
+                                            <ul>
+                                                {
+                                                    dependesylist.map((values, index) => {
+                                                        return <li>{values}</li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </pre>
+                                    </div>
+                                </div> */}
                             </div>
+                            <br />
+                            <br />
+                          
                         </div>
                     </div>
                     {/*===================================================*/}
