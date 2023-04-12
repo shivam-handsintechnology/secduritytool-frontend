@@ -1,33 +1,86 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Headers from "../Header";
 import Menu from "../Menu";
 import Footer from "../Footer";
 import DataTable from 'react-data-table-component';
-import data from './data.json';
-import { Link } from "react-router-dom";
-const columns = [
-    {
-        name: 'Name',
-        selector: 'name',
-        sortable: true,
-    },
-    {
-        name: 'Phone',
-        selector: 'phone',
-        sortable: true,
-    },
-    {
-        name: 'Email',
-        selector: 'email',
-        sortable: true,
-    },
-    {
-        name: 'DOB',
-        selector: 'dob',
-    },
-];
-export default class Filewhitelist extends Component {
-    render() {
+// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Button } from "react-bootstrap";
+export default function FileWhitelist() {
+    const [ipaddress, setipaddress] = useState("")
+    const [data, setData] = useState([])
+    const [isError, setisError] = useState(false)
+    const [isErrorMessage, setisErrorMessage] = useState("")
+  async function  AddIpaddres(e) {
+         e.preventDefault()
+         await axios.post(`security/ip/blacklist/add`,{ip:ipaddress}).then(response=>{
+        toast.success(response.message)
+         return response
+        }).catch(error=>{
+            toast.error(error.message)
+        })
+     }
+  async function deleteSingleSqllLogs(body) {
+    console.log(body.ip)
+     await axios.delete(`security/ip/blacklist?ip=${body.ip}`,
+       ).then((response)=>{
+          const {message,statusCode}=response
+                 if(statusCode===200){
+                      toast.success(message)
+                  }
+       }).catch((error)=>{
+          const {message}=error
+          toast.error(message)
+       })
+  }
+  const  getAllSqllLogs=(async()=> {
+      await axios.get(`security/ip/blacklist/all`).then((response)=>
+      {
+       const {data,message,statusCode}=response
+       if(statusCode===404) {
+        setisError(true)
+        setisErrorMessage(message)
+       }
+       let ArrayOfdta=[]
+        data.map((value)=> ArrayOfdta.push({ip:value.ip})
+        )
+        setData(ArrayOfdta)
+      }
+      ).catch((error)=>{
+        console.log(error)
+    })
+      })
+ 
+    // const history=useNavigate()
+    useEffect(() => {
+        getAllSqllLogs()
+    }, [])
+    const columns = [
+        {
+            name: 'Ip',
+            selector: 'ip',
+            sortable: true,
+        },
+       
+        {
+            name: "Action",
+
+            selector: (row) => [
+               <Button
+               variant="danger acasd"
+               onClick={() => { 
+                deleteSingleSqllLogs({ip:row.ip}
+                    )
+                    // history("/")
+            }}
+             >
+               Delete
+             </Button>,
+            ],
+            width: "28%",
+          },
+    ];
         return (
             <div>
                 <Headers />
@@ -40,7 +93,7 @@ export default class Filewhitelist extends Component {
                             <div className="row mb-2">
                                 <div className="col-sm-6">
                                     <h1 className="m-0 ">
-                                        <i className="fas fa-flag" /> File Whitelist
+                                        <i className="fas fa-flag" /> IP Blacklist
                                     </h1>
                                 </div>
                                 <div className="col-sm-6">
@@ -50,7 +103,7 @@ export default class Filewhitelist extends Component {
                                                 <i className="fas fa-home" /> Admin Panel
                                             </a>
                                         </li>
-                                        <li className="breadcrumb-item active">File Whitelist</li>
+                                        <li className="breadcrumb-item active">IP Blacklist</li>
                                     </ol>
                                 </div>
                             </div>
@@ -64,49 +117,39 @@ export default class Filewhitelist extends Component {
                                 <div className="col-md-9">
                                     <div className="card card-primary card-outline">
                                         <div className="card-header">
-                                            <h3 className="card-title">File Whitelist</h3>
+                                            <h3 className="card-title">IP Whitelist</h3>
                                         </div>
                                         <div className="card-body">
-                                            <DataTable
+                                            {
+                                                isError?isErrorMessage: <DataTable
+                                                title="Login History"
                                                 columns={columns}
                                                 data={data}
                                                 pagination
                                                 highlightOnHover
                                             />
+                                            }
+                                           
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3">
                                     <div className="card card-primary card-outline">
                                         <div className="card-header">
-                                            <h3 className="card-title">Add File</h3>
+                                            <h3 className="card-title">Add IP Address</h3>
                                         </div>
                                         <div className="card-body">
-                                            <form className="form-horizontal" action="" method="post">
+                                            <form className="form-horizontal" onSubmit={AddIpaddres} >
                                                 <div className="form-group">
-                                                    <label className="control-label">File's Path: </label>
+                                                    <label className="control-label">IP Address: </label>
                                                     <input
                                                         type="text"
-                                                        name="ip"
+                                                        onChange={(e)=>{setipaddress(e.target.value)}}
                                                         className="form-control"
                                                         required=""
                                                     />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label className="control-label">Notes: </label>
-                                                    <textarea
-                                                        rows={5}
-                                                        name="notes"
-                                                        className="form-control"
-                                                        placeholder="Additional (descriptive) information can be added here"
-                                                        data-gramm="false"
-                                                        wt-ignore-input="true"
-                                                        defaultValue={""}
-                                                    />
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div className="card-footer">
+                                                <div className="card-footer">
                                             <button
                                                 className="btn btn-block btn-flat btn-primary"
                                                 name="add"
@@ -115,6 +158,9 @@ export default class Filewhitelist extends Component {
                                                 <i className="fas fa-plus-square" /> Add
                                             </button>
                                         </div>
+                                            </form>
+                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -128,5 +174,5 @@ export default class Filewhitelist extends Component {
                 <Footer />
             </div>
         );
-    }
+ 
 }

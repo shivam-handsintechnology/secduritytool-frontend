@@ -3,7 +3,6 @@ import React from "react";
 import { toast } from "react-toastify";
 import { useState,useEffect,useCallback } from "react";
 import { Link } from "react-router-dom";
-import { UseSqlLogsContext } from "../../context/SqlllogsContextApi";
 export default function Content() {   
             const [sqlData, setsqlData] = useState(0)
             const [BotData, setBotData] = useState(0)
@@ -13,7 +12,7 @@ export default function Content() {
       const  GetallSqllogsCount=(async()=> {
       await axios.get(`security/sqllogs/count`).then((response)=>
       {
-       const {data,message}=response
+       const {data}=response
        setsqlData(data)
       }
       ).catch((error)=>{console.log(error)})
@@ -21,7 +20,7 @@ export default function Content() {
       const  GetallBotogsCount=(async()=> {
       await axios.get(`security/botlogs/count`).then((response)=>
       {
-       const {data,message}=response
+       const {data}=response
        setBotData(data)
       }
       ).catch((error)=>{console.log(error)})
@@ -29,7 +28,7 @@ export default function Content() {
       const  GetallProxyogsCount=(async()=> {
       await axios.get(`security/proxylogs/count`).then((response)=>
       {
-       const {data,message}=response
+       const {data}=response
        setProxyData(data)
       }
       ).catch((error)=>{console.log(error)})
@@ -37,7 +36,7 @@ export default function Content() {
       const  GetallSpamogsCount=(async()=> {
       await axios.get(`security/spamlogs/count`).then((response)=>
       {
-       const {data,message}=response
+       const {data}=response
        setSpamData(data)
       }
       ).catch((error)=>{console.log(error)})
@@ -84,7 +83,8 @@ const updatemiddleware = useCallback(
      .post('security/middlwares/switch', value)
      .then((response) => {
        console.log(response.message);
-       setMessagelistner(toast.success(response.message))
+       setMessagelistner(response.message)
+       toast.success(messagelistner)
      })
      .catch((error) => {
        console.error(error.message);

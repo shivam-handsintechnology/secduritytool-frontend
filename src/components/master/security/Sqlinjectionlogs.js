@@ -1,14 +1,51 @@
-import React, { Component } from "react";
+import React from "react";
 import Headers from "../Header";
 import Menu from "../Menu";
 import Footer from "../Footer";
 import DataTable from 'react-data-table-component';
 import { useState,useEffect } from "react";
-import { Link   ,useNavigate,useParams } from "react-router-dom";
+import { Link   ,useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { UseSqlLogsContext } from "../../../context/SqlllogsContextApi";
+import axios from "axios";
+import { toast } from "react-toastify";
 const Sqlinjectionlogs = () => {
-    const {data,deleteSingleSqllLogs,deleteAllSqllLogs,getAllSqllLogs}=UseSqlLogsContext()
+    const [Actions, setActions] = useState([])
+    const [data, setData] = useState([])
+    const [iparray, setIparray] = useState([])
+
+  async function  deleteAllSqllLogs() {
+         await axios.post(`security/sqllogs/deleteall`,{ip:iparray}).then(response=>{
+        toast.success(response.message)
+         return response
+        }).catch(error=>{return error})
+    
+     }
+  function deleteSingleSqllLogs(body) {
+      axios.post(`security/sqllogs/deletesingle`,
+       body).then((response)=>{
+          const {message,statusCode}=response
+                 if(statusCode===200){
+                      toast.success(message)
+                  }
+       }).catch((error)=>{
+          const {message}=error
+          toast.error(message)
+       })
+  }
+  const  getAllSqllLogs=(async()=> {
+      await axios.get(`security/sqllogs`).then((response)=>
+      {
+       const {data}=response
+       let ArrayOfdta=[]
+        data.map((value)=>{
+        setIparray(value.ip)
+        ArrayOfdta.push( { ip:value.ip, browser:value.browser, country:value.country, date:value.date, os:value.os,Actions})
+        })
+        setData(ArrayOfdta)
+      }
+      ).catch((error)=>{console.log(error)})
+      })
+ 
     const history=useNavigate()
     useEffect(() => {
         getAllSqllLogs()

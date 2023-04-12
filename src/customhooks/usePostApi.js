@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
-
 const usePostRequest = (FetcFunction) => {
   const [Postdata, setData] = useState(null);
   const [Posterror, setError] = useState(null);
   const [PostisLoading, setIsLoading] = useState(false);
-
   const execute = async (body) => {
     setIsLoading(true);
     try {

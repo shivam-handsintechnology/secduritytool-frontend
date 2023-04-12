@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { API } from "../../../config";
 import LoadingSpinner from "../../../loader";
-export default Systeminfo => {
-   
-    const [dependesylist, setdependesylist] = useState([])
+export default function Systeminfo() {
     const [Serverinfo, setServerinfo] = useState({})
-    // const [Files, setFiles] = useState([])
+    // eslint-disable-next-line
+    const [RobotFile, setRobotFile] = useState("")
     const [isLoading, setIsLoading] = useState(false);
     console.log(Serverinfo)
     useEffect(() => {       
@@ -18,16 +17,18 @@ export default Systeminfo => {
             setIsLoading(true);
             await axios.get(`${API.localurl}system`).then((response) => {
                 setIsLoading(false);
-                const { data, statusCode } = response
-                // const ArrayofFile = []
-                // Object.entries(data.files).forEach(([key, value]) => {
-                //     ArrayofFile.push({ fileextension: key, count: value })
-                // })
-                // setFiles(ArrayofFile)
-                // setdependesylist(data.dependencylist)
+                const { data } = response
                 setServerinfo(data.syteminfo)
-                
             })
+         axios.get('test/robottxt')
+        .then((response) => {
+          const { message } = response
+          console.log({ message })
+          setRobotFile(message)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
         }
         GetSysteminfo()
     }, [])
@@ -81,16 +82,6 @@ export default Systeminfo => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {/* <tr>
-                                                            <td>Response Time</td>
-                                                            <td>
-                                                                <h5>
-                                                                    <span className="badge badge-success">
-                                                                        0.022224 sec
-                                                                    </span>
-                                                                </h5>
-                                                            </td>
-                                                        </tr> */}
                                                     <tr>
                                                         <td>Nodejs Configuration File (node.exe)</td>
                                                         <td>
@@ -101,22 +92,7 @@ export default Systeminfo => {
                                                             </h5>
                                                         </td>
                                                     </tr>
-                                                    {/* <tr>
-                                                            <td>PHP Error Log</td>
-                                                            <td>
-                                                                <h5>
-                                                                    <span className="badge badge-warning">/log/up</span>
-                                                                </h5>
-                                                            </td>
-                                                        </tr> */}
-                                                    {/* <tr>
-                                                            <td>Zend Version</td>
-                                                            <td>
-                                                                <h5>
-                                                                    <span className="badge badge-danger">3.4.0</span>
-                                                                </h5>
-                                                            </td>
-                                                        </tr> */}
+                                                 
                                                     <tr>
                                                         <td>Default Timezone</td>
                                                         <td>
@@ -128,36 +104,11 @@ export default Systeminfo => {
                                                             </h5>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <div className="row">
-                                    {
-                                        Files.map((value, index) => {
-                                            const { count, fileextension } = value
-                                            const firstvalue = index == 0
-                                            return <div className="col-md-6">
-                                                <div className="small-box bg-primary">
-                                                    <div className="inner">
-                                                        <h3>{count}</h3>
-                                                        <p>{fileextension} {firstvalue ? "unknow extension" : "Files"}</p>
-                                                    </div>
-                                                    <div className="icon">
-                                                        <i className="fas fa-file" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        })
-                                    }
-                                    <div className="col-md-12">
-                                        <div className="info-box bg-info">
-                                            <span className="info-box-icon">
-                                                <i className="fas fa-hdd" />
-                                            </span>
-                                            <div className="info-box-content">
-                                                <span className="info-box-text">STORAGE</span>
+                                                    <tr>
+                                                        <td>  <span className="info-box-text">STORAGE</span></td>
+                                                        <td>
+                                                        <div className="info-box-content">
+                                              
                                                 <span className="info-box-number">Total:{Serverinfo.totalmem} Bytes</span>
                                                 <div className="progress">
                                                     <div
@@ -170,16 +121,23 @@ export default Systeminfo => {
                                                     <br />
                                                 </span>
                                             </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Robot</td>
+                                                        <td> Host has Robot.txt or Not: <span className="text-semibold">{RobotFile}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                </div> */}
-                                <br />
+                                </div>
                             </div>
                             <div className="col-md-6">
                                 <h3 className="mt-none">Host Information</h3>
                                 <p>System information about the web host.</p>
                                 <div className="row">
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card">
                                             <div className="card-body text-center">
                                                 <p className="text-uppercase mar-btm text-sm">Domain IP</p>
@@ -189,7 +147,7 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card">
                                             <div className="card-body text-center">
                                                 <p className="text-uppercase mar-btm text-sm">Country</p>
@@ -199,19 +157,7 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div className="col-md-3">
-                                        <div className="card">
-                                            <div className="card-body text-center">
-                                                <p className="text-uppercase mar-btm text-sm">
-                                                    Server Software
-                                                </p>
-                                                <i className="fas fa-database fa-3x" />
-                                                <hr />
-                                                <p className="h4 text-thin">Apache/ </p>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card">
                                             <div className="card-body text-center">
                                                 <p className="text-uppercase mar-btm text-sm">ISP</p>
@@ -221,9 +167,7 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card">
                                             <div className="card-body text-center">
                                                 <p className="text-uppercase mar-btm text-sm">Server OS</p>
@@ -233,7 +177,7 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card">
                                             <div className="card-body text-center">
                                                 <p className="text-uppercase mar-btm text-sm">Nodejs Version</p>
@@ -243,19 +187,8 @@ export default Systeminfo => {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div className="col-md-3">
-                                        <div className="card">
-                                            <div className="card-body text-center">
-                                                <p className="text-uppercase mar-btm text-sm">
-                                                    MySQL Version
-                                                </p>
-                                                <i className="fas fa-list-alt fa-3x" />
-                                                <hr />
-                                                <p className="h4 text-thin">5.5.5-10.3.27-MariaDB</p>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                    <div className="col-md-4">
+                              
+                                    <div className="col-md-6">
                                         <div className="card">
                                             <div className="card-body text-center">
                                                 <p className="text-uppercase mar-btm text-sm">Server Port</p>
@@ -266,78 +199,9 @@ export default Systeminfo => {
                                         </div>
                                     </div>
                                 </div>
-                                    {/* <div className="row">
-                                        <div className="col-md-3">
-                                            <div className="card">
-                                                <div className="card-body text-center">
-                                                    <p className="text-uppercase mar-btm text-sm">
-                                                        OpenSSL Version
-                                                    </p>
-                                                    <i className="fas fa-lock fa-3x" />
-                                                    <hr />
-                                                    <p className="h4 text-thin">1.1.1g 21 Apr 2020</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3">
-                                            <div className="card">
-                                                <div className="card-body text-center">
-                                                    <p className="text-uppercase mar-btm text-sm">
-                                                        cURL Extension
-                                                    </p>
-                                                    <i className="fas fa-link fa-3x" />
-                                                    <hr />
-                                                    <p className="h4 text-thin">7.71.1</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3">
-                                            <div className="card">
-                                                <div className="card-body text-center">
-                                                    <p className="text-uppercase mar-btm text-sm">
-                                                        HTTP Protocol
-                                                    </p>
-                                                    <i className="fas fa-hdd fa-3x" />
-                                                    <hr />
-                                                    <p className="h4 text-thin">HTTP/1.0</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3">
-                                            <div className="card">
-                                                <div className="card-body text-center">
-                                                    <p className="text-uppercase mar-btm text-sm">
-                                                        Gateway Interface
-                                                    </p>
-                                                    <i className="fas fa-sitemap fa-3x" />
-                                                    <hr />
-                                                    <p className="h4 text-thin">CGI/1.1</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                      
+                                   
+                         
                                 
-                                {/* <div className="card card-primary card-outline">
-                                    <div className="card-header">
-                                        <h3 className="card-title">
-                                            Installed Node_modules -{" "}
-                                            <span className="badge badge-primary">46</span>
-                                        </h3>
-                                    </div>
-                                    <div className="card-body">
-                                        <pre className="bg-light">
-                                            <h1>Dependecy</h1>
-                                            <ul>
-                                                {
-                                                    dependesylist.map((values, index) => {
-                                                        return <li>{values}</li>
-                                                    })
-                                                }
-                                            </ul>
-                                        </pre>
-                                    </div>
-                                </div> */}
                             </div>
                             <br />
                             <br />

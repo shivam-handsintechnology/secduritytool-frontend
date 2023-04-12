@@ -2,30 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 export default function ApiTesting() {
-  const [email, setEmail] = useState('shivam@handsintechnology.com')
   const [data, setData] = useState(null)
-  const [password, setPassword] = useState('12345678')
+  const [password, setPassword] = useState()
   const [nosqlData, setnosqlData] = useState("")
 
-
-  async function Run() {
-    const inputData = {};
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-      console.log(input.value);
-      inputData[input.value] = input.value;
-    });
-    let result = await fetch('https://sercuritytool.handsintechnology.in/api/test', {
-      method: 'post',
-      body: JSON.stringify({inputData}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-  }
-  Run()
   useEffect(() => {
-
     (() => {
       axios.get('test/robottxt')
         .then((response) => {
@@ -41,17 +22,13 @@ export default function ApiTesting() {
 
     let JSONDATA = nosqlData !== '' ? JSON.parse(nosqlData) : ""
     console.log({ JSONDATA })
-    await axios.post(`test`, { data: email, password, JSONDATA }, {
-      headers: {
-        "iframerequest": "iframe"
-      }
-    }).then((response) => {
+    await axios.post(`test`, { data: password, JSONDATA }).then((response) => {
       const { data, message, statusCode } = response
       console.log({ statusCode })
-      if (statusCode == 200) {
+      if (statusCode === 200) {
         setData(data)
       }
-      if (statusCode == 406) {
+      if (statusCode === 406) {
         setData(data)
         toast.error(message)
       }

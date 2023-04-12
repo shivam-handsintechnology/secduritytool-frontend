@@ -4,10 +4,14 @@ import Menu from "../Menu";
 import Footer from "../Footer";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { UseSqlLogsContext } from "../../../context/SqlllogsContextApi";
+import axios from "axios";
 const Visitordetails = () => {
     const {ip}=useParams()
-    const {getSingleSqllLogs}=UseSqlLogsContext()
+    async function  getSingleSqllLogs(body) {
+        const response=await axios.post(`security/sqllogs/single`,body);
+        console.log(response)
+        return response
+        }
      const [data,setData]=useState({})
   console.log(data)  
     useEffect(()=>{

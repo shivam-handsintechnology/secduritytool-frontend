@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { SqlAppProvider } from './context/SqlllogsContextApi';
 import axios from 'axios';
+import { ContextAppProvider } from './context/ContextApi';
 // const baseURL='https://sercuritytool.handsintechnology.in/api/'
 const baseURL='http://localhost:5000/api/'  
 axios.defaults.baseURL=baseURL
@@ -26,10 +25,10 @@ axios.interceptors.response.use(response => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <SqlAppProvider>
+    <ContextAppProvider>
     <App />
     <ToastContainer/>
-    </SqlAppProvider>
+    </ContextAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
