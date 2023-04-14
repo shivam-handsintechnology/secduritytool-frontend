@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Headers from "../Header";
 import Menu from "../Menu";
 import Footer from "../Footer";
 import DataTable from 'react-data-table-component';
 import data from './data.json';
-import { Link } from "react-router-dom";
+import axios from "axios";
 const columns = [
     {
         name: 'Name',
@@ -26,8 +26,15 @@ const columns = [
         selector: 'dob',
     },
 ];
-export default class Errormonitoring extends Component {
-    render() {
+export default function Errormonitoring(){
+    const [ReadFile, setReadFile] = useState(null)
+    const [PasswordValidatorController, setPasswordValidatorController] = useState(null)
+    useEffect(()=>{
+       (async()=>{
+        axios.get("/test/Servermonitor").then(res=>setReadFile(res))
+        axios.get("/test/PasswordValidatorController").then(res=>setPasswordValidatorController(res.data))
+       })()
+    },[])
         return (
             <div>
                 <Headers />
@@ -69,44 +76,23 @@ export default class Errormonitoring extends Component {
                                             </h3>
                                         </div>
                                         <div className="card-body">
-                                            <form method="post">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label>
-                                                            <i className="fas fa-bug" /> Error Reporting
-                                                        </label>
-                                                        <select className="form-control" name="erselect">
-                                                            <option value={1}>Turned Off</option>
-                                                            <option value={2}>Report simple running errors</option>
-                                                            <option value={3}>
-                                                                Report simple running errors + notices
-                                                            </option>
-                                                            <option value={4} selected="selected">
-                                                                Report all errors except notices
-                                                            </option>
-                                                            <option value={5}>Report all errors (Recommended)</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <label>
-                                                            <i className="fas fa-eye" /> Errors Visibility
-                                                        </label>
-                                                        <select className="form-control" name="deselect">
-                                                            <option value={0}>Hide Errors (Recommended)</option>
-                                                            <option value={1} selected="selected">
-                                                                Display Errors
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <br />
-                                                <input
-                                                    className="btn btn-primary btn-block btn-flat"
-                                                    type="submit"
-                                                    name="ersave"
-                                                    defaultValue="Save"
-                                                />
-                                            </form>
+                                        <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Availability</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {Object.keys(PasswordValidatorController).map((key) => (
+                                        <tr key={key}>
+                                            <td>{key}</td>
+                                            <td> {PasswordValidatorController[key] === true ? "Yes" : "No"}</td>
+                                        </tr>
+                                    ))}
+
+                                </tbody>
+                            </table>
                                         </div>
                                     </div>
                                     <div className="card">
@@ -116,13 +102,14 @@ export default class Errormonitoring extends Component {
                                             </h3>
                                         </div>
                                         <div className="card-body">
-                                            <DataTable
+                                            {/* <DataTable
                                                 title="Login History"
                                                 columns={columns}
                                                 data={data}
                                                 pagination
                                                 highlightOnHover
-                                            />
+                                            /> */}
+                                            {ReadFile}
                                         </div>
                                     </div>
                                 </div>
@@ -165,5 +152,5 @@ export default class Errormonitoring extends Component {
                 <Footer />
             </div>
         );
-    }
+    
 }

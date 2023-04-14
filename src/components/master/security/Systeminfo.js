@@ -32,8 +32,8 @@ export default function Systeminfo() {
         }
         GetSysteminfo()
     }, [])
-       const newversion=parseInt(Serverinfo.latest_version)
-       const runversion=parseInt(Serverinfo.version)
+ 
+    
     return (
         <div>
             <Headers />
@@ -130,7 +130,7 @@ export default function Systeminfo() {
                                                     </tr>
                                                     <tr>
                                                         <td>Latest Version-: {Serverinfo.latest_version}</td>
-                                                        <td> Host has Robot.txt or Not: <span className="text-semibold">{RobotFile}</span></td>
+                                                        <td> <span className="text-semibold">{Serverinfo.isolder}</span></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -189,6 +189,7 @@ export default function Systeminfo() {
                                                 <i className="fas fa-file-code fa-3x" />
                                                 <hr />
                                                 <p className="h4 text-thin">{Serverinfo.version}</p>
+                                                
                                             </div>
                                         </div>
                                     </div>
