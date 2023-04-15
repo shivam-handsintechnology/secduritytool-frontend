@@ -16,11 +16,14 @@ export default function UserLogin()  {
       await axios.post(`auth/login`,{email,password}).then((response)=>{
         const {data,message,statusCode}=response
         console.log("data")
-        if(statusCode==200){
+        if(statusCode===200){
           toast.success(message)
-          const accessToken={accessToken:data.accessToken}
           sessionStorage.setItem('token',JSON.stringify(data));
           window.location.replace('/')
+        } 
+        if(statusCode===400){
+          toast.error(message)
+       
         } 
       })  
       .catch((error)=>{
