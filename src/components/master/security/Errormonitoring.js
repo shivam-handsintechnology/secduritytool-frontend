@@ -29,10 +29,18 @@ const columns = [
 export default function Errormonitoring(){
     const [ReadFile, setReadFile] = useState(null)
     const [PasswordValidatorController, setPasswordValidatorController] = useState(null)
+    const [responsecodes, setresponsecodes] = useState(null)
+    const [options, setoptions] = useState(null)
+    const [reponsecodeslogin, setreponsecodeslogin] = useState(null)
+    const [DefaulusernameValidatorController, setDefaulusernameValidatorController] = useState(null)
     useEffect(()=>{
        (async()=>{
         axios.get("/test/Servermonitor").then(res=>setReadFile(res))
         axios.get("/test/PasswordValidatorController").then(res=>setPasswordValidatorController(res.data))
+        axios.get("/test/responsecodes").then(res=>setresponsecodes(res.data))
+        axios.get("/test/reponsecodeslogin").then(res=>setreponsecodeslogin(res.data))
+        axios.get("/test/DefaulusernameValidatorController").then(res=>setDefaulusernameValidatorController(res.data))
+        axios.get("/test/options").then(res=>setoptions(res.data))
        })()
     },[])
         return (
@@ -68,7 +76,8 @@ export default function Errormonitoring(){
                     <div className="content">
                         <div className="container-fluid">
                             <div className="row">
-                                <div className="col-md-9">
+                                <div className="col-md-6">
+                             
                                     <div className="card card-primary card-outline">
                                         <div className="card-header">
                                             <h3 className="card-title">
@@ -84,15 +93,28 @@ export default function Errormonitoring(){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {Object.keys(PasswordValidatorController).map((key) => (
+                            
+                                {PasswordValidatorController ? (Object.keys(PasswordValidatorController).map((key) => (
                                         <tr key={key}>
-                                            <td>{key}</td>
+                                            <td>{key==="PasswordBlank"?"Application is allowing blank / invalid passwords":key}</td>
                                             <td> {PasswordValidatorController[key] === true ? "Yes" : "No"}</td>
                                         </tr>
-                                    ))}
+                                    ))):(<></>)}
+                                {options ? (Object.keys(options).map((key) => (
+                                        <tr key={key}>
+                                            <td>{key==="OPTIONSmethodallowed"?"OPTIONS method":key}</td>
+                                            <td> {options[key] === true ? "OPTIONS method is allowed" : "OPTIONS method is not allowed"}</td>
+                                        </tr>
+                                    ))):(<></>)}
+                                  {DefaulusernameValidatorController ?  (Object.keys(DefaulusernameValidatorController).map((key) =>  (
+                                        <tr key={key}>
+                                            <td>{key==="DefaultUsermessage"?"Application supports default usernames  for logging in the application":key && key==="Defaultpadswwordmessage"?"Application supports default password  for logging in the application":key}</td>
+                                            <td> {DefaulusernameValidatorController[key] === true ? "Yes" : "No"}</td>
+                                        </tr>
+                                    ))):(<></>)}
 
                                 </tbody>
-                            </table>
+                                        </table>
                                         </div>
                                     </div>
                                     <div className="card">
@@ -109,7 +131,7 @@ export default function Errormonitoring(){
                                                 pagination
                                                 highlightOnHover
                                             /> */}
-                                            {ReadFile}
+                                            {ReadFile?ReadFile:""}
                                         </div>
                                     </div>
                                 </div>
@@ -117,31 +139,61 @@ export default function Errormonitoring(){
                                     <div className="card card-primary card-outline">
                                         <div className="card-header">
                                             <h3 className="card-title">
-                                                <i className="fas fa-info-circle" /> Information &amp; Tips
+                                                <i className="fas fa-info-circle" /> Server returns HTTP error message
                                             </h3>
                                         </div>
                                         <div className="card-body">
-                                            Logging errors is recommended best practice, even for production
-                                            site. Checking those logs however might seem like a chore. The
-                                            error monitoring brings all entries from error log on this page.
-                                            <br />
-                                            <br />
-                                            <ul style={{paddingLeft:'20px'}}>
-                                                <li>
-                                                    The log file is detected automatically from the configuration
-                                                    of the server
-                                                </li>
-                                                <li>
-                                                    Only the end of file is read - no memory overflow issues, safe
-                                                    for large logs
-                                                </li>
-                                                <li>
-                                                    Optimized to work card card-body bg-light even with very large
-                                                    log files
-                                                </li>
-                                            </ul>
+                                        <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>StatusCodes</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {responsecodes ? (responsecodes.map((val) => (
+                                        <tr>
+                                            <td>{val.ErrorStatuscode}</td>
+                                            <td> {val.message}</td>
+                                        </tr>
+                                    ))):(<></>)}
+
+                                </tbody>
+                                        </table>
+                                         
                                         </div>
                                     </div>
+                                   
+                                </div>
+                                <div className="col-md-3">
+                                <div className="card card-primary card-outline">
+                                        <div className="card-header">
+                                            <h3 className="card-title">
+                                                <i className="fas fa-info-circle" /> Helpful error message displayed at login page
+                                            </h3>
+                                        </div>
+                                        <div className="card-body">
+                                        <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>StatusCodes</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {reponsecodeslogin ? (reponsecodeslogin.map((val) => (
+                                        <tr>
+                                            <td>{val.ErrorStatuscode}</td>
+                                            <td> {val.message}</td>
+                                        </tr>
+                                    ))):(<></>)}
+
+                                </tbody>
+                                        </table>
+                                         
+                                        </div>
+                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>

@@ -26,8 +26,8 @@ const columns = [
         selector: 'dob',
     },
 ];
-export default class Portscanner extends Component {
-    render() {
+export default function Portscanner() {
+      
         return (
             <div>
                 <Headers />
@@ -525,5 +525,5 @@ export default class Portscanner extends Component {
                 <Footer />
             </div>
         );
-    }
+ 
 }

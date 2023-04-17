@@ -125,6 +125,10 @@ export default function Systeminfo() {
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>HTTP Parameter Pollution</td>
+                                                        <td> <span className="text-semibold">In Nodejs Server it is not possible  </span></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Robot</td>
                                                         <td> Host has Robot.txt or Not: <span className="text-semibold">{RobotFile}</span></td>
                                                     </tr>

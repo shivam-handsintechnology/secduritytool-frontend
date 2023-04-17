@@ -152,9 +152,9 @@ const handleNosqlChange = useCallback(
               </Link>
             </li>
             <li className="nav-item has-treeview ">
-              <a href="#" className="nav-link ">
+              <Link to={"/Ipwhitelist"} className="nav-link ">
                 <i className="fas fa-flag" />&nbsp; <p>Whitelist <i className="fas fa-angle-right right" />
-                </p></a>
+                </p></Link>
               <ul className="nav nav-treeview">
                 <li className="nav-item "><Link to="/Ipwhitelist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Whitelist</p></Link></li>
                 <li className="nav-item "><Link to="/Filewhitelist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>File Whitelist</p></Link></li>
@@ -265,9 +265,9 @@ const handleNosqlChange = useCallback(
               </ul>
             </li>
             <li className="nav-item has-treeview ">
-              <a href="#" className="nav-link ">
+              <Link  to={"/Filewhitelist"} className="nav-link ">
                 <i className="fas fa-ban" />&nbsp; <p>Bans <i className="fas fa-angle-right right" />
-                </p></a>
+                </p></Link>
               <ul className="nav nav-treeview">
                 <li className="nav-item "><Link to="/Bansip" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Bans <span className="badge right badge-secondary">0</span></p></Link></li>
                 <li className="nav-item "><Link to="/Banscountry" className="nav-link "><i className="fas fa-globe" />&nbsp; <p>Country Bans <span className="badge right badge-secondary">0</span></p></Link></li>
