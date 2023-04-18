@@ -5,7 +5,7 @@ import App from './App';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { ContextAppProvider } from './context/ContextApi';
+import { SocketContextAppProvider } from './context/ContextApi';
 // const baseURL='https://sercuritytool.handsintechnology.in/api/'
 const baseURL='http://localhost:5000/api/'  
 axios.defaults.baseURL=baseURL
@@ -25,10 +25,10 @@ axios.interceptors.response.use(response => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <ContextAppProvider>
+    <SocketContextAppProvider>
     <App />
     <ToastContainer/>
-    </ContextAppProvider>
+    </SocketContextAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
