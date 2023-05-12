@@ -10,9 +10,9 @@ const Main=()=> {
   
     return (
       <div>
-       
+{/*        
         <Headers  />
-        <Menu  />
+        <Menu  /> */}
         <Content/>
         <Footer />
       </div>

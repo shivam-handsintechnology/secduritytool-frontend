@@ -7,23 +7,27 @@ export default function UserLogin()  {
   const [password, setPassword] = useState('1234')
   console.log(email,password)
   const handleSubmit=async()=>{ 
+    // eslint-disable-next-line
     if(email==''){
       toast.error('please enter email')
     }
+   // eslint-disable-next-line
     else if(password==''){
       toast.error("please enter password")
     }else{
-      await axios.post(`auth/login`,{email,password}).then((response)=>{
+      await axios.post(`auth/login`,{email,password},{
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response)=>{
         const {data,message,statusCode}=response
         console.log("data")
         if(statusCode===200){
           toast.success(message)
           sessionStorage.setItem('token',JSON.stringify(data));
           window.location.replace('/')
-        } 
-        if(statusCode===400){
+        }else if(statusCode===404){
           toast.error(message)
-       
         } 
       })  
       .catch((error)=>{

@@ -7,13 +7,12 @@ import Menu from '../Menu'
 import axios from 'axios'
 
 const SSLInformation = () => {
-    const [data, loading,error] = useFetchApi(GetSysteminfo)
+    const [data,loading,error] = useFetchApi(GetSysteminfo)
     console.log({err:error},data)
-
     return (
         <div>
-            <Header />
-            <Menu />
+            {/* <Header />
+            <Menu /> */}
 
             <div className="content-wrapper">
                 {/*CONTENT CONTAINER*/}
@@ -42,9 +41,8 @@ const SSLInformation = () => {
                 {/*Page content*/}
                 {/*===================================================*/}
                 <div className="content">
-
                     {
-                        loading ? <LoadingSpinner /> :error?<h1>error</h1>:<div className="container-fluid">
+                        loading ? <LoadingSpinner /> :error?<h1>{data.message}</h1>:<div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6 col-lg-6">
                                 <div className="small-box bg-success">

@@ -31,8 +31,8 @@ export default class Livetraffic extends Component {
     render() {
         return (
             <div>
-                <Headers />
-                <Menu />
+                {/* <Headers />
+                <Menu /> */}
                 <div className="content-wrapper">
                     {/*CONTENT CONTAINER*/}
                     {/*===================================================*/}

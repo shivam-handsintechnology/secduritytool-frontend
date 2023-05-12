@@ -32,8 +32,8 @@ export default  Sqlinjection =>{
     }
         return (
             <div>
-                <Headers />
-                <Menu />
+                {/* <Headers />
+                <Menu /> */}
                 <div className="content-wrapper" style={{ minHeight: 190 }}>
                     {/*CONTENT CONTAINER*/}
                     {/*===================================================*/}

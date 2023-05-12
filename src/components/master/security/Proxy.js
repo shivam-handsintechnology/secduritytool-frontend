@@ -31,8 +31,8 @@ export default class Proxy extends Component {
     render() {
         return (
             <div>
-                <Headers />
-                <Menu />
+                {/* <Headers />
+                <Menu /> */}
                 <div className="content-wrapper" style={{ minHeight: 511 }}>
                     {/*CONTENT CONTAINER*/}
                     {/*===================================================*/}

@@ -31,8 +31,8 @@ export default class Alllogs extends Component {
     render() {
         return (
             <div>
-                <Headers />
-                <Menu />
+                {/* <Headers />
+                <Menu /> */}
                 <div className="content-wrapper" style={{ minHeight: 511 }}>
                     {/*CONTENT CONTAINER*/}
                     {/*===================================================*/}
@@ -66,6 +66,7 @@ export default class Alllogs extends Component {
                                     <div className="card card-primary card-outline">
                                         <div className="card-header">
                                             <h3 className="card-title">All Logs</h3>
+                                            
                                             <a
                                                 href="#"
                                                 className="btn btn-flat btn-sm btn-danger float-sm-right"

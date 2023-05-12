@@ -8,8 +8,8 @@ export default class Form extends Component {
   render() {
     return (
       <div>
-        <Headers />
-        <Menu />
+        {/* <Headers />
+        <Menu /> */}
         <Content />
         <Footer />
       </div>

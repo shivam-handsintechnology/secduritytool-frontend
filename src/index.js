@@ -7,7 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { SocketContextAppProvider } from './context/ContextApi';
 // const baseURL='https://sercuritytool.handsintechnology.in/api/'
-const baseURL='http://localhost:5000/api/'  
+const baseURL='https://securitytool.onrender.com/api/'
+// const baseURL='http://localhost:5000/api/'  
+// const baseURL='http://192.168.0.8:5000/api/'  
 axios.defaults.baseURL=baseURL
 if(sessionStorage.getItem('token')){
   const token=JSON.parse(sessionStorage.getItem('token'))

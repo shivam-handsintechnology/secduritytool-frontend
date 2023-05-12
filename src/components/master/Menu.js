@@ -12,7 +12,7 @@ export default function Menu() {
   const [CommandLineinjectionChecked, setCommandLineinjectionChecked] = useState();
   useEffect(()=>{
        axios.get('security/middlwares').then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
          setNosqlDetectorChecked(response.data.NosqlDetectorMiddlware)
          setSQLChecked((response.data.SqlDetectorMiddlware))
          setHTMLChecked((response.data.checkHTMLMiddlware))
@@ -32,7 +32,7 @@ const updatemiddleware = useCallback(
     axios
       .post('security/middlwares/switch', value)
       .then((response) => {
-        console.log(response.message);
+        // console.log(response.message);
         setMessagelistner(toast.success(response.message))
       })
       .catch((error) => {
@@ -157,19 +157,19 @@ const handleNosqlChange = useCallback(
                 </p></Link>
               <ul className="nav nav-treeview">
                 <li className="nav-item "><Link to="/Ipwhitelist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Whitelist</p></Link></li>
-                <li className="nav-item "><Link to="/Filewhitelist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>File Whitelist</p></Link></li>
+                <li className="nav-item "><Link to="/Filewhitelist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>Ip BlackList</p></Link></li>
               </ul>
             </li>
-            <li className="nav-item ">
+            {/* <li className="nav-item ">
               <Link to="/Warningpages" className="nav-link ">
                 <i className="fas fa-file-alt" />&nbsp; <p>Warning Pages</p>
               </Link>
-            </li>
-            <li className="nav-item ">
+            </li> */}
+            {/* <li className="nav-item ">
               <Link to="/Loginsecurity" className="nav-link ">
                 <i className="fas fa-history" />&nbsp; <p>Login History</p>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-header">SECURITY</li>
             <li className="nav-item " style={{display:'flex'}}>
             <Link to="/Sqlinjection" className="nav-link ">
@@ -275,12 +275,12 @@ const handleNosqlChange = useCallback(
                 <li className="nav-item "><Link to="/Otherbans" className="nav-link "><i className="fas fa-desktop" />&nbsp; <p>Other Bans <span className="badge right badge-secondary">0</span></p></Link></li>
               </ul>
             </li>
-            <li className="nav-item ">
+            {/* <li className="nav-item ">
               <Link to="/Badwords" className="nav-link ">
                 <i className="fas fa-filter" />&nbsp; <p>Bad Words
                   <span className="right badge badge-success">ON</span></p>
               </Link>
-            </li>
+            </li> */}
             {/* <li className="nav-header">SECURITY CHECK</li>
             <li className="nav-item ">
               <Link to="/Phpfunctionscheck" className="nav-link ">
@@ -311,8 +311,18 @@ const handleNosqlChange = useCallback(
               </Link>
             </li>
             <li className="nav-item ">
+              <Link to="/socketchecker" className="nav-link ">
+                <i className="fas fa-exclamation-circle" />&nbsp; <p>Validation Monitoring</p>
+              </Link>
+            </li>
+            {/* <li className="nav-item ">
               <Link to="/Htaccesseditor" className="nav-link ">
                 <i className="fas fa-columns" />&nbsp; <p>.htacces Editor</p>
+              </Link>
+            </li> */}
+            <li className="nav-item ">
+              <Link to={"/hashgenerater"} className="nav-link ">
+                <i className="fas fa-lock" />&nbsp; <p>Hashing</p>
               </Link>
             </li>
             <li className="nav-item ">
@@ -320,11 +330,7 @@ const handleNosqlChange = useCallback(
                 <i className="fas fa-search" />&nbsp; <p>Port Scanner</p>
               </Link>
             </li>
-            <li className="nav-item ">
-              <a href="hashing.php" className="nav-link ">
-                <i className="fas fa-lock" />&nbsp; <p>Hashing</p>
-              </a>
-            </li>
+          
           </ul>
         </nav>
         {/* /.sidebar-menu */}

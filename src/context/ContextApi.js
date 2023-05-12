@@ -1,29 +1,45 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client"
 const SocketContext = React.createContext();
 
 const SocketContextAppProvider = ({ children }) => {
-   const [socket,setSocket]=useState(null)
+  const [userId, setuserType] = useState(null)
+  const [userType, setType] = useState(null)
+  const [socket,setSocket]=useState(null)
    useEffect(() => {
-    const socket = io("http://localhost:5000",{query:{"agentone":""}});
-  //   const socket = io("http://jdvchatbackend.handsintechnology.in/");
-  setSocket(socket)
-  socket.on("connect", () => {
+    if(sessionStorage.getItem('token')){
+      var Id= JSON.parse(sessionStorage.getItem('token')).userId
+      var TypeId= JSON.parse(sessionStorage.getItem('token')).userType
+      if(Id){
+        setuserType(Id)
+        setType(TypeId)
+      }
+    }
+    console.log({userId})
+    if(userId!==null){
+      // const socket = io("https://sercuritytool.handsintechnology.in",{query:{userId,userType}});
+      //   const socket = io("http://jdvchatbackend.handsintechnology.in/");
+    //   const socket = io("http://jdvchatbackend.handsintechnology.in/");
+    setSocket(socket)
+    }
+ 
+  if(socket){
+   
+    socket.on("connect", () => {
       console.log("socket Connected")
-      socket.emit("joinRoom",' location.state.room')
   })
-   socket.on("data",(data)=>{
-    console.log(data)
-   })
+   
   socket.on("disconnect", () => {
+    console.log(" socket disconneted")
       return (() => {
           socket.disconnect()
        })
-  });       
-}, [])
+  }); 
+  }
+ 
+}, [userId])
   const state = {
-    socket,
+    socket,userId
   };
   return <SocketContext.Provider value={state}>{children}</SocketContext.Provider>;
 };

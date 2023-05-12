@@ -22,8 +22,8 @@ const Visitordetails = () => {
     },[ip])
     return (
         <div>
-            <Headers />
-            <Menu />
+            {/* <Headers />
+            <Menu /> */}
             <div className="content-wrapper">
                 {/*CONTENT CONTAINER*/}
                 {/*===================================================*/}

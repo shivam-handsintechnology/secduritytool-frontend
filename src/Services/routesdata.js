@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-d
 import UserLogin from '../components/login/UserLogin';
 import { isAuthenticatedCallback } from './Authenticate';
 import { routes } from './routes';
+import Layout from '../components/Layout';
 
 export const RoutesData = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -29,11 +30,14 @@ export const RoutesData = () => {
 
   return isAuthenticated ? (
     <Router>
+      <Layout>
       <Routes>
         {routes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Routes>
+      </Layout>
+   
     </Router>
   ) : (
     // window.location.assign("/login")

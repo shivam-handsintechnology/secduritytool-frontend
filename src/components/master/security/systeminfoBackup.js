@@ -34,8 +34,8 @@ export default Systeminfo => {
 
     return (
         <div>
-            <Headers />
-            <Menu />
+            {/* <Headers />
+            <Menu /> */}
           
             <div className="content-wrapper" style={{ minHeight: 190 }}>
                 {/*CONTENT CONTAINER*/}

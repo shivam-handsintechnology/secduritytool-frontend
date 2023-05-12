@@ -11,16 +11,24 @@ import { toast } from "react-toastify";
 const Badbotlogs = () => {
     const [data, setData] = useState([])
     const history = useNavigate()
+    
     useEffect(() => {
-        const AlbadBotlogs = async () => {
-            const response = await axios.get('security/botlogs')
-            console.log({ response: response.data })
-            setData(response.data)
-        };
+   
         AlbadBotlogs()
     }, [])
-    //  console.log({bots:data})
-    // const {data,deleteSingleSqllLogs,deleteAllSqllLogs}=UseSqlLogsContext()
+    async function  AddIpaddres(body) {
+        await axios.post(`security/ip/blacklist/add`,body).then(response=>{
+       toast.success(response.message)
+        return response
+       }).catch(error=>{
+           toast.error(error.message)
+       })
+    }
+    const AlbadBotlogs = async () => {
+        const response = await axios.get('security/botlogs')
+        console.log({ response: response.data })
+        setData(response.data)
+    };
     function deleteSingleSqllLogs(body) {
         axios.post(`security/botlogs/deletesingle`,
             body).then((response) => {
@@ -67,10 +75,19 @@ const Badbotlogs = () => {
                     variant="danger acasd"
                     onClick={() => {
                         deleteSingleSqllLogs({ ip: params.ip })
-                        history("/")
+                        AlbadBotlogs()
                     }}
                 >
                     Delete
+                </Button>,
+                <Button
+                    variant="danger acasd"
+                    onClick={() => {
+                        AddIpaddres({ ip: params.ip })
+                       AlbadBotlogs()
+                    }}
+                >
+                    Add To Black List
                 </Button>,
             ],
             width: "28%",
@@ -79,8 +96,8 @@ const Badbotlogs = () => {
 
     return (
         <div>
-            <Headers />
-            <Menu />
+            {/* <Headers />
+                <Menu /> */}
             <div className="content-wrapper">
                 {/*CONTENT CONTAINER*/}
                 {/*===================================================*/}

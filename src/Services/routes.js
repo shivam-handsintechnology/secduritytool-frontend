@@ -36,6 +36,9 @@ import ApiTesting from '../components/login/ApiTesting';
 import BadPoxylogs from '../components/master/security/BadbProxyogs';
 import SpamLogs from '../components/master/security/Spamlogs';
 import SessionInfo from '../components/master/security/SessionInfo';
+import SocketChecker from '../components/master/security/SocketChecker';
+import ChatRoomFireBase from '../FirebaseChat/ChatRoomFireBase';
+import HashGenerator from '../components/master/security/HashGenrator';
 
 export const routes = [
   {
@@ -44,9 +47,19 @@ export const routes = [
     element: <Main/>,
   },
   {
+    path: '/hashgenerater',
+    exact: true,
+    element: <HashGenerator/>,
+  },
+  {
     path: '/sessioninfo',
     exact: true,
     element: <SessionInfo/>,
+  },
+  {
+    path: '/chat',
+    exact: true,
+    element: <ChatRoomFireBase />,
   },
   {
     path: '/SSLInformation',
@@ -97,6 +110,11 @@ export const routes = [
     path: '/Ipwhitelist',
     exact: true,
     element: <Ipwhitelist/>,
+  },
+  {
+    path: '/socketchecker',
+    exact: true,
+    element: <SocketChecker/>,
   },
   {
     path: '/Filewhitelist',

@@ -87,8 +87,8 @@ export default function Ipwhitelist() {
     ];
         return (
             <div>
-                <Headers />
-                <Menu />
+                {/* <Headers />
+                <Menu /> */}
                 <div className="content-wrapper">
                     {/*CONTENT CONTAINER*/}
                     {/*===================================================*/}

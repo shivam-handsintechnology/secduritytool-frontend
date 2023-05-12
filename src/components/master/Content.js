@@ -4,40 +4,70 @@ import { toast } from "react-toastify";
 import { useState,useEffect,useCallback } from "react";
 import { Link } from "react-router-dom";
 export default function Content() {   
-            const [sqlData, setsqlData] = useState(0)
-            const [BotData, setBotData] = useState(0)
-            const [ProxyData, setProxyData] = useState(0)
-            const [SpamData, setSpamData] = useState(0)
+            const [sqlData, setsqlData] = useState(null)
+            const [BotData, setBotData] = useState(null)
+            const [ProxyData, setProxyData] = useState(null)
+            const [SpamData, setSpamData] = useState(null)
  useEffect(()=>{
       const  GetallSqllogsCount=(async()=> {
       await axios.get(`security/sqllogs/count`).then((response)=>
       {
-       const {data}=response
-       setsqlData(data)
+        const {data,statusCode}=response
+        if(statusCode===404){
+          localStorage.setItem('botCount',0)
+        }else if(statusCode===200){
+          setsqlData(data)
+    
+          localStorage.setItem('sqlCount',sqlData)
+        }
       }
+      
       ).catch((error)=>{console.log(error)})
       })
       const  GetallBotogsCount=(async()=> {
       await axios.get(`security/botlogs/count`).then((response)=>
       {
-       const {data}=response
-       setBotData(data)
+       const {data,statusCode}=response
+    
+       if(statusCode===404){
+         localStorage.setItem('botCount',0)
+         setBotData(0)
+       }else if(statusCode===200){
+        localStorage.setItem('botCount',BotData)
+        setBotData(data)
+        console.log(data)
+       }
       }
       ).catch((error)=>{console.log(error)})
       })
       const  GetallProxyogsCount=(async()=> {
       await axios.get(`security/proxylogs/count`).then((response)=>
       {
-       const {data}=response
-       setProxyData(data)
+      const {data,statusCode}=response
+      if(statusCode===404){
+
+        setProxyData(0)
+        localStorage.setItem('proxyCount',0)
+      }else if(statusCode===200){
+          setProxyData(data)
+       localStorage.setItem('proxyCount',ProxyData)
       }
+    }
+      
       ).catch((error)=>{console.log(error)})
       })
       const  GetallSpamogsCount=(async()=> {
       await axios.get(`security/spamlogs/count`).then((response)=>
       {
-       const {data}=response
-       setSpamData(data)
+   
+      const {data,statusCode}=response
+      if(statusCode===404){
+        setSpamData(0)
+        localStorage.setItem('spamCount',0)
+      }else if(statusCode===200){
+            setSpamData(data)
+       localStorage.setItem('spamCount',SpamData)
+      }
       }
       ).catch((error)=>{console.log(error)})
       })
@@ -59,7 +89,7 @@ export default function Content() {
  
  useEffect(()=>{
       axios.get('security/middlwares').then((response) => {
-       console.log(response.data)
+      //  console.log(response.data)
         setNosqlDetectorChecked(response.data.NosqlDetectorMiddlware)
         setSpamChecked(response.data.SpamMiddleware)
         setBotChecked(response.data.BotMiddleware)
@@ -82,7 +112,7 @@ const updatemiddleware = useCallback(
    axios
      .post('security/middlwares/switch', value)
      .then((response) => {
-       console.log(response.message);
+      //  console.log(response.message);
        setMessagelistner(response.message)
        toast.success(messagelistner)
      })
@@ -209,7 +239,7 @@ const handleNosqlChange = useCallback(
                 <div className="icon">
                   <i className="fas fa-code" />
                 </div>
-                <Link to="Sqlinjectionlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
+                {sqlData===0?<a className="small-box-footer" >No Logs </a>: <Link to="Sqlinjectionlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>}
               </div>
             </div>
             <div className="col-sm-6 col-lg-3">
@@ -221,7 +251,8 @@ const handleNosqlChange = useCallback(
                 <div className="icon">
                   <i className="fas fa-robot" />
                 </div>
-                <Link to="/Badbotlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
+                {BotData===0?<a className="small-box-footer" >No Logs </a>: <Link to="/Badbotlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
+}
               </div>
             </div>
             <div className="col-sm-6 col-lg-3">
@@ -233,7 +264,7 @@ const handleNosqlChange = useCallback(
                 <div className="icon">
                   <i className="fas fa-globe" />
                 </div>
-                <Link to='/Proxylogs' className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
+              {ProxyData===0?<a className="small-box-footer" >No Logs </a>: <Link to='/Proxylogs' className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>}  
               </div>
             </div>
             <div className="col-sm-6 col-lg-3">
@@ -245,7 +276,8 @@ const handleNosqlChange = useCallback(
                 <div className="icon">
                   <i className="fas fa-keyboard" />
                 </div>
-                <Link to="/Spammerlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
+                {SpamData===0?<a className="small-box-footer" >No Logs </a>: <Link to="/Spammerlogs" className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>
+                   }
               </div>
             </div>
             {/* 4 columns end */}

@@ -32,8 +32,8 @@ const SessionInfo = () => {
     console.log(data, loading);
     return (
         <div>
-            <Header />
-            <Menu />
+            {/* <Header />
+            <Menu /> */}
 
             <div className="content-wrapper">
                 {/*CONTENT CONTAINER*/}
