@@ -8,6 +8,8 @@ export default function Content() {
             const [BotData, setBotData] = useState(null)
             const [ProxyData, setProxyData] = useState(null)
             const [SpamData, setSpamData] = useState(null)
+            const [installation, setinstallation] = useState(null)
+            const [checkdependency, setcheckdependency] = useState(null)
  useEffect(()=>{
       const  GetallSqllogsCount=(async()=> {
       await axios.get(`security/sqllogs/count`).then((response)=>
@@ -45,7 +47,6 @@ export default function Content() {
       {
       const {data,statusCode}=response
       if(statusCode===404){
-
         setProxyData(0)
         localStorage.setItem('proxyCount',0)
       }else if(statusCode===200){
@@ -108,7 +109,6 @@ export default function Content() {
 
 const updatemiddleware = useCallback(
  (value) => {
-   setMessagelistner(toast.success("please wait..."))
    axios
      .post('security/middlwares/switch', value)
      .then((response) => {
@@ -197,6 +197,16 @@ const handleNosqlChange = useCallback(
  },
  [updatemiddleware],
 );
+const ScannerHandler=async()=>{
+   axios.get('/client/logsdata?sid=localhost')
+  .then((session)=>{
+      setinstallation(session)
+    
+  }).catch((e)=>{
+      console.log(e)
+  })
+}
+
   return (
     <div className="content-wrapper">
       {/* Content Header (Page header) */}
@@ -227,6 +237,34 @@ const handleNosqlChange = useCallback(
       {/* Main content */}
       <div className="content">
         <div className="container-fluid">
+        
+          <h4> <a className="btn btn-primary" onClick={ScannerHandler}>Test All installed node modules files</a></h4>
+          {installation?
+        installation.map((k,v)=>{
+            
+            return (
+              <div className="row">
+              <table class="table">
+                <tbody>
+                  {
+                    Object.keys(k).map((l, i) => {
+                      const value = k[l];
+                      return (
+                        <tr key={l}>
+                          <th scope="row">{l}</th>
+                          <td>{value}</td>
+                        </tr>
+                      );
+                    })
+                  }
+                </tbody>
+              </table>
+            </div>
+            
+            )
+          })
+          
+          :<div>not found</div>}
           <div className="row">
             {/* 4 columns start*/}
             <div className="col-sm-6 col-lg-3">

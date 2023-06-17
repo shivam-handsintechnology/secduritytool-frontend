@@ -16,8 +16,8 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <script src="http://localhost:8080/protected?host=localhost"></script>
   <!-- Begin of Chaport Live Chat code -->
 <script type="text/javascript">
   (function(w,d,v3){
@@ -32,30 +32,8 @@
 <body class="hold-transition sidebar-mini">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
-    <div class="wrapper"></div>
+ 
   </div>
-
-  <!-- jQuery -->
-  <!-- <script>
-      const inputData = {};
-    const inputs = document.querySelectorAll('input');
-
-    inputs.forEach(input => {
-      console.log(input.value);
-      inputData[input.value] = input.value;
-    });
-    fetch('http://localhost:5000/api/test', {
-  Method: 'POST',
-  Headers: {
-    Accept: 'application.json',
-    'Content-Type': 'application/json'
-  },
-  Body: inputData,
-  Cache: 'default'
-})
-    console.log({ inputData });
-
-    </script> -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -66,12 +44,9 @@
   <script src="plugins/chart.js/Chart.min.js"></script>
   <script src="dist/js/demo.js"></script>
   <script src="dist/js/pages/dashboard3.js"></script>
-  <!-- <script type="text/javascript">
-    window.onbeforeunload = function () {
-      return "Did you save your stuff?"
-    }
-  </script> -->
 
 </body>
-
+<script>
+  document.getElementsByTagName("h2").innerHTML
+  </script>
 </html>

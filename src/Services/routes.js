@@ -28,6 +28,7 @@ import Otherbans from "../components/master/security/Otherbans";
 import axios from "axios";
 import Block from "../components/master/Block";
 import UserLogin from "../components/login/UserLogin";
+import UserRegister from "../components/login/UserRegister";
 import Warningpages from '../components/master/security/Warningpages';
 import SSLInformation from '../components/master/security/SSLInformation';
 import Install from '../components/master/Install';
@@ -243,6 +244,7 @@ export const routes = [
     exact: true,
     element: <ApiTesting/>,
   },
+
 ];
 
 

@@ -1,14 +1,49 @@
-import React, { useEffect } from 'react'
-import useFetchApi from '../../../customhooks/useFetchApi'
+import React, { useEffect, useState } from 'react'
 import LoadingSpinner from '../../../loader'
 import { GetSysteminfo } from '../../../Services/AxiosRoutes'
-import Header from '../Header'
-import Menu from '../Menu'
+import DemoJs from './DemoJs'
 import axios from 'axios'
-
 const SSLInformation = () => {
-    const [data,loading,error] = useFetchApi(GetSysteminfo)
-    console.log({err:error},data)
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [Headers, setHeaders] = useState([])
+    const [RawHeaders, setRawHeaders] = useState(null)
+    // securityheaders
+    const site="https://lmpapi.handsintechnology.in/"
+         useEffect(() => {
+            SSlInfo("autotest.handsintechnology.in")
+            SecureHeaders("https://lmpapi.handsintechnology.in/")
+         }, [])
+        const SSlInfo=async(url)=>{
+            setLoading(true)
+             const res= await GetSysteminfo(url)
+            .then((res)=>{
+                setLoading(false)
+                setData(res.data)
+            })
+            .catch((error)=>{
+                setLoading(false)
+                setError(true)
+            })
+     
+         }
+        const SecureHeaders=async(hostname)=>{
+            setLoading(true)
+             const res= await axios.get(`client/securityheaders?url=${hostname}`)
+            .then((res)=>{
+                setLoading(false)
+                setHeaders(res.headersinfo)
+                setRawHeaders(res.rawHeaders)
+            
+                // setData(res.data)
+            })
+            .catch((error)=>{
+                setLoading(false)
+                // setError(true)
+            })
+    
+         }
     return (
         <div>
             {/* <Header />
@@ -41,20 +76,22 @@ const SSLInformation = () => {
                 {/*Page content*/}
                 {/*===================================================*/}
                 <div className="content">
+                  
                     {
-                        loading ? <LoadingSpinner /> :error?<h1>{data.message}</h1>:<div className="container-fluid">
+                        loading ? <LoadingSpinner /> :error?<h1>interval server error</h1>:<div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6 col-lg-6">
                                 <div className="small-box bg-success">
                                     <div className="inner">
-                                        <p>{data.valid}</p>
+                                        <p>{data?data.valid:""}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-6 col-lg-6">
                                 <div className="small-box bg-success">
                                     <div className="inner">
-                                        <p>{data.CA}</p>
+                                        <p>{data?data.self:""}</p>
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +99,7 @@ const SSLInformation = () => {
                                 <div className="small-box bg-primary">
                                     <div className="inner">
                                         <h3 />
-                                        <p>{data.protocol}</p>
+                                        <p>{data?data.negotiatedProtocol:""}</p>
                                         {/* <p>No SSL cookie found.</p> */}
                                     </div>      
                                 </div>
@@ -71,22 +108,15 @@ const SSLInformation = () => {
                                 <div className="small-box bg-success">
                                     <div className="inner">
                                         <h3 />
-                                        <p>  {data.validTo}</p>
+                                        <p>{data?data.expired:""}</p>
                                     </div>          
                                 </div>      
                             </div>
-                            <div className="col-sm-6 col-lg-6">
-                                <div className="small-box bg-success">
-                                    <div className="inner">
-                                        <h3 />
-                                        <p>  {data.SecureCookies}</p>
-                                    </div>          
-                                </div>      
-                            </div>
+                      
                         </div>
                     </div>
                     }
-
+                  <DemoJs  site={site}Headers={Headers} RawHeaders={RawHeaders}/>
                 </div>
                 {/*===================================================*/}
                 {/*End page content*/}

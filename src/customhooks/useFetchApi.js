@@ -3,11 +3,11 @@ const useFetchApi = (FetcFunction) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
   const getData = useCallback(async () => {
     try {
       setError(false);
       const res = await FetcFunction();
+      console.log(res)
       setData(res.data);
      if(res.statusCode===500){
       setError(true);

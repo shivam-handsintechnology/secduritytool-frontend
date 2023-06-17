@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Headers from "../Header";
-import Menu from "../Menu";
 import Footer from "../Footer";
 import { useParams } from "react-router-dom";
 import { useState } from "react";

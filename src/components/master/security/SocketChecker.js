@@ -10,14 +10,14 @@ export default function SocketChecker() {
   const [EmailHarvestsError, setEmailHarvestsError] = useState(false);
   const [EmailHarvestsErrorMessage, setEmailHarvestsErrorMessage] = useState("");
   const [EmailHarvestsLoading, setEmailHarvestsLoading] = useState(false);
-  const [DefaultwebPageData, setDefaultwebPageData] = useState(null)
+  // const [DefaultwebPageData, setDefaultwebPageData] = useState(null)
   const [OptionMethod, setOptionMethod] = useState(null)
   const [SensitiveInfoInUrl, setSensitiveInfoInUrl] = useState([])
   const [SensitiveInfoInBody, setSensitiveInfoInBody] = useState([])
 
   useEffect(() => {
     getSpamEmailData();
-    getDefaultPage();
+    // getDefaultPage();
     getSensitiveInfoInUrl()
     getSensitiveInfoInBody()
   }, []);
@@ -76,23 +76,23 @@ export default function SocketChecker() {
       });
   };
 
-  const getDefaultPage = () => {
-    axios
-      .get("security/test/defaultwebpage")
-      .then((r) => {
-        const { data, message, statusCode } = r;
-        if (statusCode === 200) {
-          setDefaultwebPageData(data.DefaulWebPage)
-          setOptionMethod(data.allowedMethods)
-        } else if (statusCode === 404) {
-          setDefaultwebPageData("Not Found")
-          console.log("data not found");
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  // const getDefaultPage = () => {
+  //   axios
+  //     .get("security/test/defaultwebpage")
+  //     .then((r) => {
+  //       const { data, message, statusCode } = r;
+  //       if (statusCode === 200) {
+  //         setDefaultwebPageData(data.DefaulWebPage)
+     
+  //       } else if (statusCode === 404) {
+  //         setDefaultwebPageData("Not Found")
+  //         console.log("data not found");
+  //       }
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
   return (
     <div>
       <div className="content-wrapper">
@@ -215,44 +215,7 @@ export default function SocketChecker() {
           </div>
         </div>
         {/*===================================================*/}
-        {/*End page content*/}
-        {/*CONTENT CONTAINER*/}
-        {/*===================================================*/}
-        <div className="content-header">
-          <div className="container-fluid">
-           
-          </div>
-        </div>
-        {/*Page content*/}
-        {/*===================================================*/}
-        <div className="content">
-          <div className="container-fluid">
-            <h3>Sensitive Data Exposure</h3>
-          <table class="table">
-  <tbody>
-    <tr>
-      <td>Default webPage</td>
-      <td>   {
-                  DefaultwebPageData && (<span>
-                  {DefaultwebPageData}
-                  </span>)
-                }</td>
-    </tr>
-    <tr>
- 
-      <td>Option Method</td>
-      <td>    {
-                  OptionMethod && (<span>
-                  {OptionMethod}
-                  </span>)
-                }</td>
-    </tr>
-   
-  </tbody>
-</table>
-        
-          </div>
-        </div>
+    
         {/*===================================================*/}
         {/*End page content*/}
       </div>

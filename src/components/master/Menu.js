@@ -28,7 +28,6 @@ export default function Menu() {
 
 const updatemiddleware = useCallback(
   (value) => {
-    setMessagelistner(toast.success("please wait..."))
     axios
       .post('security/middlwares/switch', value)
       .then((response) => {

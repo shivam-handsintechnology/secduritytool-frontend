@@ -1,16 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import UserRegister from "./UserRegister";
-import { Link } from "react-router-dom";
-export default function UserLogin()  {
-
-  const [domain, setdomain] = useState('shivam@mail.com')
-  const [password, setPassword] = useState('1234')
+export default function UserRegister()  {
+  const navigate=useNavigate()
+  // const history=useNavigate()
+  const [domain, setdomain] = useState(null)
+  const [password, setPassword] = useState(null)
   console.log(domain,password)
-  const navigateToRegister=()=>{
-    window.location.assign('/register')
-  }
   const handleSubmit=async()=>{ 
     // eslint-disable-next-line
     if(domain==''){
@@ -20,13 +17,12 @@ export default function UserLogin()  {
     else if(password==''){
       toast.error("please enter password")
     }else{
-      await axios.post(`auth/login`,{domain:domain,password},{
+      await axios.post(`auth/register`,{domain,password},{
         headers: {
           'Content-Type': 'application/json'
         }
       }).then((response)=>{
         const {data,message,statusCode}=response
-        console.log("data")
         if(statusCode===200){
           toast.success(message)
           sessionStorage.setItem('token',JSON.stringify(data));
@@ -45,12 +41,10 @@ export default function UserLogin()  {
     return (
       <body class="hold-transition login-page">
         <div className="login-box">
-  
           {/* /.login-logo */}
           <div className="card">
             <div className="card-body login-card-body">
-              <p className="login-box-msg">Sign in to start your session</p>
-            
+              <p className="login-box-msg">Register</p>
                 <div className="input-group mb-3">
                   <input
                     type="domain"
@@ -89,10 +83,6 @@ export default function UserLogin()  {
                     <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block">
                       Sign In
                     </button>
-                    <button onClick={navigateToRegister} type="submit" className="btn btn-primary btn-block">
-                    register
-                    </button>
-                   
                   </div>
                   {/* /.col */}
                 </div>

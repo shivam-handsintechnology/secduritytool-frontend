@@ -6,10 +6,11 @@ import UserLogin from '../components/login/UserLogin';
 import { isAuthenticatedCallback } from './Authenticate';
 import { routes } from './routes';
 import Layout from '../components/Layout';
+import UserRegister from '../components/login/UserRegister';
 
 export const RoutesData = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-
+const location=window.location.pathname
   const isAuthenticatedCallbackMemoized = useCallback(async () => {
     try {
       const isAuthenticated = await isAuthenticatedCallback();
@@ -28,21 +29,22 @@ export const RoutesData = () => {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? (
+  return (
     <Router>
-      <Layout>
-      <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-      </Routes>
-      </Layout>
-   
+      {isAuthenticated ? (
+        <Layout>
+          <Routes>
+            {routes.map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+          </Routes>
+        </Layout>
+      ) :location=== "/register" ? (
+        <UserRegister />
+      ) : (
+        <UserLogin />
+      )}
     </Router>
-  ) : (
-    // window.location.assign("/login")
-    <div>
-      <UserLogin/>
-    </div>
   );
 };
+
