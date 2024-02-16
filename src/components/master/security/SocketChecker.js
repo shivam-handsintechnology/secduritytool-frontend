@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Headers from "../Header";
 import Menu from "../Menu";
 import Footer from "../Footer";
-import { UseSocketContext } from "../../../context/ContextApi";
 import axios from "axios";
 import LoadingSpinner from "../../../loader";
 export default function SocketChecker() {
@@ -52,11 +51,11 @@ export default function SocketChecker() {
 
           setSensitiveInfoInUrl(data);
         } else if (statusCode === 404) {
-            console.log("not found")
+          console.log("not found")
         }
       })
       .catch((e) => {
-           console.log(e)
+        console.log(e)
       });
   };
   const getSensitiveInfoInBody = () => {
@@ -68,11 +67,11 @@ export default function SocketChecker() {
         if (statusCode === 200) {
           setSensitiveInfoInBody(data);
         } else if (statusCode === 404) {
-            console.log("not found")
+          console.log("not found")
         }
       })
       .catch((e) => {
-           console.log(e)
+        console.log(e)
       });
   };
 
@@ -83,7 +82,7 @@ export default function SocketChecker() {
   //       const { data, message, statusCode } = r;
   //       if (statusCode === 200) {
   //         setDefaultwebPageData(data.DefaulWebPage)
-     
+
   //       } else if (statusCode === 404) {
   //         setDefaultwebPageData("Not Found")
   //         console.log("data not found");
@@ -155,7 +154,7 @@ export default function SocketChecker() {
               </div>
               <div className="col-md-4">
                 {
-                  SensitiveInfoInBody?(<>
+                  SensitiveInfoInBody ? (<>
                     <h3>sansitive information in Http response</h3>
                     <table class="table table-striped">
                       <thead>
@@ -176,14 +175,14 @@ export default function SocketChecker() {
                       })}
                     </table>
                   </>)
-                  :(<div>
-                   
-                  </div>)
+                    : (<div>
+
+                    </div>)
                 }
               </div>
               <div className="col-md-4">
                 {
-                  SensitiveInfoInUrl?(<>
+                  SensitiveInfoInUrl ? (<>
                     <h3>sansitive information in Http Url</h3>
                     <table class="table table-striped">
                       <thead>
@@ -206,16 +205,16 @@ export default function SocketChecker() {
                       })}
                     </table>
                   </>)
-                  :(<div>
-                   
-                  </div>)
+                    : (<div>
+
+                    </div>)
                 }
               </div>
             </div>
           </div>
         </div>
         {/*===================================================*/}
-    
+
         {/*===================================================*/}
         {/*End page content*/}
       </div>

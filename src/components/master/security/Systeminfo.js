@@ -15,20 +15,22 @@ export default function Systeminfo() {
   useEffect(() => {
     const GetSysteminfo = async () => {
       setIsLoading(true);
-      await axios.get(`${API.localurl}system`).then((response) => {
-        setIsLoading(false);
-        const { data } = response;
-        setServerinfo(data.syteminfo);
-      });
+      // await axios.get(`security/system`).then((response) => {
+      //   setIsLoading(false);
+      //   const { data } = response;
+      //   setServerinfo(data.syteminfo);
+      // });
       axios
         .get("security/test/robottxt")
         .then((response) => {
           const { message } = response;
           console.log({ message });
           setRobotFile(message);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false);
         });
     };
     GetSysteminfo();
@@ -132,7 +134,7 @@ export default function Systeminfo() {
                                 </div>
                               </td>
                             </tr>
-                        
+
                             <tr>
                               <td>Robot</td>
                               <td>

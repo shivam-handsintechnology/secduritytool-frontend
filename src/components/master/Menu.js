@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState,useCallback  } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 export default function Menu() {
@@ -10,94 +10,94 @@ export default function Menu() {
   const [XSSChecked, setXSSChecked] = useState();
   const [ProxyChecked, setProxyChecked] = useState();
   const [CommandLineinjectionChecked, setCommandLineinjectionChecked] = useState();
-  useEffect(()=>{
-       axios.get('security/middlwares').then((response) => {
-        // console.log(response.data)
-         setNosqlDetectorChecked(response.data.NosqlDetectorMiddlware)
-         setSQLChecked((response.data.SqlDetectorMiddlware))
-         setHTMLChecked((response.data.checkHTMLMiddlware))
-         setXSSChecked(response.data.xssInjectionDetectorMiddlware)
-         setProxyChecked(response.data.VpnProtectMiddlware)
-         setCommandLineinjectionChecked(response.data.commandlineinjectionMiddlware)
-       }
-       ).catch((error) => {
-         console.error(error)
-       })
-     
+  useEffect(() => {
+    axios.get('security/middlwares').then((response) => {
+      // console.log(response.data)
+      setNosqlDetectorChecked(response.data.NosqlDetectorMiddlware)
+      setSQLChecked((response.data.SqlDetectorMiddlware))
+      setHTMLChecked((response.data.checkHTMLMiddlware))
+      setXSSChecked(response.data.xssInjectionDetectorMiddlware)
+      setProxyChecked(response.data.VpnProtectMiddlware)
+      setCommandLineinjectionChecked(response.data.commandlineinjectionMiddlware)
+    }
+    ).catch((error) => {
+      console.error(error)
+    })
+
   })
 
-const updatemiddleware = useCallback(
-  (value) => {
-    axios
-      .post('security/middlwares/switch', value)
-      .then((response) => {
-        // console.log(response.message);
-        setMessagelistner(toast.success(response.message))
-      })
-      .catch((error) => {
-        console.error(error.message);
-        toast.error(error.message);
-      });
-  },
-  [],
-);
-const handleSqlChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setSQLChecked(isChecked);
-    updatemiddleware({ SqlDetectorMiddlware: isChecked });
-  },
-  [updatemiddleware],
-);
-const handleHtmlChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setHTMLChecked(isChecked);
-    updatemiddleware({ checkHTMLMiddlware: isChecked });
-  },
-  [updatemiddleware],
-);
-const handleXSSChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setXSSChecked(isChecked);
-    updatemiddleware({ xssInjectionDetectorMiddlware: isChecked });
-  },
-  [updatemiddleware],
-);
-const handleHtmlSanitizerChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setXSSChecked(isChecked);
-    updatemiddleware({ SanitizeinputMiddleware: isChecked });
-  },
-  [updatemiddleware],
-);
-const handleVpnChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setProxyChecked(isChecked);
-    updatemiddleware({ VpnProtectMiddlware: isChecked });
-  },
-  [updatemiddleware],
-);
-const handleCommandLineChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setCommandLineinjectionChecked(isChecked);
-    updatemiddleware({ commandlineinjectionMiddlware: isChecked });
-  },
-  [updatemiddleware],
-);
-const handleNosqlChange = useCallback(
-  (event) => {
-    const isChecked = event.target.checked;
-    setNosqlDetectorChecked(isChecked);
-    updatemiddleware({ NosqlDetectorMiddlware: isChecked });
-  },
-  [updatemiddleware],
-);
-  
+  const updatemiddleware = useCallback(
+    (value) => {
+      axios
+        .post('security/middlwares/switch', value)
+        .then((response) => {
+          // console.log(response.message);
+          setMessagelistner(toast.success(response.message))
+        })
+        .catch((error) => {
+          console.error(error.message);
+          toast.error(error.message);
+        });
+    },
+    [],
+  );
+  const handleSqlChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setSQLChecked(isChecked);
+      updatemiddleware({ SqlDetectorMiddlware: isChecked });
+    },
+    [updatemiddleware],
+  );
+  const handleHtmlChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setHTMLChecked(isChecked);
+      updatemiddleware({ checkHTMLMiddlware: isChecked });
+    },
+    [updatemiddleware],
+  );
+  const handleXSSChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setXSSChecked(isChecked);
+      updatemiddleware({ xssInjectionDetectorMiddlware: isChecked });
+    },
+    [updatemiddleware],
+  );
+  const handleHtmlSanitizerChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setXSSChecked(isChecked);
+      updatemiddleware({ SanitizeinputMiddleware: isChecked });
+    },
+    [updatemiddleware],
+  );
+  const handleVpnChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setProxyChecked(isChecked);
+      updatemiddleware({ VpnProtectMiddlware: isChecked });
+    },
+    [updatemiddleware],
+  );
+  const handleCommandLineChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setCommandLineinjectionChecked(isChecked);
+      updatemiddleware({ commandlineinjectionMiddlware: isChecked });
+    },
+    [updatemiddleware],
+  );
+  const handleNosqlChange = useCallback(
+    (event) => {
+      const isChecked = event.target.checked;
+      setNosqlDetectorChecked(isChecked);
+      updatemiddleware({ NosqlDetectorMiddlware: isChecked });
+    },
+    [updatemiddleware],
+  );
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
@@ -170,34 +170,34 @@ const handleNosqlChange = useCallback(
               </Link>
             </li> */}
             <li className="nav-header">SECURITY</li>
-            <li className="nav-item " style={{display:'flex'}}>
-            <Link to="/Sqlinjection" className="nav-link ">
+            <li className="nav-item " style={{ display: 'flex' }}>
+              <Link to="/Sqlinjection" className="nav-link ">
                 <i className="fas fa-code" />&nbsp; <p>Sql Injection
                 </p>
-                </Link>
-                <div className="form-check">
-                <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={SQLChecked} onChange={handleSqlChange} />
-              
+              </Link>
+              <div className="form-check">
+                <input style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={SQLChecked} onChange={handleSqlChange} />
+
               </div>
             </li>
-             <li className="nav-item " style={{display:'flex'}}>
-            <Link to="/htmlcheck" className="nav-link ">
+            <li className="nav-item " style={{ display: 'flex' }}>
+              <Link to="/htmlcheck" className="nav-link ">
                 <i className="fas fa-code" />&nbsp; <p>Html Injection
                 </p>
-                </Link>
-                <div className="form-check">
-                <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={HTMLChecked} onChange={handleHtmlChange} />
-              
+              </Link>
+              <div className="form-check">
+                <input style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={HTMLChecked} onChange={handleHtmlChange} />
+
               </div>
             </li>
-            <li className="nav-item " style={{display:'flex'}}>
-            <Link to="/XSS" className="nav-link ">
+            <li className="nav-item " style={{ display: 'flex' }}>
+              <Link to="/XSS" className="nav-link ">
                 <i className="fas fa-code" />&nbsp; <p>XSS Injection
                 </p>
-                </Link>
-                <div className="form-check">
-                <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={XSSChecked} onChange={handleXSSChange} />
-              
+              </Link>
+              <div className="form-check">
+                <input style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={XSSChecked} onChange={handleXSSChange} />
+
               </div>
             </li>
             {/* <li className="nav-item " style={{display:'flex'}}>
@@ -210,33 +210,33 @@ const handleNosqlChange = useCallback(
               
               </div>
             </li> */}
-            <li className="nav-item "  style={{display:'flex'}}>
+            <li className="nav-item " style={{ display: 'flex' }}>
               <Link to="/Proxy" className="nav-link ">
                 <i className="fas fa-globe" />&nbsp; <p>Proxy Injection</p>
               </Link>
               <div className="form-check">
-                <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={ProxyChecked} onChange={handleVpnChange} />
-              
+                <input style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={ProxyChecked} onChange={handleVpnChange} />
+
               </div>
             </li>
-            <li className="nav-item "  style={{display:'flex'}}>
+            <li className="nav-item " style={{ display: 'flex' }}>
               <Link to="/Proxy" className="nav-link ">
                 <i className="fas fa-globe" />&nbsp; <p>Command Line</p>
               </Link>
               <div className="form-check">
-                <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={CommandLineinjectionChecked} onChange={handleCommandLineChange} />
-             
+                <input style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={CommandLineinjectionChecked} onChange={handleCommandLineChange} />
+
               </div>
-            </li> 
-            <li className="nav-item "  style={{display:'flex'}}>
+            </li>
+            <li className="nav-item " style={{ display: 'flex' }}>
               <Link to="/Proxy" className="nav-link ">
                 <i className="fas fa-globe" />&nbsp; <p>No Sql</p>
               </Link>
               <div className="form-check">
-                <input style={{marginTop: "15px",float:"right"}} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={NosqlDetectorChecked} onChange={handleNosqlChange} />
-             
+                <input style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={NosqlDetectorChecked} onChange={handleNosqlChange} />
+
               </div>
-            </li> 
+            </li>
             <li className="nav-item ">
               <Link to="/Badbots" className="nav-link ">
                 <i className="fas fa-user-secret" />&nbsp; <p>Bad Bots
@@ -257,14 +257,14 @@ const handleNosqlChange = useCallback(
                 <i className="fas fa-align-justify" />&nbsp; <p>Logs <i className="fas fa-angle-right right" />
                 </p></a>
               <ul className="nav nav-treeview">
-                <li className="nav-item "><Link to="/Sqlinjectionlogs" className="nav-link "><i className="fas fa-code" />&nbsp; <p>SQLi Logs <span className="badge right badge-info">0</span></p></Link></li>
-                <li className="nav-item "><Link to="/Badbotlogs" className="nav-link "><i className="fas fa-robot" />&nbsp; <p>Bad Bot Logs <span className="badge right badge-danger">0</span></p></Link></li>
-                <li className="nav-item "><Link to="/Proxylogs" className="nav-link "><i className="fas fa-globe" />&nbsp; <p>Proxy Logs <span className="badge right badge-success">0</span></p></Link></li>
-                <li className="nav-item "><Link to="/Spammerlogs" className="nav-link "><i className="fas fa-keyboard" />&nbsp; <p>Spam Logs <span className="badge right badge-warning">0</span></p></Link></li>
+                <li className="nav-item "><Link to="/logs/SQLI" className="nav-link "><i className="fas fa-code" />&nbsp; <p>SQLi Logs <span className="badge right badge-info">0</span></p></Link></li>
+                <li className="nav-item "><Link to="/logs/isBot" className="nav-link "><i className="fas fa-robot" />&nbsp; <p>Bad Bot Logs <span className="badge right badge-danger">0</span></p></Link></li>
+                <li className="nav-item "><Link to="/logs/VPN" className="nav-link "><i className="fas fa-globe" />&nbsp; <p>Proxy Logs <span className="badge right badge-success">0</span></p></Link></li>
+                <li className="nav-item "><Link to="/logs/Spam" className="nav-link "><i className="fas fa-keyboard" />&nbsp; <p>Spam Logs <span className="badge right badge-warning">0</span></p></Link></li>
               </ul>
             </li>
             <li className="nav-item has-treeview ">
-              <Link  to={"/Filewhitelist"} className="nav-link ">
+              <Link to={"/Filewhitelist"} className="nav-link ">
                 <i className="fas fa-ban" />&nbsp; <p>Bans <i className="fas fa-angle-right right" />
                 </p></Link>
               <ul className="nav nav-treeview">
@@ -329,7 +329,7 @@ const handleNosqlChange = useCallback(
                 <i className="fas fa-search" />&nbsp; <p>Port Scanner</p>
               </Link>
             </li>
-          
+
           </ul>
         </nav>
         {/* /.sidebar-menu */}

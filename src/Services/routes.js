@@ -28,7 +28,6 @@ import Otherbans from "../components/master/security/Otherbans";
 import axios from "axios";
 import Block from "../components/master/Block";
 import UserLogin from "../components/login/UserLogin";
-import UserRegister from "../components/login/UserRegister";
 import Warningpages from '../components/master/security/Warningpages';
 import SSLInformation from '../components/master/security/SSLInformation';
 import Install from '../components/master/Install';
@@ -38,211 +37,203 @@ import BadPoxylogs from '../components/master/security/BadbProxyogs';
 import SpamLogs from '../components/master/security/Spamlogs';
 import SessionInfo from '../components/master/security/SessionInfo';
 import SocketChecker from '../components/master/security/SocketChecker';
-import ChatRoomFireBase from '../FirebaseChat/ChatRoomFireBase';
 import HashGenerator from '../components/master/security/HashGenrator';
 
 export const routes = [
   {
     path: '/',
     exact: true,
-    element: <Main/>,
+    element: <Main />,
   },
   {
     path: '/hashgenerater',
     exact: true,
-    element: <HashGenerator/>,
+    element: <HashGenerator />,
   },
   {
     path: '/sessioninfo',
     exact: true,
-    element: <SessionInfo/>,
-  },
-  {
-    path: '/chat',
-    exact: true,
-    element: <ChatRoomFireBase />,
+    element: <SessionInfo />,
   },
   {
     path: '/SSLInformation',
     exact: true,
-    element: <SSLInformation/>,
+    element: <SSLInformation />,
   },
   {
     path: '/Main',
     exact: true,
-    element: <Main/>,
+    element: <Main />,
   },
   {
     path: '/Login',
     exact: true,
-    element: <UserLogin/>,
+    element: <UserLogin />,
   },
   {
     path: '/block',
     exact: true,
-    element: <Block/>,
+    element: <Block />,
   },
   {
     path: '/Form',
     exact: true,
-    element: <Form/>,
+    element: <Form />,
   },
   {
     path: '/Systeminfo',
     exact: true,
-    element: <Systeminfo/>,
+    element: <Systeminfo />,
   },
   {
     path: '/Loginsecurity',
     exact: true,
-    element: <Loginsecurity/>,
+    element: <Loginsecurity />,
   },
   {
     path: '/Warningpages',
     exact: true,
-    element: <Warningpages/>,
+    element: <Warningpages />,
   },
-  {
-    path: '/Sqlinjection',
-    exact: true,
-    element: <Sqlinjection/>,
-  },
+  // {
+  //   path: '/logs/:type',
+  //   exact: true,
+  //   element: <Sqlinjection />,
+  // },
   {
     path: '/Ipwhitelist',
     exact: true,
-    element: <Ipwhitelist/>,
+    element: <Ipwhitelist />,
   },
   {
     path: '/socketchecker',
     exact: true,
-    element: <SocketChecker/>,
+    element: <SocketChecker />,
   },
   {
     path: '/Filewhitelist',
     exact: true,
-    element: <Filewhitelist/>,
+    element: <Filewhitelist />,
   },
   {
     path: '/Portscanner',
     exact: true,
-    element: <Portscanner/>,
+    element: <Portscanner />,
   },
   {
     path: '/Htaccesseditor',
     exact: true,
-    element: <Htaccesseditor/>,
+    element: <Htaccesseditor />,
   },
   {
     path: '/Errormonitoring',
     exact: true,
-    element: <Errormonitoring/>,
+    element: <Errormonitoring />,
   },
   {
     path: '/Visitanalytics',
     exact: true,
-    element: <Visitanalytics/>,
+    element: <Visitanalytics />,
   },
   {
     path: '/Livetraffic',
     exact: true,
-    element: <Livetraffic/>,
+    element: <Livetraffic />,
   },
   {
     path: '/Visitordetails/:ip',
     exact: true,
-    element: <Visitordetails/>,
+    element: <Visitordetails />,
   },
   {
     path: '/Phpconfigcheck',
     exact: true,
-    element: <Phpconfigcheck/>,
+    element: <Phpconfigcheck />,
   },
   {
     path: '/Phpfunctionscheck',
     exact: true,
-    element: <Phpfunctionscheck/>,
+    element: <Phpfunctionscheck />,
   },
   {
     path: '/Badwords',
     exact: true,
-    element: <Badwords/>,
+    element: <Badwords />,
   },
   {
     path: '/Badbots',
     exact: true,
-    element: <Badbots/>,
+    element: <Badbots />,
   },
   {
     path: '/Proxy',
     exact: true,
-    element: <Proxy/>,
+    element: <Proxy />,
   },
   {
     path: '/Spam',
     exact: true,
-    element: <Spam/>,
+    element: <Spam />,
   },
   {
     path: '/Alllogs',
     exact: true,
-    element: <Alllogs/>,
+    element: <Alllogs />,
   },
-  
- 
   {
-    path: '/Sqlinjectionlogs',
+    path: '/logs/:type',
     exact: true,
-    element: <Sqlinjectionlogs/>,
+    element: <Sqlinjectionlogs />,
   },
   {
     path: '/Badbotlogs',
     exact: true,
-    element: <Badbotlogs/>,
+    element: <Badbotlogs />,
   },
   {
     path: '/Proxylogs',
     exact: true,
-    element: <BadPoxylogs/>,
+    element: <BadPoxylogs />,
   },
   {
     path: '/Spammerlogs',
     exact: true,
-    element: <SpamLogs/>,
+    element: <SpamLogs />,
   },
   {
     path: '/Bansip',
     exact: true,
-    element: <Bansip/>,
+    element: <Bansip />,
   },
   {
     path: '/Banscountry',
     exact: true,
-    element: <Banscountry/>,
+    element: <Banscountry />,
   },
   {
     path: '/Bansiprange',
     exact: true,
-    element: <Bansiprange/>,
+    element: <Bansiprange />,
   },
   {
     path: '/Otherbans',
     exact: true,
-    element: <Otherbans/>,
+    element: <Otherbans />,
   },
   {
     path: '/Install',
     exact: true,
-    element: <Install/>,
+    element: <Install />,
   },
   {
     path: '*',
     exact: true,
-    element: <ErrorPageHandler/>,
+    element: <ErrorPageHandler />,
   },
   {
     path: 'apitest',
     exact: true,
-    element: <ApiTesting/>,
+    element: <ApiTesting />,
   },
 
 ];

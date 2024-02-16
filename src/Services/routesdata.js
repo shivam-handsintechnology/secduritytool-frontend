@@ -10,7 +10,7 @@ import UserRegister from '../components/login/UserRegister';
 
 export const RoutesData = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-const location=window.location.pathname
+  const location = window.location.pathname
   const isAuthenticatedCallbackMemoized = useCallback(async () => {
     try {
       const isAuthenticated = await isAuthenticatedCallback();
@@ -39,7 +39,7 @@ const location=window.location.pathname
             ))}
           </Routes>
         </Layout>
-      ) :location=== "/register" ? (
+      ) : location === "/register" ? (
         <UserRegister />
       ) : (
         <UserLogin />

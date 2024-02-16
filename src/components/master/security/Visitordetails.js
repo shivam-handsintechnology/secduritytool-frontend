@@ -4,20 +4,22 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 const Visitordetails = () => {
-    const {ip}=useParams()
-    async function  getSingleSqllLogs(body) {
-        const response=await axios.post(`security/sqllogs/single`,body);
+    const [data, setData] = useState({})
+    const { ip } = useParams()
+    async function getSingleSqllLogs(body) {
+        const response = await axios.post(`security/sqllogs/single`, body);
         console.log(response)
         return response
-        }
-     const [data,setData]=useState({})
-  console.log(data)  
-    useEffect(()=>{
-        getSingleSqllLogs({ip}).then((res)=>{
-            const{data}=res
-             setData(data)
+    }
+
+    console.log(data)
+    useEffect(() => {
+        getSingleSqllLogs({ ip }).then((res) => {
+            const { data } = res
+            setData(data)
         })
-    },[ip])
+    }, [ip])
+    console.log("data0", data)
     return (
         <div>
             {/* <Headers />
@@ -54,8 +56,8 @@ const Visitordetails = () => {
                             <div className="col-md-12">
                                 <div className="card card-primary card-outline">
                                     <div className="card-header">
-                                        <h3 className="card-title">Details for Ip Address: {data.ip?data.ip:"Ip is not available"}</h3>
-                                        
+                                        <h3 className="card-title">Details for Ip Address: {data ? data?.ip : "Ip is not available"}</h3>
+
                                     </div>
                                     <div className="card-body">
                                         <div className="row">
@@ -67,7 +69,7 @@ const Visitordetails = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        value={data.ip}
+                                                        value={data?.ip}
                                                         readOnly=""
                                                     />
                                                 </div>
@@ -80,7 +82,7 @@ const Visitordetails = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        value={data.date +"at "+data.time}
+                                                        value={data?.date + "at " + data?.time}
                                                         readOnly=""
                                                     />
                                                 </div>
@@ -94,12 +96,12 @@ const Visitordetails = () => {
                                                     </label>
                                                     <div className="input-group mar-btm">
                                                         <span className="input-group-addon">
-                                                           {data.browser}
+                                                            {data?.browser}
                                                         </span>
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            value={data.browser}
+                                                            value={data?.browser}
                                                             readOnly=""
                                                         />
                                                     </div>
@@ -112,12 +114,12 @@ const Visitordetails = () => {
                                                     </label>
                                                     <div className="input-group mar-btm">
                                                         <span className="input-group-addon">
-                                                           {data.os}
+                                                            {data?.os}
                                                         </span>
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            value={data.os}
+                                                            value={data?.os}
                                                             readOnly=""
                                                         />
                                                     </div>
@@ -134,7 +136,7 @@ const Visitordetails = () => {
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            value={data.country}
+                                                            value={data?.country}
                                                             readOnly=""
                                                         />
                                                     </div>
@@ -148,7 +150,7 @@ const Visitordetails = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        value={data.country}
+                                                        value={data?.country}
                                                         readOnly=""
                                                     />
                                                 </div>
@@ -163,7 +165,7 @@ const Visitordetails = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        value={data.device}
+                                                        value={data?.device}
                                                         readOnly=""
                                                     />
                                                 </div>
@@ -176,7 +178,7 @@ const Visitordetails = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        value={data.domain}
+                                                        value={data?.domain}
                                                         readOnly=""
                                                     />
                                                 </div>
@@ -190,7 +192,7 @@ const Visitordetails = () => {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    value={data.page}
+                                                    value={data?.page}
                                                     readOnly=""
                                                 />
                                             </div>
@@ -205,8 +207,8 @@ const Visitordetails = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        value={data.bot}												
-                                                       readOnly=""
+                                                        value={data?.bot}
+                                                        readOnly=""
                                                     />
                                                 </div>
                                             </div>
@@ -220,7 +222,7 @@ const Visitordetails = () => {
                                                         rows={2}
                                                         className="form-control"
                                                         readOnly=""
-                                                        value={data.useragent}
+                                                        value={data?.useragent}
                                                     />
                                                 </div>
                                             </div>
@@ -233,7 +235,7 @@ const Visitordetails = () => {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    value={data.referurl}
+                                                    value={data?.referurl}
                                                     readOnly=""
                                                 />
                                             </div>

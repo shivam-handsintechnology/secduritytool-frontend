@@ -8,13 +8,17 @@ import { Button } from "react-bootstrap";
 import useFetchApi from "../../../customhooks/useFetchApi";
 import axios from "axios";
 import { toast } from "react-toastify";
+import UseCustomTable from "../../../utils/DataTable";
 const SpamLogs = () => {
   const [data, setData] = useState([]);
+  const [isApiCall, setisAPiCall] = useState(null)
+  const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
   const history = useNavigate();
   async function AddIpaddres(body) {
     await axios
       .post(`security/ip/blacklist/add`, body)
       .then((response) => {
+        setisAPiCall(response)
         toast.success(response.message);
         return response;
       })
@@ -24,11 +28,13 @@ const SpamLogs = () => {
   }
   useEffect(() => {
     AlbadBotlogs();
-  }, []);
+  }, [isApiCall]);
   const AlbadBotlogs = async () => {
     const response = await axios.get("security/spamlogs");
     console.log({ response: response.data });
+
     setData(response.data);
+    setNumberOfPagesFromAPi(response.data.length)
   };
   //  console.log({bots:data})
   // const {data,deleteSingleSqllLogs,deleteAllSqllLogs}=UseSqlLogsContext()
@@ -38,6 +44,7 @@ const SpamLogs = () => {
       .then((response) => {
         const { message, statusCode } = response;
         if (statusCode == 200) {
+          setisAPiCall(response)
           toast.success(message);
         }
       })
@@ -73,7 +80,7 @@ const SpamLogs = () => {
     },
     {
       name: "Action",
-      selector: (params) => [
+      cell: (params) => [
         <Link to={"/Visitordetails/" + params.ip} className="btn btn-primary">
           Details
         </Link>,
@@ -81,7 +88,7 @@ const SpamLogs = () => {
           variant="danger acasd"
           onClick={() => {
             deleteSingleSqllLogs({ ip: params.ip });
-            AlbadBotlogs();
+
           }}
         >
           Delete
@@ -90,7 +97,7 @@ const SpamLogs = () => {
           variant="danger acasd"
           onClick={() => {
             AddIpaddres({ ip: params.ip });
-            AlbadBotlogs();
+
           }}
         >
           Add To Blacklist
@@ -99,7 +106,7 @@ const SpamLogs = () => {
       width: "28%",
     },
   ];
-
+  const { table, } = UseCustomTable(columns, data, NoOfPagesFromApi)
   return (
     <div>
       {/* <Headers />
@@ -148,12 +155,7 @@ const SpamLogs = () => {
                     </a>
                   </div>
                   <div className="card-body">
-                    <DataTable
-                      columns={columns}
-                      data={data}
-                      pagination
-                      highlightOnHover
-                    />
+                    {table}
                   </div>
                 </div>
               </div>

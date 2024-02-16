@@ -4,14 +4,20 @@ import Menu from "../Menu";
 import Footer from "../Footer";
 import DataTable from "react-data-table-component";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+import mockdata from "../../../MOCK_DATA.json"
+import UseCustomTable from "../../../utils/DataTable";
 const Sqlinjectionlogs = () => {
-  const [Actions, setActions] = useState([]);
-  const [data, setData] = useState([]);
+  const { type } = useParams()
+  const [data, setData] = useState([...mockdata]);
   const [iparray, setIparray] = useState([]);
+  const [isApiCall, setisAPiCall] = useState(null)
+  const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
+
   async function AddIpaddres(body) {
     await axios
       .post(`security/ip/blacklist/add`, body)
@@ -27,6 +33,7 @@ const Sqlinjectionlogs = () => {
     await axios
       .post(`security/sqllogs/deleteall`, { ip: iparray })
       .then((response) => {
+        setisAPiCall(response.data)
         toast.success(response.message);
         return response;
       })
@@ -40,6 +47,7 @@ const Sqlinjectionlogs = () => {
       .then((response) => {
         const { message, statusCode } = response;
         if (statusCode === 200) {
+          setisAPiCall(response.data)
           toast.success(message);
         }
       })
@@ -48,24 +56,59 @@ const Sqlinjectionlogs = () => {
         toast.error(message);
       });
   }
+  let columns = [
+    { name: "Id", selector: "_id", sortable: true },
+    { name: "Ip", selector: "ip", sortable: true },
+    { name: "Browser", selector: "browser", sortable: true },
+    { name: "Country", selector: "country", sortable: true },
+    { name: "Date", selector: "date" },
+    { name: "Os", selector: "os" },
+    {
+      name: "Action",
+      cell: (rowData) => (
+        <>
+          <Link to={`/Visitordetails/${rowData.ip}`} className="btn btn-primary">
+            Details
+          </Link>
+
+          <Button
+            variant="danger acasd"
+            onClick={() => deleteSingleSqllLogs({ ip: rowData.ip })}
+          >
+            Delete
+          </Button>
+
+
+          <Button
+            variant="danger acasd"
+            onClick={() => {
+              AddIpaddres({ ip: rowData.ip });
+              getAllSqllLogs();
+            }}
+          >
+            Add To Black List
+          </Button>
+
+        </>
+      ),
+      width: "28%",
+    },
+  ];
+  const { table, pageNumber, limit, setLimit } = UseCustomTable(columns, data, NoOfPagesFromApi)
   const getAllSqllLogs = async () => {
     await axios
-      .get(`security/sqllogs`)
+      .get(`security/sqllogs?limit=${limit}&&type=${type}&page=${pageNumber}`)
       .then((response) => {
         const { data } = response;
         let ArrayOfdta = [];
-        data.map((value) => {
+        setData(data.data);
+        setNumberOfPagesFromAPi(data.totalPages)
+        data.data.map((value) => {
           setIparray(value.ip);
-          ArrayOfdta.push({
-            ip: value.ip,
-            browser: value.browser,
-            country: value.country,
-            date: value.date,
-            os: value.os,
-            Actions,
-          });
+
         });
-        setData(ArrayOfdta);
+
+
       })
       .catch((error) => {
         console.log(error);
@@ -75,60 +118,12 @@ const Sqlinjectionlogs = () => {
   const history = useNavigate();
   useEffect(() => {
     getAllSqllLogs();
-  }, []);
-  const columns = [
-    {
-      name: "Ip",
-      selector: "ip",
-      sortable: true,
-    },
-    {
-      name: "Browser",
-      selector: "browser",
-      sortable: true,
-    },
-    {
-      name: "Country",
-      selector: "country",
-      sortable: true,
-    },
-    {
-      name: "Date",
-      selector: "date",
-    },
-    {
-      name: "Os",
-      selector: "os",
-    },
-    {
-      name: "Action",
-      selector: (params) => [
-        <Link to={"/Visitordetails/" + params.ip} className="btn btn-primary">
-          Details
-        </Link>,
-        <Button
-          variant="danger acasd"
-          onClick={() => {
-            deleteSingleSqllLogs({ ip: params.ip });
-            getAllSqllLogs();
-          }}
-        >
-          Delete
-        </Button>,
-        <Button
-          variant="danger acasd"
-          onClick={() => {
-            AddIpaddres({ ip: params.ip });
+  }, [isApiCall, pageNumber, type]);
 
-            getAllSqllLogs();
-          }}
-        >
-          Add To Black List
-        </Button>,
-      ],
-      width: "28%",
-    },
-  ];
+
+
+
+  console.log("pageNumber>>>>>>>>>>>>", pageNumber)
 
   return (
     <div>
@@ -142,7 +137,7 @@ const Sqlinjectionlogs = () => {
             <div className="row mb-2">
               <div className="col-sm-6">
                 <h1 className="m-0 ">
-                  <i className="fas fa-align-justify" /> SQL Injection Logs
+                  <i className="fas fa-align-justify" /> {type == "isBot" ? "Bot" : type == "VPN" ? "Proxy" : type == "Spam" ? "Spam" : type == "SQLI" ? "Sql Injection" : type == "All" ? "All" : ""} Logs
                 </h1>
               </div>
               <div className="col-sm-6">
@@ -154,7 +149,7 @@ const Sqlinjectionlogs = () => {
                   </li>
                   <li className="breadcrumb-item active">
                     {" "}
-                    SQL Injection Logs
+                    {type == "isBot" ? "Bot" : type == "VPN" ? "Proxy" : type == "Spam" ? "Spam" : type == "SQLI" ? "Sql Injection" : type == "All" ? "All" : ""} Logs
                   </li>
                 </ol>
               </div>
@@ -183,12 +178,12 @@ const Sqlinjectionlogs = () => {
                     </button>
                   </div>
                   <div className="card-body">
-                    <DataTable
-                      columns={columns}
-                      data={data}
-                      pagination
-                      highlightOnHover
-                    />
+                    {
+                      table
+                    }
+                    {/* <CustomTable
+                    
+                    /> */}
                   </div>
                 </div>
               </div>
