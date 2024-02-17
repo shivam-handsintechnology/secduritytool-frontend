@@ -38,6 +38,7 @@ import SpamLogs from '../components/master/security/Spamlogs';
 import SessionInfo from '../components/master/security/SessionInfo';
 import SocketChecker from '../components/master/security/SocketChecker';
 import HashGenerator from '../components/master/security/HashGenrator';
+import AddWebsite from '../components/master/security/AddWebsite';
 
 export const routes = [
   {
@@ -234,6 +235,11 @@ export const routes = [
     path: 'apitest',
     exact: true,
     element: <ApiTesting />,
+  },
+  {
+    path: 'AddSite',
+    exact: true,
+    element: <AddWebsite />,
   },
 
 ];

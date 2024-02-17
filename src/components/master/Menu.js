@@ -171,7 +171,7 @@ export default function Menu() {
             </li> */}
             <li className="nav-header">SECURITY</li>
             <li className="nav-item " style={{ display: 'flex' }}>
-              <Link to="/Sqlinjection" className="nav-link ">
+              <Link to="/logs/SQLI" className="nav-link ">
                 <i className="fas fa-code" />&nbsp; <p>Sql Injection
                 </p>
               </Link>

@@ -1,0 +1,170 @@
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Container, Row, Col, Modal } from 'react-bootstrap';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UseCustomTable from '../../../utils/DataTable';
+const AddWebsite = () => {
+    const [data, setData] = useState([]);
+    const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
+    const [isApiCall, setisAPiCall] = useState(null);
+    const [domain, setDomain] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+        // Additional logic after closing the modal
+    };
+    const handleOpenModal = () => {
+        setShowModal(true);
+        // Additional logic after closing the modal
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (domain === '') {
+            toast.error('Please enter a domain');
+        } else {
+            try {
+                const response = await axios.post(
+                    `security/domain`,
+                    { domain },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+                const { data, message, statusCode } = response;
+                if (statusCode === 200) {
+                    setisAPiCall(response);
+                    toast.success(message);
+                    setShowModal(true); // Show modal on success
+                } else if (statusCode >= 400) {
+                    toast.error(message);
+                }
+            } catch (error) {
+                toast.error(error?.response?.data?.message);
+                console.error(error.response);
+            }
+        }
+    };
+    function deleteDomain(body) {
+        console.log(body)
+        axios
+            .delete(`security/domain?domain=${body.domain}`)
+            .then((response) => {
+                const { message, statusCode } = response;
+                if (statusCode === 200) {
+                    setisAPiCall(response)
+                    toast.success(message);
+                }
+            })
+            .catch((error) => {
+                const { message } = error;
+                toast.error(message);
+            });
+    }
+    let columns = [
+        { name: "Domain", selector: "domain", sortable: true },
+        {
+            name: "Action",
+            cell: (rowData) => (
+                <>
+                    <Button
+                        variant="danger acasd"
+                        onClick={() => deleteDomain(rowData)}
+                    >
+                        Delete
+                    </Button>
+                </>
+            ),
+            width: "28%",
+        },
+    ];
+    const { table, pageNumber, limit, setLimit } = UseCustomTable(columns, data, NoOfPagesFromApi)
+    const getAllDomains = async () => {
+        await axios
+            .get(`security/domain?limit=${limit}&page=${pageNumber}`)
+            .then((response) => {
+                const { data } = response;
+
+                if (!data) {
+                    setNumberOfPagesFromAPi(null)
+                    // toast.error('No data found')
+                } else {
+                    setData(data.data);
+                    setNumberOfPagesFromAPi(data.totalPages)
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+                setNumberOfPagesFromAPi(null)
+            });
+    };
+
+    useEffect(() => {
+        getAllDomains();
+    }, [isApiCall, pageNumber])
+    return (
+        <div className="content-wrapper">
+            <button onClick={handleOpenModal}>Add Website</button>
+            {table}
+            {/* Modal */}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row>
+                        <Col>
+                            <header className="mt-4">
+                                <h1>Add your website or application to Security Tool</h1>
+                                <p>
+                                    Optimize and monitor security, performance, and reliability for your
+                                    visitors.
+                                </p>
+                            </header>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group>
+                                    <h4>Enter your domain</h4>
+                                    <p>
+                                        This will be the name of the space where you apply Security Tool
+                                        configurations and monitor impact on your website or application.
+                                    </p>
+                                    <Form.Label>Enter domain name (example.com)</Form.Label>
+                                    <Form.Control
+                                        name="zoneName"
+                                        type="text"
+                                        value={domain}
+                                        onChange={(e) => setDomain(e.target.value)}
+                                        className="w-25"
+                                    />
+                                </Form.Group>
+                                <Button
+                                    onClick={handleSubmit}
+                                    type="submit"
+                                    data-testid="control-button"
+                                    className="btn btn-primary"
+                                >
+                                    Continue
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    );
+}
+
+export default AddWebsite
