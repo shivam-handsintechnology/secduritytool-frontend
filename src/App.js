@@ -19,6 +19,7 @@ export default function App() {
       const token = JSON.parse(sessionStorage.getItem('token')).token
       const accessToken = token || ""
       axios.defaults.headers.common['Authorization'] = accessToken ? `Bearer ${accessToken}` : "Bearer "
+
     }
     axios.interceptors.response.use(response => {
       return response.data;

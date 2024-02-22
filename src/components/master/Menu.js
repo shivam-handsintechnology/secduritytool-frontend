@@ -131,8 +131,8 @@ export default function Menu() {
           <ul className="nav nav-pills nav-sidebar nav-legacy flex-column" data-widget="treeview" role="menu">
             <li className="nav-header">NAVIGATION</li>
             <li className="nav-item active">
-              <Link to="/" className="nav-link">
-                <i className="fas fa-home" />&nbsp; <p>Dashboard</p>
+              <Link to="/Websites" className="nav-link">
+                <i className="fas fa-home" />&nbsp; <p>Websites</p>
               </Link>
             </li>
             <li className="nav-item ">

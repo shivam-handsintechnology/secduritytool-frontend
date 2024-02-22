@@ -45,6 +45,7 @@ export const routes = [
     path: '/',
     exact: true,
     element: <Main />,
+
   },
   {
     path: '/hashgenerater',
@@ -237,7 +238,7 @@ export const routes = [
     element: <ApiTesting />,
   },
   {
-    path: 'AddSite',
+    path: 'Websites',
     exact: true,
     element: <AddWebsite />,
   },

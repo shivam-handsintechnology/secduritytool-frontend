@@ -4,7 +4,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UseCustomTable from '../../../utils/DataTable';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from '../../../redux/reducers/UserReducer';
+import { useNavigate } from 'react-router-dom';
 const AddWebsite = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [data, setData] = useState([]);
     const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
     const [isApiCall, setisAPiCall] = useState(null);
@@ -18,7 +23,10 @@ const AddWebsite = () => {
         setShowModal(true);
         // Additional logic after closing the modal
     };
-
+    const handleNaviagate = (rowData) => {
+        dispatch(setUserDetails(rowData))
+        navigate("/")
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (domain === '') {
@@ -70,12 +78,19 @@ const AddWebsite = () => {
             name: "Action",
             cell: (rowData) => (
                 <>
+
                     <Button
+                        variant="primary acasd"
+                        onClick={() => handleNaviagate(rowData)}
+                    >
+                        Select
+                    </Button>
+                    {/* <Button
                         variant="danger acasd"
                         onClick={() => deleteDomain(rowData)}
                     >
                         Delete
-                    </Button>
+                    </Button> */}
                 </>
             ),
             width: "28%",
