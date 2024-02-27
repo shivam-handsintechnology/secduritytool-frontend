@@ -12,6 +12,7 @@ export default function Systeminfo() {
   const [RobotFile, setRobotFile] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   console.log(Serverinfo);
+
   useEffect(() => {
     const GetSysteminfo = async () => {
       setIsLoading(true);
@@ -47,7 +48,7 @@ export default function Systeminfo() {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">
+                <h1 className="m-0 heading" >
                   <i className="fas fa-info-circle" /> System Information
                 </h1>
               </div>
@@ -71,15 +72,15 @@ export default function Systeminfo() {
         ) : (
           <div className="content">
             <div className="container-fluid">
-              <div className="row">
+              <div className="row m-1">
                 <div className="col-md-6">
-                  <div className="card card-primary card-outline">
-                    <div className="card-header">
+                  <div className="card card-primary ">
+                    <div className="card-header heading-block">
                       <h3 className="card-title">{window.location.host}</h3>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body p-0">
                       <div className="table-responsive">
-                        <table className="table table-bordered">
+                        <table className="table table-bordered  mb-0">
                           <thead className="thead-dark">
                             <tr>
                               <th>Site Stats &amp; Information</th>
@@ -171,8 +172,8 @@ export default function Systeminfo() {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <h3 className="mt-none">Host Information</h3>
+                <div className="col-md-5">
+                  <h3 className="mt-none heading">Host Information</h3>
                   <p>System information about the web host.</p>
                   <div className="row">
                     <div className="col-md-6">

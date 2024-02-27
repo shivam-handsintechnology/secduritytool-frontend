@@ -47,14 +47,14 @@ export default function UserLogin() {
       <div className="login-box">
 
         {/* /.login-logo */}
-        <div className="card">
+        <div className="card login-card">
           <div className="card-body login-card-body">
-            <p className="login-box-msg">Sign in to start your session</p>
+            <p className="login-box-msg">Sign in to Start Your Session</p>
 
-            <div className="input-group mb-3">
+            <div className="input-group mb-4">
               <input
                 type="email"
-                className="form-control"
+                className="form-control input-signin"
                 value={email}
                 onChange={(e) => { setemail(e.target.value) }}
               />
@@ -64,10 +64,10 @@ export default function UserLogin() {
                 </div>
               </div>
             </div>
-            <div className="input-group mb-3">
+            <div className="input-group mb-4">
               <input
                 type="password"
-                className="form-control"
+                className="form-control input-signin"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value) }}
               />
@@ -86,13 +86,13 @@ export default function UserLogin() {
               </div> */}
               {/* /.col */}
               <div className="col-6">
-                <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block">
+                <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block button-sign">
                   Sign In
                 </button>
               </div>
               <div className="col-6">
-                <button onClick={navigateToRegister} type="submit" className="btn btn-primary btn-block">
-                  register
+                <button onClick={navigateToRegister} type="submit" className="btn btn-primary btn-block button-sign">
+                  Register
                 </button>
               </div>
 

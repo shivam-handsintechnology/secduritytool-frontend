@@ -123,7 +123,7 @@ const AddWebsite = () => {
     }, [isApiCall, pageNumber])
     return (
         <div className="content-wrapper">
-            <button onClick={handleOpenModal}>Add Website</button>
+            <button onClick={handleOpenModal} className='botton-add-website '>Add Website</button>
             {table}
             {/* Modal */}
             <Modal show={showModal} onHide={handleCloseModal}>
@@ -131,10 +131,10 @@ const AddWebsite = () => {
                     <Modal.Title>Success</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Row>
-                        <Col>
+                    <Row >
+                        <Col className='top-hover-add'>
                             <header className="mt-4">
-                                <h1>Add your website or application to Security Tool</h1>
+                                <h4 className='title-add-website'>Add your website or application to Security Tool</h4>
                                 <p>
                                     Optimize and monitor security, performance, and reliability for your
                                     visitors.
@@ -146,25 +146,26 @@ const AddWebsite = () => {
                         <Col>
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group>
-                                    <h4>Enter your domain</h4>
+                                    <h4 className='title-add-website'>Enter your domain</h4>
                                     <p>
                                         This will be the name of the space where you apply Security Tool
                                         configurations and monitor impact on your website or application.
                                     </p>
-                                    <Form.Label>Enter domain name (example.com)</Form.Label>
+                                    <Form.Label>Enter domain name </Form.Label>
                                     <Form.Control
                                         name="zoneName"
                                         type="text"
                                         value={domain}
+                                        placeholder='example.com'
                                         onChange={(e) => setDomain(e.target.value)}
-                                        className="w-25"
+                                    // className="w-25"
                                     />
                                 </Form.Group>
                                 <Button
                                     onClick={handleSubmit}
                                     type="submit"
                                     data-testid="control-button"
-                                    className="btn btn-primary"
+                                    className="btn btn-primary mt-3 button-sign"
                                 >
                                     Continue
                                 </Button>
@@ -173,7 +174,7 @@ const AddWebsite = () => {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleCloseModal}>
+                    <Button variant="primary" className='button-sign' onClick={handleCloseModal}>
                         Close
                     </Button>
                 </Modal.Footer>
