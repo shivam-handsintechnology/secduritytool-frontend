@@ -205,16 +205,16 @@ export default function Content() {
           <div className="col-lg-12">
             <div className="row">
               {counts.length > 0 ? counts.map((item) => (
-                <div className="col-sm-3 col-lg-3">
+                <div className="col-sm-3 col-lg-3 col-md-3">
                   <div className="card card-primary card-outline">
                     <div className="card-body text-center">
-
-                      <p className="text-uppercase mar-btm text-lg">{item?.title} Injections {" "}
-                        {/* {sqlData === 0 ? <a className="small-box-footer" >No Logs </a> : <Link to={`/logs/${}`} className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>} */}
+                      <p className="text-uppercase mar-btm text-lg">{item?.title}</p>
+                      <p>
+                        {item?.count?.count === 0 ? <a className="small-box-footer" >No Logs </a> : <Link to={`/logs/${item?.count?._id}`} className="small-box-footer">View Logs  <i className="fas fa-arrow-circle-right" /></Link>}
                       </p>
                       <i className="fas fa-code fa-2x" />
                       <hr />
-                      {/* <p className="h3 text-thin">{sqlData}</p> */}
+                      <p className="h3 text-thin">{item?.count?.count}</p>
                     </div>
                   </div>
                 </div>

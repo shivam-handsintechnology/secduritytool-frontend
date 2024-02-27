@@ -7,17 +7,21 @@ import DataTable from "react-data-table-component";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
+import UseCustomTable from "../../../utils/DataTable";
 export default function FileWhitelist() {
   const [ipaddress, setipaddress] = useState("");
   const [data, setData] = useState([]);
   const [isError, setisError] = useState(false);
   const [isErrorMessage, setisErrorMessage] = useState("");
+  const [isApiCall, setisAPiCall] = useState(null)
+  const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
   async function AddIpaddres(e) {
     e.preventDefault();
     await axios
-      .post(`security/ip/blacklist/add`, { ip: ipaddress })
+      .post(`security/blacklist`, { ip: ipaddress })
       .then((response) => {
         toast.success(response.message);
+        setisAPiCall(response)
         return response;
       })
       .catch((error) => {
@@ -27,11 +31,12 @@ export default function FileWhitelist() {
   async function deleteSingleSqllLogs(body) {
     console.log(body.ip);
     await axios
-      .delete(`security/ip/blacklist?ip=${body.ip}`)
+      .delete(`security/blacklist?ip=${body.ip}`)
       .then((response) => {
         const { message, statusCode } = response;
         if (statusCode === 200) {
           toast.success(message);
+          setisAPiCall(response)
         }
       })
       .catch((error) => {
@@ -41,7 +46,7 @@ export default function FileWhitelist() {
   }
   const getAllSqllLogs = async () => {
     await axios
-      .get(`security/ip/blacklist/all`)
+      .get(`security/blacklist`)
       .then((response) => {
         const { data, message, statusCode } = response;
         if (statusCode === 404) {
@@ -60,7 +65,7 @@ export default function FileWhitelist() {
   // const history=useNavigate()
   useEffect(() => {
     getAllSqllLogs();
-  }, []);
+  }, [isApiCall]);
   const columns = [
     {
       name: "Ip",
@@ -70,8 +75,7 @@ export default function FileWhitelist() {
 
     {
       name: "Action",
-
-      selector: (row) => [
+      cell: (row) => [
         <Button
           variant="danger acasd"
           onClick={() => {
@@ -85,6 +89,7 @@ export default function FileWhitelist() {
       width: "28%",
     },
   ];
+  const { table, pageNumber, limit, setLimit } = UseCustomTable(columns, data, NoOfPagesFromApi)
   return (
     <div>
       {/* <Headers />
@@ -126,15 +131,8 @@ export default function FileWhitelist() {
                   <div className="card-body">
                     {isError ? (
                       isErrorMessage
-                    ) : (
-                      <DataTable
-                        title="Login History"
-                        columns={columns}
-                        data={data}
-                        pagination
-                        highlightOnHover
-                      />
-                    )}
+                    ) : table
+                    }
                   </div>
                 </div>
               </div>
