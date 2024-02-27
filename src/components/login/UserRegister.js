@@ -42,13 +42,13 @@ export default function UserRegister() {
     <body class="hold-transition login-page">
       <div className="login-box">
         {/* /.login-logo */}
-        <div className="card">
+        <div className="card login-card" >
           <div className="card-body login-card-body">
             <p className="login-box-msg">Register</p>
-            <div className="input-group mb-3">
+            <div className="input-group mb-4">
               <input
                 type="email"
-                className="form-control"
+                className="form-control input-signin"
                 value={email}
                 onChange={(e) => { setemail(e.target.value) }}
               />
@@ -58,10 +58,10 @@ export default function UserRegister() {
                 </div>
               </div>
             </div>
-            <div className="input-group mb-3">
+            <div className="input-group mb-4">
               <input
                 type="password"
-                className="form-control"
+                className="form-control input-signin"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value) }}
               />
@@ -80,7 +80,7 @@ export default function UserRegister() {
               </div> */}
 
               <div className="col-12">
-                <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block">
+                <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block button-sign">
                   Register
                 </button>
               </div>
