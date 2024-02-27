@@ -8,11 +8,11 @@ export default function App() {
 
   const [Loader, setLoader] = useState(true)
   useEffect(() => {
-    // const baseURL='https://sercuritytool.handsintechnology.in/api/'
+    const baseURL='https://securitytool.handsintechnology.in/api/'
     // const baseURL='https://securitytool.onrender.com/api/'
     // const baseURL='/api/'  
     // const baseURL='http://192.168.0.8:5000/api/'  
-    const baseURL = 'http://localhost:8080/api/'
+    // const baseURL = 'http://localhost:8080/api/'
     axios.defaults.baseURL = baseURL
     setLoader(false)
     if (sessionStorage.getItem('token')) {

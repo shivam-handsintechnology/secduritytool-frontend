@@ -67,12 +67,12 @@ const Sqlinjectionlogs = () => {
       name: "Action",
       cell: (rowData) => (
         <>
-          <Link to={`/Visitordetails/${rowData.ip}`} className="btn btn-primary">
+          <Link to={`/Visitordetails/${rowData.ip}`} className="btn btn-success mr-1">
             Details
           </Link>
 
           <Button
-            variant="danger acasd"
+            variant="danger acasd mr-1"
             onClick={() => deleteSingleSqllLogs({ ip: rowData.ip })}
           >
             Delete
@@ -80,7 +80,7 @@ const Sqlinjectionlogs = () => {
 
 
           <Button
-            variant="danger acasd"
+            variant="btn btn-primary acasd"
             onClick={() => {
               AddIpaddres({ ip: rowData.ip });
               getAllSqllLogs();
@@ -164,12 +164,12 @@ const Sqlinjectionlogs = () => {
               <div className="col-md-12">
                 <div className="card card-primary card-outline">
                   <div className="card-header">
-                    <h3 className="card-title">SQL Injection Logs</h3>
+                    <h3 className="card-title heading-title">SQL Injection Logs</h3>
                     <button
                       onClick={() => {
                         deleteAllSqllLogs();
                       }}
-                      className="btn btn-flat btn-danger btn-sm float-sm-right"
+                      className="btn btn-flat btn-danger btn-sm float-sm-right p-2" style={{ fontSize: "17px" }}
                       data-toggle="tooltip"
                       title=""
                       data-original-title="Delete all Spammer logs"
@@ -177,7 +177,7 @@ const Sqlinjectionlogs = () => {
                       <i className="fas fa-trash" /> Delete All
                     </button>
                   </div>
-                  <div className="card-body">
+                  <div className="card-body ">
                     {
                       table
                     }

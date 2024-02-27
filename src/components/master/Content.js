@@ -157,10 +157,10 @@ export default function Content() {
               <div className="row">
 
                 <div className="col-md-12 col-lg-12">
-                  <ul>
+                  <ul className="ul-styling">
                     {
                       Object.keys(sessionData).map((propertyname) => (
-                        <li><span className="text-capitalize">{propertyname + " "}</span>:{sessionData[propertyname]}</li>
+                        <li className="list-styling"><span className="text-capitalize">{propertyname + " "}</span>:{sessionData[propertyname]}</li>
                       ))
 
                     }
@@ -179,6 +179,7 @@ export default function Content() {
             <div className="card-header">
               <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules ( Injections)</h5>
             </div>
+
             <div className="card-body">
               <div className="row">
                 {
@@ -186,9 +187,12 @@ export default function Content() {
                     <div className="col-md-3">
                       <div className="card card-body bg-light">
                         <center>
+
                           <strong><i className="fas fa-code" /> {`${propertyname == "SqlDetectorMiddlware" ? "SQL Injection" : propertyname == "BotMiddleware" ? "Bad Boats" : propertyname == "VpnProtectMiddlware" ? "Proxy" : propertyname == "SpamMiddleware" ? "Spams" : propertyname == "xssInjectionDetectorMiddlware" ? "Cross-Site Scripting" : propertyname == "checkHTMLMiddlware" ? "Html Injection" : propertyname == "NosqlDetectorMiddlware" ? "Nosql Injection" : propertyname == "commandlineinjectionMiddlware" ? "Command Line Injections" : "propertyname"}`}</strong><br />Protection<hr />
-                          <input name={propertyname} style={{ marginTop: "15px", float: "right" }} className="form-check-input" type="checkbox" id="sqlCheckbox" checked={middlewareState[propertyname]} onChange={handleMiddlewareChange} />
-                          <h4><span className="badge badge-success"><i className="fas fa-check" /> ON</span></h4>
+                          <div class="box-4">
+                            <input type='checkbox' name={propertyname} id="sqlCheckbox" checked={middlewareState[propertyname]} onChange={handleMiddlewareChange} />
+                            <span class="toogle"></span>
+                          </div>
                         </center>
                       </div>
                     </div>
@@ -203,13 +207,13 @@ export default function Content() {
             </div>
           </div>
           <div className="col-lg-12">
-            <div className="row">
+            <div className="row justify-content-center mt-3">
               {counts.length > 0 ? counts.map((item) => (
                 <div className="col-sm-3 col-lg-3">
-                  <div className="card card-primary card-outline">
+                  <div className="card card-primary card-outline" style={{ height: "165px" }}>
                     <div className="card-body text-center">
 
-                      <p className="text-uppercase mar-btm text-lg">{item?.title} Injections {" "}
+                      <p className="text-uppercase mar-btm ">{item?.title} Injections {" "}
                         {/* {sqlData === 0 ? <a className="small-box-footer" >No Logs </a> : <Link to={`/logs/${}`} className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>} */}
                       </p>
                       <i className="fas fa-code fa-2x" />
@@ -222,8 +226,8 @@ export default function Content() {
             </div>
           </div>
           {/* ENd  injections modules */}
-          <div className="row">
-            <div className="col-md-6">
+          <div className="row justify-content-center mt-1">
+            <div className="col-md-5">
               <div className="info-box">
                 <span className="info-box-icon bg-dark"><i className="fas fa-globe" /></span>
                 <div className="info-box-content">
@@ -242,33 +246,37 @@ export default function Content() {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card card-primary card-outline">
-                <div className="card-header with-border">
-                  <h3 className="card-title">Recent Logs</h3>
-                  <a href="all-logs.php" className="btn btn-flat btn-primary btn-sm float-sm-right"><i className="fas fa-list" /> View All</a>
+          <div className="row mt-0">
+            <div className="col-md-6 justify-content-center  ">
+              <div className="row justify-content-center ">
+                <div className="col-md-7">
+                  <div className="card card-primary card-outline">
+                    <div className="card-header with-border">
+                      <h3 className="card-title">Recent Logs</h3>
+                      <a href="all-logs.php" className="btn btn-flat btn-primary btn-sm float-sm-right"><i className="fas fa-list" /> View All</a>
+                    </div>
+                    <div className="card-body">
+                      <div className="callout callout-info"><p>There are no recent <b>Logs</b></p></div>            			      </div>
+                  </div>
                 </div>
-                <div className="card-body">
-                  <div className="callout callout-info"><p>There are no recent <b>Logs</b></p></div>            			      </div>
+                <div className="col-md-7">
+                  <div className="card card-primary card-outline">
+                    <div className="card-header with-border">
+                      <h3 className="card-title">Recent IP Bans</h3>
+                      <a href="bans-ip.php" className="btn btn-flat btn-primary btn-sm float-sm-right"><i className="fas fa-list" /> View All</a>
+                    </div>
+                    <div className="card-body">
+                      <div className="callout callout-info"><p>There are no recent <b>IP Bans</b></p></div>            			      </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="card card-primary card-outline">
-                <div className="card-header with-border">
-                  <h3 className="card-title">Recent IP Bans</h3>
-                  <a href="bans-ip.php" className="btn btn-flat btn-primary btn-sm float-sm-right"><i className="fas fa-list" /> View All</a>
-                </div>
-                <div className="card-body">
-                  <div className="callout callout-info"><p>There are no recent <b>IP Bans</b></p></div>            			      </div>
-              </div>
-            </div>
-            <div className="col-md-4">
+            <div className="col-md-5">
               <div className="card card-primary card-outline">
                 <div className="card-header with-border">
                   <h3 className="card-title">Statistics</h3>
                 </div>
-                <div className="card-body">
+                <div className="card-body p-0">
                   <table className="table table-bordered table-hover">
                     <thead className="thead-dark">
                       <tr className="active">
