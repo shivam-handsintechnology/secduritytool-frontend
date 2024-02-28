@@ -29,14 +29,14 @@ const UseCustomTable = (columns, data, isNoOfPagesFromAPi) => {
         table: <>
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr className="text-table-format">
                         {columns.map((column) => (
                             <th key={column.name}>{column.name}</th>
                         ))}
                         {/* {handleRowAction && <th>Action</th>} */}
                     </tr>
                 </thead>
-                <tbody>{renderRows(isNoOfPagesFromAPi ? data : NewData)}</tbody>
+                <tbody className="text-table-format">{renderRows(isNoOfPagesFromAPi ? data : NewData)}</tbody>
             </table>
             {pageComponent()}
         </>,

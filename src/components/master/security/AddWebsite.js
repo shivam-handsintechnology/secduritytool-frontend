@@ -80,6 +80,7 @@ const AddWebsite = () => {
                 <>
 
                     <Button
+                        style={{ background: "   #184370" }}
                         variant="primary acasd"
                         onClick={() => handleNaviagate(rowData)}
                     >
@@ -122,7 +123,7 @@ const AddWebsite = () => {
         getAllDomains();
     }, [isApiCall, pageNumber])
     return (
-        <div className="content-wrapper">
+        <div className="content-wrapper" style={{ height: "100%", minHeight: "0" }}>
             <button onClick={handleOpenModal} className='botton-add-website '>Add Website</button>
             {table}
             {/* Modal */}
