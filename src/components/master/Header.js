@@ -1,18 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setUserDetails } from "../../redux/reducers/UserReducer";
+import axios from "axios";
 
 export default function Header() {
+  const [UserData, setUserdata] = useState({})
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const userreducerDetails = useSelector(state => state.UserReducer)
+  const GetProfileData = async () => {
+    await axios.get('auth/profile').then((response) => {
+      console.log(response)
+      // setUserdata(response.data)
+    }
+    ).catch((error) => {
+      console.log(error)
+    })
+  }
+  const handleLogout = () => {
+    sessionStorage.clear()
+    dispatch(setUserDetails({ isAuthenticated: false }))
+    navigate("/login")
+  }
+  useEffect(() => {
+    GetProfileData()
+  }, [userreducerDetails.isAuthenticated, userreducerDetails.domain])
+  console.log("userreducerDetails", UserData)
   return (
-    
-    <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+
+    <nav className="main-header navbar navbar-expand navbar-white navbar-light" >
       {/* Left navbar links */}
-      
-      <Link to="/apitest">ApiTesting</Link>
+
+      < Link to="/apitest" > ApiTesting</Link >
       <ul className="navbar-nav">
         <li className="nav-item">
           <a className="nav-link" data-widget="pushmenu" href="#" role="button">
             <i className="fas fa-bars" />
-          </a>  
+          </a>
         </li>
       </ul>
       {/* Right navbar links */}
@@ -30,21 +55,25 @@ export default function Header() {
               </div>
               <div className="info">
                 <a href="#" className="d-block" style={{ color: 'rgb(92 92 92)' }}>
-                  Vishal Kunwar <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  {userreducerDetails.isAuthenticated && UserData?.email} <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
               </div>
             </div>
           </a>
           <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <Link to="/Account" className="dropdown-item">
+            {/* <Link to="/Account" className="dropdown-item">
               <i className="fa fa-sign-out" aria-hidden="true" />Account
-            </Link>
-            <Link to="/Header.js" className="dropdown-item">
+            </Link> */}
+            {userreducerDetails.isAuthenticated ? <a href="#" className="dropdown-item" onClick={handleLogout}>
               <i className="fa fa-sign-out" aria-hidden="true" />Logout
-            </Link>
+            </a> : <Link to="/login" className="dropdown-item">
+              <i className="fa fa-sign-out" aria-hidden="true" />Login
+            </Link>}
+
+
           </div>
         </li>
       </ul>
-    </nav>
+    </nav >
   );
 }

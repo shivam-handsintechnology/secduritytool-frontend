@@ -6,8 +6,17 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-
-
+import axios from 'axios';
+const baseURL = 'http://localhost:20000/api/'
+axios.defaults.baseURL = baseURL
+axios.interceptors.response.use(response => {
+  return response.data;
+},
+  error => {
+    console.log(error.response)
+    return error.response.data;
+  }
+);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

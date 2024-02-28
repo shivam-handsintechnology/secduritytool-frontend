@@ -2,14 +2,18 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import UserRegister from "./UserRegister";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../redux/reducers/UserReducer";
+import { encryptData } from "../../helpers/commonFunctions";
 export default function UserLogin() {
 
   const [email, setemail] = useState('')
   const [password, setPassword] = useState('')
-  console.log(email, password)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const navigateToRegister = () => {
-    window.location.assign('/register')
+    navigate('/register')
   }
   const handleSubmit = async () => {
     // eslint-disable-next-line
@@ -25,19 +29,24 @@ export default function UserLogin() {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
+        console.log(response)
         const { data, message, statusCode } = response
-        console.log("data")
+
+        console.log("data", data)
         if (statusCode === 200) {
           toast.success(message)
-          sessionStorage.setItem('token', JSON.stringify(data));
-          window.location.replace('/')
+          let decryptedData = encryptData({ token: data.token })
+          sessionStorage.setItem('token', decryptedData)
+          dispatch(setUserDetails({ isAuthenticated: true }))
+          navigate('/')
         } else if (statusCode >= 400) {
           toast.error(message)
         }
       })
         .catch((error) => {
-          toast.error(error.response.data)
-          console.log(error.response.data)
+          console.log(error)
+          toast.error(error?.response?.data)
+          console.log(error?.response?.data)
         })
     }
 
