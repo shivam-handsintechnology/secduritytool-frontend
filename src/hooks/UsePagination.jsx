@@ -40,7 +40,7 @@ function UsePagination(data, isNoOfPagesFromAPi) {
 
 
     numberOfPages > 0 ? (<>
-      <Pagination >
+      <Pagination className="justify-content-center">
         <Pagination.Prev onClick={gotoPrevious} disabled={pageNumber === 1} />
         {getVisiblePages().map(page => (
           <Pagination.Item

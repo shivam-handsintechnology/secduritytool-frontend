@@ -104,11 +104,11 @@ const SSLInformation = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-sm-3 col-lg-3">
+                                <div className="col-sm-3 col-lg-3 pt-5">
                                     <div className="small-box bg-success">
                                         <div className="inner">
-                                            <h3 />
-                                            <p>{data ? data.expired : ""}</p>
+
+                                            <p className='mb-0'>{data ? data.expired : ""}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -210,13 +210,13 @@ export default function Content() {
             <div className="row justify-content-center mt-3">
               {counts.length > 0 ? counts.map((item) => (
                 <div className="col-sm-3 col-lg-3">
-                  <div className="card card-primary card-outline">
+                  <div className="card card-primary card-outline card-height">
                     <div className="card-body text-center">
 
-                      <p className="text-uppercase mar-btm text-lg">{item?.title} Injections {" "}
+                      <p className="text-uppercase  ">{item?.title} Injections {" "}
                         {/* {sqlData === 0 ? <a className="small-box-footer" >No Logs </a> : <Link to={`/logs/${}`} className="small-box-footer">View Logs <i className="fas fa-arrow-circle-right" /></Link>} */}
                       </p>
-                      <i className="fas fa-code fa-2x" />
+                      <i className="fas fa-code " />
                       <hr />
                       <p className="h3 text-thin">{item?.count?.count}</p>
                     </div>

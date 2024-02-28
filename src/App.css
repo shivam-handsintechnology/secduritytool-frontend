@@ -212,6 +212,7 @@ input.form-control.input-signin {
   cursor: pointer;
   opacity: 0;
   z-index: 999;
+  margin-left: -30px;
 }
 
 .box-4 .toogle {
@@ -258,4 +259,21 @@ li.list-styling {
 
 ul.ul-styling {
   margin-left: 2rem;
+}
+
+.card-height {
+  height: 190px;
+}
+
+.page-item.active .page-link {
+  background-color: #184370;
+  border-color: #184370;
+}
+
+.text-table-format {
+  text-align: center;
+}
+.text-table-format th{
+      font-weight: bold;
+        font-size: 20px;
 }
