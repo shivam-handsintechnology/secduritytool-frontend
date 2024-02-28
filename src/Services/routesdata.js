@@ -7,44 +7,47 @@ import { isAuthenticatedCallback } from './Authenticate';
 import { routes } from './routes';
 import Layout from '../components/Layout';
 import UserRegister from '../components/login/UserRegister';
+import { useSelector } from 'react-redux';
+import { decryptData } from '../helpers/commonFunctions';
 
 export const RoutesData = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const location = window.location.pathname
-  const isAuthenticatedCallbackMemoized = useCallback(async () => {
-    try {
-      const isAuthenticated = await isAuthenticatedCallback();
-      setIsAuthenticated(isAuthenticated);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
+  const userreducerDetails = useSelector(state => state.UserReducer)
+  const [Loader, setLoding] = useState(true)
   useEffect(() => {
-    isAuthenticatedCallbackMemoized();
-  }, [isAuthenticatedCallbackMemoized]);
+    setLoding(true)
+    const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
+    console.log("userreducerDetails", userreducerDetails)
+    if (userreducerDetails.isAuthenticated && encrypteddata.token) {
+      axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
 
-  if (isAuthenticated === null) {
-    // Loading state
-    return <div>Loading...</div>;
+    }
+
+    setLoding(false)
+  }, [userreducerDetails.isAuthenticated,])
+  useEffect(() => {
+    axios.defaults.headers.common['SelectedHost'] = userreducerDetails.domain ? userreducerDetails.domain : ""
   }
-
+    , [userreducerDetails.domain])
   return (
-    <Router>
-      {isAuthenticated ? (
-        <Layout>
-          <Routes>
-            {routes.map((route) => (
-              <Route key={route.path} path={route.path} element={route.element} />
-            ))}
-          </Routes>
-        </Layout>
-      ) : location === "/register" ? (
-        <UserRegister />
-      ) : (
-        <UserLogin />
-      )}
-    </Router>
+    <>{Loader ? <div >..Loading</div> :
+      <Router>
+        <Routes>
+          <Route path="/register" element={<UserRegister />} />
+          <Route path="/login" element={<UserLogin />} />
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={userreducerDetails.isAuthenticated ? <Layout>{route.element}</Layout>
+                : <Navigate to="/login" />}
+            />
+          ))}
+        </Routes>
+
+
+      </Router>
+    }</>
+
   );
 };
 
