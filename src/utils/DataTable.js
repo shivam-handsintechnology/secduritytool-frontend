@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import UsePagination from "../hooks/UsePagination";
 
-const UseCustomTable = (columns, data, isNoOfPagesFromAPi) => {
+const UseCustomTable = (columns, data, TotalNoOfPages) => {
     const { pageComponent,
         setNumberOfPages,
         pageNumber,
         Pages,
-        limit, setLimit, NewData } = UsePagination(data, isNoOfPagesFromAPi)
+        limit, setLimit, NewData } = UsePagination(data, TotalNoOfPages)
     const renderRows = (data) => {
         if (data && data.length > 0) {
             return data.map((rowData, index) => (
@@ -19,7 +19,7 @@ const UseCustomTable = (columns, data, isNoOfPagesFromAPi) => {
                 </tr>
             ));
         } else {
-            <>No Records Found</>
+            <></>
         }
 
 
@@ -29,14 +29,17 @@ const UseCustomTable = (columns, data, isNoOfPagesFromAPi) => {
         table: <>
             <table className="table">
                 <thead>
-                    <tr className="text-table-format">
+                    {/* <tr className="text-table-format"> */}
+                    {data && data.length > 0 ? (<tr >
                         {columns.map((column) => (
                             <th key={column.name}>{column.name}</th>
                         ))}
                         {/* {handleRowAction && <th>Action</th>} */}
-                    </tr>
+                    </tr>) : <tr><td colSpan={columns.length}>No Data Found</td></tr>}
+
                 </thead>
-                <tbody className="text-table-format">{renderRows(isNoOfPagesFromAPi ? data : NewData)}</tbody>
+                <tbody >{renderRows(TotalNoOfPages ? data : NewData)}</tbody>
+                {/* <tbody className="text-table-format">{renderRows(TotalNoOfPages ? data : NewData)}</tbody> */}
             </table>
             {pageComponent()}
         </>,

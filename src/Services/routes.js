@@ -1,44 +1,37 @@
-import Main from '../components/master/Main'
-import Form from "../components/master/Form";
-import Systeminfo from "../components/master/security/Systeminfo";
-import Loginsecurity from "../components/master/security/Loginsecurity";
-import Warwningpages from "../components/master/security/Warningpages";
-import Sqlinjection from "../components/master/security/Sqlinjection";
-import Ipwhitelist from "../components/master/security/Ipwhitelist";
-import Filewhitelist from "../components/master/security/Filewhitelist";
-import Portscanner from "../components/master/security/Portscanner";
-import Htaccesseditor from "../components/master/security/Htaccesseditor";
-import Errormonitoring from "../components/master/security/Errormonitoring";
-import Visitanalytics from "../components/master/security/Visitanalytics";
-import Livetraffic from "../components/master/security/Livetraffic";
-import Visitordetails from "../components/master/security/Visitordetails";
-import Phpconfigcheck from "../components/master/security/Phpconfigcheck";
-import Phpfunctionscheck from "../components/master/security/Phpfunctionscheck";
-import Badwords from "../components/master/security/Badwords";
-import Badbots from "../components/master/security/Badbots";
-import Proxy from "../components/master/security/Proxy";
-import Spam from "../components/master/security/Spam";
-import Alllogs from "../components/master/security/Alllogs";
-import Sqlinjectionlogs from "../components/master/security/Sqlinjectionlogs";
-import Badbotlogs from "../components/master/security/Badbotlogs";
-import Bansip from "../components/master/security/Bansip";
-import Banscountry from "../components/master/security/Banscountry";
-import Bansiprange from "../components/master/security/Bansiprange";
-import Otherbans from "../components/master/security/Otherbans";
-import axios from "axios";
-import Block from "../components/master/Block";
-import UserLogin from "../components/login/UserLogin";
-import Warningpages from '../components/master/security/Warningpages';
-import SSLInformation from '../components/master/security/SSLInformation';
-import Install from '../components/master/Install';
-import ErrorPageHandler from '../components/master/ErrorPageHandler';
-import ApiTesting from '../components/login/ApiTesting';
-import BadPoxylogs from '../components/master/security/BadbProxyogs';
-import SpamLogs from '../components/master/security/Spamlogs';
-import SessionInfo from '../components/master/security/SessionInfo';
-import SocketChecker from '../components/master/security/SocketChecker';
-import HashGenerator from '../components/master/security/HashGenrator';
-import AddWebsite from '../components/master/security/AddWebsite';
+import Main from '../pages/master/Main'
+import Systeminfo from "../pages/master/security/Systeminfo";
+import Loginsecurity from "../pages/master/security/Loginsecurity";
+import Ipwhitelist from "../pages/master/security/Ipwhitelist";
+import Filewhitelist from "../pages/master/security/Filewhitelist";
+import Portscanner from "../pages/master/security/Portscanner";
+import Htaccesseditor from "../pages/master/security/Htaccesseditor";
+import Errormonitoring from "../pages/master/security/Errormonitoring";
+import Visitanalytics from "../pages/master/security/Visitanalytics";
+import Livetraffic from "../pages/master/security/Livetraffic";
+import Visitordetails from "../pages/master/security/Visitordetails";
+import Badwords from "../pages/master/security/Badwords";
+import Badbots from "../pages/master/security/Badbots";
+import Proxy from "../pages/master/security/Proxy";
+import Spam from "../pages/master/security/Spam";
+import Alllogs from "../pages/master/security/Alllogs";
+import Sqlinjectionlogs from "../pages/master/security/Sqlinjectionlogs";
+import Badbotlogs from "../pages/master/security/Badbotlogs";
+import Bansip from "../pages/master/security/Bansip";
+import Banscountry from "../pages/master/security/Banscountry";
+import Bansiprange from "../pages/master/security/Bansiprange";
+import Otherbans from "../pages/master/security/Otherbans";
+import Block from "../pages/master/Block";
+import UserLogin from "../pages/login/UserLogin";
+import Warningpages from '../pages/master/security/Warningpages';
+import SSLInformation from '../pages/master/security/SSLInformation';
+import ErrorPageHandler from '../components/ErrorPageHandler';
+import ApiTesting from '../pages/login/ApiTesting';
+import BadPoxylogs from '../pages/master/security/BadbProxyogs';
+import SpamLogs from '../pages/master/security/Spamlogs';
+import SessionInfo from '../pages/master/security/SessionInfo';
+import SocketChecker from '../pages/master/security/SocketChecker';
+import HashGenerator from '../pages/master/security/HashGenrator';
+import AddWebsite from '../pages/master/security/AddWebsite';
 
 export const routes = [
   {
@@ -83,12 +76,6 @@ export const routes = [
     exact: true,
     element: <Block />,
     Layout: "AdminLayout"
-  },
-  {
-    path: '/Form',
-    exact: true,
-    Layout: "AdminLayout",
-    element: <Form />,
   },
   {
     path: '/Systeminfo',
@@ -162,18 +149,6 @@ export const routes = [
     exact: true,
     Layout: "AdminLayout",
     element: <Visitordetails />,
-  },
-  {
-    path: '/Phpconfigcheck',
-    exact: true,
-    Layout: "AdminLayout",
-    element: <Phpconfigcheck />,
-  },
-  {
-    path: '/Phpfunctionscheck',
-    exact: true,
-    Layout: "AdminLayout",
-    element: <Phpfunctionscheck />,
   },
   {
     path: '/Badwords',
@@ -252,12 +227,6 @@ export const routes = [
     exact: true,
     Layout: "AdminLayout",
     element: <Otherbans />,
-  },
-  {
-    path: '/Install',
-    exact: true,
-    Layout: "AdminLayout",
-    element: <Install />,
   },
   {
     path: '*',

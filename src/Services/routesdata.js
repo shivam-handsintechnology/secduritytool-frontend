@@ -1,35 +1,30 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
-import UserLogin from '../components/login/UserLogin';
-import { isAuthenticatedCallback } from './Authenticate';
+import UserLogin from '../pages/login/UserLogin';
 import { routes } from './routes';
-import Layout from '../components/Layout';
-import UserRegister from '../components/login/UserRegister';
+import UserRegister from '../pages/login/UserRegister';
 import { useSelector } from 'react-redux';
 import { decryptData } from '../helpers/commonFunctions';
+import AddWebsite from '../pages/master/security/AddWebsite';
+import Layout from '../components/Layout/Layout';
 
 export const RoutesData = () => {
-  const userreducerDetails = useSelector(state => state.UserReducer)
+  const userreducerDetails = useSelector((state) => state.UserReducer)
   const [Loader, setLoding] = useState(true)
   useEffect(() => {
     setLoding(true)
     const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
-    console.log("userreducerDetails", userreducerDetails)
     if (userreducerDetails.isAuthenticated && encrypteddata.token) {
       axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
+      axios.defaults.headers.common['SelectedHost'] = userreducerDetails.domain
 
     }
 
     setLoding(false)
-  }, [userreducerDetails.isAuthenticated,])
-  useEffect(() => {
-    axios.defaults.headers.common['SelectedHost'] = userreducerDetails.domain ? userreducerDetails.domain : ""
-  }
-    , [userreducerDetails.domain])
+  }, [userreducerDetails,])
   return (
-    <>{Loader ? <div >..Loading</div> :
+    <React.Fragment>{Loader ? <div >..Loading</div> :
       <Router>
         <Routes>
           <Route path="/register" element={<UserRegister />} />
@@ -38,7 +33,7 @@ export const RoutesData = () => {
             <Route
               key={route.path}
               path={route.path}
-              element={userreducerDetails.isAuthenticated ? <Layout>{route.element}</Layout>
+              element={userreducerDetails.isAuthenticated ? <Layout>{userreducerDetails.domain ? route.element : <AddWebsite />}</Layout>
                 : <Navigate to="/login" />}
             />
           ))}
@@ -46,7 +41,7 @@ export const RoutesData = () => {
 
 
       </Router>
-    }</>
+    }</React.Fragment>
 
   );
 };

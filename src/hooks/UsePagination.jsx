@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Pagination from 'react-bootstrap/Pagination';
 
-function UsePagination(data, isNoOfPagesFromAPi) {
+function UsePagination(data, TotalNoOfPages) {
   const [limit, setLimit] = useState(10);
   const [NewData, setNewData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -40,7 +40,8 @@ function UsePagination(data, isNoOfPagesFromAPi) {
 
 
     numberOfPages > 0 ? (<>
-      <Pagination className="justify-content-center">
+      {/* <Pagination className="justify-content-center"> */}
+      <Pagination>
         <Pagination.Prev onClick={gotoPrevious} disabled={pageNumber === 1} />
         {getVisiblePages().map(page => (
           <Pagination.Item
@@ -62,15 +63,14 @@ function UsePagination(data, isNoOfPagesFromAPi) {
     setPages(pageComponent())
   }, [numberOfPages])
   useEffect(() => {
-    if (data && !isNoOfPagesFromAPi) {
+    if (data && !TotalNoOfPages) {
       console.log("api nahi hai");
       setNumberOfPages(Math.ceil(data.length / limit));
-      setNewData(data.slice((pageNumber - 1) * limit, (pageNumber - 1) * limit + limit));
-    } else if (data && isNoOfPagesFromAPi) {
+    } else if (data && TotalNoOfPages) {
       console.log("api hai");
-      setNumberOfPages(Math.ceil(isNoOfPagesFromAPi));
+      setNumberOfPages(Math.ceil(TotalNoOfPages));
     }
-  }, [data, pageNumber, limit, isNoOfPagesFromAPi]);
+  }, [data, pageNumber, limit, TotalNoOfPages]);
 
 
   return {
