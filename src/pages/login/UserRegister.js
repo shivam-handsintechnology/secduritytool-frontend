@@ -25,8 +25,7 @@ export default function UserRegister() {
         const { data, message, statusCode } = response
         if (statusCode === 200) {
           toast.success(message)
-          sessionStorage.setItem('token', JSON.stringify(data));
-          window.location.replace('/')
+          navigate('/login')
         } else if (statusCode >= 400) {
           toast.error(message)
         }

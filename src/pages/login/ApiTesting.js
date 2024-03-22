@@ -6,18 +6,7 @@ export default function ApiTesting() {
   const [password, setPassword] = useState()
   const [nosqlData, setnosqlData] = useState("")
 
-  useEffect(() => {
-    (() => {
-      axios.get('test/robottxt')
-        .then((response) => {
-          const { message } = response
-          console.log({ message })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    })()
-  }, [])
+
   const handleSubmit = async () => {
 
     let JSONDATA = nosqlData !== '' ? JSON.parse(nosqlData) : ""

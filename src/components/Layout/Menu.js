@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Menu(props) {
   const userreducerDetails = useSelector((state) => state.UserReducer)
+  console.log("userreducerDetails", userreducerDetails)
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
@@ -28,7 +29,7 @@ export default function Menu(props) {
           </div>
           <div className="info">
             <a href="#" className="d-block">
-              {userreducerDetails.isAuthenticated && props?.UserData?.email}
+              {userreducerDetails.isAuthenticated && userreducerDetails?.email}
             </a>
           </div>
         </div>

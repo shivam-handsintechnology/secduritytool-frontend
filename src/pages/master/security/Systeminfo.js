@@ -12,30 +12,7 @@ export default function Systeminfo() {
   const [RobotFile, setRobotFile] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   console.log(Serverinfo);
-
-  useEffect(() => {
-    const GetSysteminfo = async () => {
-      setIsLoading(true);
-      // await axios.get(`security/system`).then((response) => {
-      //   setIsLoading(false);
-      //   const { data } = response;
-      //   setServerinfo(data.syteminfo);
-      // });
-      axios
-        .get("security/test/robottxt")
-        .then((response) => {
-          const { message } = response;
-          console.log({ message });
-          setRobotFile(message);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
-    };
-    GetSysteminfo();
-  }, []);
+  ;
 
   return (
     <div>

@@ -16,7 +16,7 @@ const SSLInfo = () => {
     const site = `https://${userData.domain}/`
     useEffect(() => {
         userData.domain && SSlInfo(userData.domain)
-        userData.domain && SecureHeaders(`https://${userData.domain}/`)
+        hostname && SecureHeaders(`https://${userData.domain}/`)
     }, [])
     const SSlInfo = async (url) => {
         setLoading(true)
