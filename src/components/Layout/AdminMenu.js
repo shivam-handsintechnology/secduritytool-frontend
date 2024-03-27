@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function AdminMenu(props) {
-  const userreducerDetails = useSelector((state) => state.UserReducer)
+  const userreducerDetails = useSelector((state) => state.UserReducer);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+
+  const toggleSubMenu = () => {
+    setIsSubMenuOpen(!isSubMenuOpen);
+  };
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
@@ -44,6 +50,37 @@ export default function AdminMenu(props) {
               <Link to="/Systeminfo" className="nav-link ">
                 <i className="fas fa-info-circle" />&nbsp; <p>System Information</p>
               </Link>
+            </li>
+            <li className={`nav-item ${isSubMenuOpen ? 'menu-open' : ''}`}>
+              <a href="#" className="nav-link" onClick={toggleSubMenu}>
+                <i className="fas fa-info-circle" />&nbsp; <p className="text-wrap">Insecure Direct Object References</p>
+                <i className="fas fa-angle-left right"></i>
+              </a>
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/Insecuredirect" className="nav-link">
+                  <i className="fa fa-circle nav-icon" />&nbsp; <span>View</span>
+                  </Link>
+                  {/* submenu */}
+                  {/* <ul className="sub-nav">
+                    <li className="nav-item">
+                      <Link to="/SubPage1" className="nav-link">
+                        Sub Page 1
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/SubPage2" className="nav-link">
+                        Sub Page 2
+                      </Link>
+                    </li>
+                  </ul> */}
+                </li>
+                <li className="nav-item">
+                  <Link to="/Insecuredirect" className="nav-link">
+                    <i className="fa fa-circle nav-icon" />&nbsp; <span>View</span>
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>
