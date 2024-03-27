@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import LoadingSpinner from '../../loader'
-import { GetSysteminfo } from '../../Services/AxiosRoutes'
+import LoadingSpinner from '../LoaderAndError/loader'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLogsData } from '../../redux/reducers/LogsDataReducer'
@@ -13,14 +12,14 @@ const SSLInfo = () => {
     const [Headers, setHeaders] = useState([])
     const [RawHeaders, setRawHeaders] = useState(null)
     // securityheaders
-    const site = `https://${userData.domain}/`
+
     useEffect(() => {
-        userData.domain && SSlInfo(userData.domain)
+        userData.domain && SSlInfo()
         userData.domain && SecureHeaders(`https://${userData.domain}/`)
     }, [])
-    const SSlInfo = async (url) => {
+    const SSlInfo = async () => {
         setLoading(true)
-        const res = await GetSysteminfo(url)
+        const res = await axios.get(`client/sslverify?hostname=${userData.domain}`)
             .then((res) => {
                 setLoading(false)
                 dispatch(setLogsData({ cookieSecureFlag: res.data?.cookieSecureFlag }))

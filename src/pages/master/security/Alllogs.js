@@ -1,61 +1,15 @@
 import React from "react";
-import Headers from "../../../components/Layout/Header";
-import Menu from "../../../components/Layout/Menu";
-import Footer from "../../../components/Layout/Footer";
-import DataTable from "react-data-table-component";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import axios from "axios";
-import { toast } from "react-toastify";
-
-import mockdata from "../../../MOCK_DATA.json"
-import UseCustomTable from "../../../utils/DataTable";
+import { usePostData, useDataFetch } from "../../../hooks/DataFetchHook";
+import { PaginationComponent } from "../../../hooks/PaginationComponent";
 const AllLogs = () => {
+  const [limit, setLimit] = useState(5)
+  const [pageNumber, setPageNumber] = useState(1)
+  const PostDomain = usePostData()
   const { type } = useParams()
-  const [data, setData] = useState([...mockdata]);
-  const [iparray, setIparray] = useState([]);
-  const [isApiCall, setisAPiCall] = useState(null)
-  const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
 
-  async function AddIpaddres(body) {
-    await axios
-      .post(`security/blacklist/`, body)
-      .then((response) => {
-        toast.success(response.message);
-        return response;
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  }
-  async function deleteAllSqllLogs() {
-    await axios
-      .post(`security/sqllogs/deleteall`, { ip: iparray })
-      .then((response) => {
-        setisAPiCall(response.data)
-        toast.success(response.message);
-        return response;
-      })
-      .catch((error) => {
-        return error;
-      });
-  }
-  function deleteSingleSqllLogs(body) {
-    axios
-      .post(`security/sqllogs/deletesingle`, body)
-      .then((response) => {
-        const { message, statusCode } = response;
-        if (statusCode === 200) {
-          setisAPiCall(response.data)
-          toast.success(message);
-        }
-      })
-      .catch((error) => {
-        const { message } = error;
-        toast.error(message);
-      });
-  }
   let columns = [
     { name: "Id", selector: "_id", sortable: true },
     { name: "Ip", selector: "ip", sortable: true },
@@ -73,7 +27,7 @@ const AllLogs = () => {
 
           <Button
             variant="danger acasd mr-1"
-            onClick={() => deleteSingleSqllLogs({ ip: rowData.ip })}
+            onClick={(e) => PostDomain.handleSubmit(e,`security/sqllogs/deletesingle`, { ip: rowData.ip })}
           >
             Delete
           </Button>
@@ -81,9 +35,8 @@ const AllLogs = () => {
 
           <Button
             variant="btn btn-primary acasd"
-            onClick={() => {
-              AddIpaddres({ ip: rowData.ip });
-              getAllSqllLogs();
+            onClick={(e) => {
+              PostDomain.handleSubmit(e,`security/blacklist/`, { ip: rowData.ip });
             }}
           >
             Add To Black List
@@ -93,38 +46,8 @@ const AllLogs = () => {
       ),
       width: "28%",
     },
-  ];
-  const { table, pageNumber, limit, setLimit } = UseCustomTable(columns, data, NoOfPagesFromApi)
-  const getAllSqllLogs = async () => {
-    await axios
-      .get(`security/sqllogs?limit=${limit}&&type=${type}&page=${pageNumber}`)
-      .then((response) => {
-        const { data } = response;
-        let ArrayOfdta = [];
-        setData(data.data);
-        setNumberOfPagesFromAPi(data.totalPages)
-        data.data.map((value) => {
-          setIparray(value.ip);
-
-        });
-
-
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const history = useNavigate();
-  useEffect(() => {
-    getAllSqllLogs();
-  }, [isApiCall, pageNumber, type]);
-
-
-
-
-  console.log("pageNumber>>>>>>>>>>>>", pageNumber)
-
+  ]
+  const getAlLLogs = useDataFetch(`security/sqllogs?limit=${limit}&&type=${type}&page=${pageNumber}`, [pageNumber, type, PostDomain.Data])
   return (
     <div>
       {/* <Headers />
@@ -178,12 +101,22 @@ const AllLogs = () => {
                     </button> */}
                   </div>
                   <div className="card-body ">
-                    {
-                      table
-                    }
-                    {/* <CustomTable
-                    
-                    /> */}
+                    {getAlLLogs.Data && getAlLLogs.Data.data.length > 0 ? (
+                      <div>
+                        {/* Render pagination component */}
+
+                        <PaginationComponent
+                          columns={columns}
+                          data={getAlLLogs.Data.data}
+                          pageNumber={pageNumber}
+                          setPageNumber={setPageNumber}
+                          totalPages={getAlLLogs.Data.totalPages}
+                          showData={true}
+                        />
+                      </div>
+                    ) : (
+                      <h1>No Data Found</h1>
+                    )}
                   </div>
                 </div>
               </div>

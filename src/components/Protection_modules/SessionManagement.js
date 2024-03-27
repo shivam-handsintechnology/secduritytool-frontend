@@ -1,11 +1,27 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
+import { setLogsData } from '../../redux/reducers/LogsDataReducer'
 
 const SessionManagement = () => {
     const data = useSelector((state) => state.LogDataReducer)
-    console.log({ data })
-
+    const UserData = useSelector((state) => state.UserReducer)
+    console.log("UserData>>>>>", UserData)
+    const dispatch = useDispatch()
+    const GetallLogsData = (async () => {
+        await axios.get(`security/test/session-data`).then((response) => {
+          const { data, statusCode } = response
+          if (statusCode === 200) {
+            console.log("data>>>>>>", data)
+            dispatch(setLogsData(data))
+          }
+        }
+        ).catch((error) => { console.log(error) })
+      })
+      // Assign Useffects 
+      useEffect(() => {
+        GetallLogsData()
+      }, [UserData.domain])
     return (
         <div className="card card-primary card-outline">
             <div className="card-header">

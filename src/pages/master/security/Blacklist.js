@@ -1,71 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Headers from "../../../components/Layout/Header";
-import Menu from "../../../components/Layout/Menu";
-import Footer from "../../../components/Layout/Footer";
-import DataTable from "react-data-table-component";
-// import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
-import UseCustomTable from "../../../utils/DataTable";
+import { usePostData,useDeleteData,useDataFetch } from "../../../hooks/DataFetchHook";
+import { PaginationComponent } from "../../../hooks/PaginationComponent";
 export default function Blacklist() {
+  const [limit, setLimit] = useState(5)
+  const [pageNumber, setPageNumber] = useState(1)
+  const PostBlackList = usePostData()
+  const DeleteBlackList = useDeleteData()
   const [ipaddress, setipaddress] = useState("");
-  const [data, setData] = useState([]);
-  const [isError, setisError] = useState(false);
-  const [isErrorMessage, setisErrorMessage] = useState("");
-  const [isApiCall, setisAPiCall] = useState(null)
-  const [NoOfPagesFromApi, setNumberOfPagesFromAPi] = useState(null);
-  async function AddIpaddres(e) {
-    e.preventDefault();
-    await axios
-      .post(`security/blacklist`, { ip: ipaddress })
-      .then((response) => {
-        toast.success(response.message);
-        setisAPiCall(response)
-        return response;
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  }
-  async function deleteSingleSqllLogs(body) {
-    console.log(body.ip);
-    await axios
-      .delete(`security/blacklist?ip=${body.ip}`)
-      .then((response) => {
-        const { message, statusCode } = response;
-        if (statusCode === 200) {
-          toast.success(message);
-          setisAPiCall(response)
-        }
-      })
-      .catch((error) => {
-        const { message } = error;
-        toast.error(message);
-      });
-  }
-  const getAllSqllLogs = async () => {
-    await axios
-      .get(`security/blacklist`)
-      .then((response) => {
-        const { data, message, statusCode } = response;
-        if (statusCode === 404) {
-          setisError(true);
-          setisErrorMessage(message);
-        }
-        let ArrayOfdta = [];
-        data.map((value) => ArrayOfdta.push({ ip: value.ip }));
-        setData(ArrayOfdta);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  // const history=useNavigate()
-  useEffect(() => {
-    getAllSqllLogs();
-  }, [isApiCall]);
+  const GetBlackList = useDataFetch(`security/blacklist?limit=${limit}&&page=${pageNumber}`, [pageNumber, PostBlackList.Data,DeleteBlackList.Data])
   const columns = [
     {
       name: "Ip",
@@ -78,10 +21,9 @@ export default function Blacklist() {
       cell: (row) => [
         <Button
           variant="danger acasd"
-          onClick={() => {
-            deleteSingleSqllLogs({ ip: row.ip });
-            // history("/")
-          }}
+          onClick={() => 
+            DeleteBlackList.handleSubmit(`security/blacklist?ip=${row.ip}`)
+          }
         >
           Delete
         </Button>,
@@ -89,7 +31,7 @@ export default function Blacklist() {
       width: "28%",
     },
   ];
-  const { table, pageNumber, limit, setLimit } = UseCustomTable(columns, data, NoOfPagesFromApi)
+  console.log("GetBlackList", GetBlackList)
   return (
     <div>
       {/* <Headers />
@@ -129,10 +71,22 @@ export default function Blacklist() {
                     <h3 className="card-title">IP Whitelist</h3>
                   </div>
                   <div className="card-body">
-                    {isError ? (
-                      isErrorMessage
-                    ) : table
-                    }
+                  {GetBlackList.Data && GetBlackList.Data.data.length > 0 ? (
+                      <div>
+                        {/* Render pagination component */}
+
+                        <PaginationComponent
+                          columns={columns}
+                          data={GetBlackList.Data.data}
+                          pageNumber={pageNumber}
+                          setPageNumber={setPageNumber}
+                          totalPages={GetBlackList.Data.totalPages}
+                          showData={true}
+                        />
+                      </div>
+                    ) : (
+                      <h1>No Data Found</h1>
+                    )}
                   </div>
                 </div>
               </div>
@@ -142,7 +96,7 @@ export default function Blacklist() {
                     <h3 className="card-title">Add IP Address</h3>
                   </div>
                   <div className="card-body">
-                    <form className="form-horizontal" onSubmit={AddIpaddres}>
+                    <form className="form-horizontal" onSubmit={(e)=>PostBlackList.handleSubmit(e,`security/blacklist`, { ip: ipaddress })}>
                       <div className="form-group">
                         <label className="control-label">IP Address: </label>
                         <input
@@ -158,7 +112,8 @@ export default function Blacklist() {
                         <button
                           className="btn btn-block btn-flat btn-primary"
                           name="add"
-                          type="submit"
+                          type="button"
+                          onClick={(e)=>PostBlackList.handleSubmit(e,`security/blacklist`, { ip: ipaddress })}
                         >
                           <i className="fas fa-plus-square" /> Add
                         </button>

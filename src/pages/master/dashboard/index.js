@@ -3,43 +3,41 @@ import React from "react";
 import { toast } from "react-toastify";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import SSLInfo from "../../components/Protection_modules/SSLInfo";
-import SessionManagement from "../../components/Protection_modules/SessionManagement";
-import InjectionVulnurabilities from "../../components/Protection_modules/InjectionVulnurabilities";
-import DirectObjectReferenceProtection from "../../components/Protection_modules/DirectObjectReferenceProtection";
+import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { setLogsData } from "../../redux/reducers/LogsDataReducer";
-import SecurityMisconfiguration from "../../components/Protection_modules/SecurityMisconfiguration";
-import SensitiveDataExposure from "../../components/Protection_modules/SensitiveDataExposure";
-import BusinessLogicFlow from "../../components/Protection_modules/BusinessLogicFlow";
-import ErrorMessages from "../../components/Protection_modules/ErrorMessages";
-export default function Content() {
+import SSLInfo from "../../../components/Protection_modules/SSLInfo";
+import SessionManagement from "../../../components/Protection_modules/SessionManagement";
+import InjectionVulnurabilities from "../../../components/Protection_modules/InjectionVulnurabilities";
+import DirectObjectReferenceProtection from "../../../components/Protection_modules/DirectObjectReferenceProtection";
+import SecurityMisconfiguration from "../../../components/Protection_modules/SecurityMisconfiguration";
+import SensitiveDataExposure from "../../../components/Protection_modules/SensitiveDataExposure";
+import BusinessLogicFlow from "../../../components/Protection_modules/BusinessLogicFlow";
+import ErrorMessages from "../../../components/Protection_modules/ErrorMessages";
+import { useDataFetch } from "../../../hooks/DataFetchHook";
+import { PaginationComponent } from "../../../hooks/PaginationComponent";
+import { setUserDetails } from "../../../redux/reducers/UserReducer";
 
+export default function Dashboard() {
+   
+  // Assishn All States
+  const [limit, setLimit] = useState(1)
+  const [pageNumber, setPageNumber] = useState(1)
+  // Assign All Funtions
   const dispatch = useDispatch()
-  const [installation, setinstallation] = useState(null)
-  const ScannerHandler = async () => {
-    axios.get('/client/logsdata?sid=localhost')
-      .then((session) => {
-        setinstallation(session)
+  const getAllDomains = useDataFetch(`security/domain?limit=${limit}&page=${pageNumber}`, [pageNumber])
 
-      }).catch((e) => {
-        console.log(e)
-      })
-  }
+ // Add Columns/Rows
+  const columns = [
+    {
+      name: "Domain",
+      selector: "domain",
 
-  const GetallLogsData = (async () => {
-    await axios.get(`security/test/session-data`).then((response) => {
-      const { data, statusCode } = response
-      if (statusCode === 200) {
-        console.log("data>>>>>>", data)
-        dispatch(setLogsData(data))
-      }
+    },
+    {
+      name: "Action",
+      cell: (row) => <Button onClick={() => dispatch(setUserDetails(row))} variant="primary">Select Domain</Button>,
     }
-    ).catch((error) => { console.log(error) })
-  })
-  useEffect(() => {
-    GetallLogsData()
-  }, [])
+  ];
   return (
     <React.Fragment>
       <div>
@@ -67,6 +65,24 @@ export default function Content() {
           {/* /.container-fluid */}
         </div>
         <div className="content">
+          {/* Select  Domains */}
+          {/* Check if data is available */}
+          {getAllDomains && getAllDomains.Data && getAllDomains.Data.data.length > 0 ? (
+            <div>
+              {/* Render pagination component */}
+              <PaginationComponent
+                columns={columns}
+                data={getAllDomains.Data.data}
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+                totalPages={getAllDomains.Data.totalPages}
+                showData={true}
+              />
+            </div>
+          ) : (
+            <h1>No Data Found</h1>
+          )}
+          {/* End Domains */}
           {/* Session modules */}
           <SessionManagement />
           {/* ENd  Session modules */}
