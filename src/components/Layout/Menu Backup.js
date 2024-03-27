@@ -1,35 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Menu(props) {
   const userreducerDetails = useSelector((state) => state.UserReducer)
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState([
-    {name:"whiteList",isOpen:false},
-    {name:"logs",isOpen:false},
-    {name:"bans",isOpen:false}
-
-  ]);
-
-  const toggleSubMenu = (name) => {
-    let temp = [...isSubMenuOpen];
-    temp.map((item)=>{
-      if(item.name === name){
-        item.isOpen = !item.isOpen;
-      }
-    })
-    setIsSubMenuOpen(temp);
-    
-  };
-  const isOpen = (name) => {
-   let isOpen = false;
-   isSubMenuOpen.find((item)=>{
-      if(item.name === name){
-        isOpen = item.isOpen;
-      }
-    })
-    return isOpen;
-  };
   console.log("userreducerDetails", userreducerDetails)
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -63,34 +37,43 @@ export default function Menu(props) {
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar nav-legacy flex-column" data-widget="treeview" role="menu">
             <li className="nav-header">NAVIGATION</li>
-            <li className="nav-item ">
-              <Link to="/dashboard" className="nav-link ">
-                <i className="fas fa-info-circle" />&nbsp; <p>Dashboard</p>
-              </Link>
-            </li>
             <li className="nav-item active">
               <Link to="/Websites" className="nav-link">
                 <i className="fas fa-home" />&nbsp; <p>Websites</p>
               </Link>
             </li>
-          
+            <li className="nav-item ">
+              <Link to="/Systeminfo" className="nav-link ">
+                <i className="fas fa-info-circle" />&nbsp; <p>System Information</p>
+              </Link>
+            </li>
             <li className="nav-item ">
               <Link to="/SSLInformation" className="nav-link ">
                 <i className="fas fa-user-secret" />&nbsp; <p>SSL Information</p>
               </Link>
             </li>
-            <li  className={`nav-item ${isOpen("whiteList") ? 'menu-open' : ''}`}>
-              <a href="#" className="nav-link" onClick={()=>toggleSubMenu("whiteList")}>
+            <li className="nav-item has-treeview ">
+              <Link to={"/Ipwhitelist"} className="nav-link ">
                 <i className="fas fa-flag" />&nbsp; <p>Whitelist <i className="fas fa-angle-right right" />
-                </p></a>
+                </p></Link>
               <ul className="nav nav-treeview">
                 <li className="nav-item "><Link to="/Ipwhitelist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Whitelist</p></Link></li>
-                <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>File Whitelist</p></Link></li>
+                <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>Ip BlackList</p></Link></li>
               </ul>
             </li>
+            {/* <li className="nav-item ">
+              <Link to="/Warningpages" className="nav-link ">
+                <i className="fas fa-file-alt" />&nbsp; <p>Warning Pages</p>
+              </Link>
+            </li> */}
+            {/* <li className="nav-item ">
+              <Link to="/Loginsecurity" className="nav-link ">
+                <i className="fas fa-history" />&nbsp; <p>Login History</p>
+              </Link>
+            </li> */}
             <li className="nav-header">SECURITY</li>
-            <li  className={`nav-item ${isOpen("logs") ? 'menu-open' : ''}`}>
-              <a href="#" className="nav-link " onClick={()=>toggleSubMenu("logs")}>
+            <li className="nav-item has-treeview ">
+              <a href="#" className="nav-link ">
                 <i className="fas fa-align-justify" />&nbsp; <p>Logs <i className="fas fa-angle-right right" />
                 </p></a>
               <ul className="nav nav-treeview">
@@ -100,16 +83,15 @@ export default function Menu(props) {
                 <li className="nav-item "><Link to="/logs/Spam" className="nav-link "><i className="fas fa-keyboard" />&nbsp; <p>Spam Logs <span className="badge right badge-warning">0</span></p></Link></li>
               </ul>
             </li>
-            <li  className={`nav-item ${isOpen("bans") ? 'menu-open' : ''}`}>
-              <a  className="nav-link " onClick={()=>toggleSubMenu("bans")}>
+            <li className="nav-item has-treeview ">
+              <Link to={"/Blacklist"} className="nav-link ">
                 <i className="fas fa-ban" />&nbsp; <p>Bans <i className="fas fa-angle-right right" />
-                </p></a>
+                </p></Link>
               <ul className="nav nav-treeview">
-                <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-                {/* <li className="nav-item "><Link to="/Banscountry" className="nav-link "><i className="fas fa-globe" />&nbsp; <p>Country Bans <span className="badge right badge-secondary">0</span></p></Link></li>
+                <li className="nav-item "><Link to="/Bansip" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Bans <span className="badge right badge-secondary">0</span></p></Link></li>
+                <li className="nav-item "><Link to="/Banscountry" className="nav-link "><i className="fas fa-globe" />&nbsp; <p>Country Bans <span className="badge right badge-secondary">0</span></p></Link></li>
                 <li className="nav-item "><Link to="/Bansiprange" className="nav-link "><i className="fas fa-grip-horizontal" />&nbsp; <p>IP Range Bans <span className="badge right badge-secondary">0</span></p></Link></li>
                 <li className="nav-item "><Link to="/Otherbans" className="nav-link "><i className="fas fa-desktop" />&nbsp; <p>Other Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-            */}
               </ul>
             </li>
 
@@ -124,6 +106,8 @@ export default function Menu(props) {
                 <i className="fas fa-exclamation-circle" />&nbsp; <p>Validation Monitoring</p>
               </Link>
             </li>
+
+
             <li className="nav-item ">
               <Link to="/Portscanner" className="nav-link ">
                 <i className="fas fa-search" />&nbsp; <p>Port Scanner</p>

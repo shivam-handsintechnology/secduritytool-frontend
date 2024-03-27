@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
 import UseCustomTable from "../../../utils/DataTable";
-export default function FileWhitelist() {
+export default function Blacklist() {
   const [ipaddress, setipaddress] = useState("");
   const [data, setData] = useState([]);
   const [isError, setisError] = useState(false);
