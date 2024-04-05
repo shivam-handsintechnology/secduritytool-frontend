@@ -13,32 +13,11 @@ import SecurityMisconfiguration from "../../../components/Protection_modules/Sec
 import SensitiveDataExposure from "../../../components/Protection_modules/SensitiveDataExposure";
 import BusinessLogicFlow from "../../../components/Protection_modules/BusinessLogicFlow";
 import ErrorMessages from "../../../components/Protection_modules/ErrorMessages";
-import { useDataFetch } from "../../../hooks/DataFetchHook";
-import { PaginationComponent } from "../../../hooks/PaginationComponent";
-import { setUserDetails } from "../../../redux/reducers/UserReducer";
+
 
 export default function Dashboard() {
    
-  // Assishn All States
-  const [limit, setLimit] = useState(1)
-  const [pageNumber, setPageNumber] = useState(1)
-  // Assign All Funtions
-  const dispatch = useDispatch()
-  const getAllDomains = useDataFetch(`security/domain?limit=${limit}&page=${pageNumber}`, [pageNumber])
-  console.log("getAllDomains",getAllDomains)
- // Add Columns/Rows
-  const columns = [
-    {
-      name: "Domain",
-      selector: "domain",
-
-    },
-    {
-      name: "Action",
-      cell: (row) => <Button onClick={() => dispatch(setUserDetails({domain:row.domain,type:row.type}))} variant="primary">Select Domain</Button>,
-    }
-  ];
-  console.log("getAllDomains",getAllDomains)
+  
   return (
     <React.Fragment>
       <div>
@@ -68,21 +47,7 @@ export default function Dashboard() {
         <div className="content">
           {/* Select  Domains */}
           {/* Check if data is available */}
-          {getAllDomains.data && getAllDomains.data.data.length > 0 ? (
-            <div>
-              {/* Render pagination component */}
-              <PaginationComponent
-                columns={columns}
-                data={getAllDomains.data.data}
-                pageNumber={pageNumber}
-                setPageNumber={setPageNumber}
-                totalPages={getAllDomains.data.totalPages}
-                showData={true}
-              />
-            </div>
-          ) : (
-            <h1>No Data Found</h1>
-          )}
+       
           {/* End Domains */}
           {/* Session modules */}
           <SessionManagement />
