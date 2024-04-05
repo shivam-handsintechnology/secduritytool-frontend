@@ -1,134 +1,163 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-const useDataFetch = (url,dependencies) => {
-    const [Data, setData] = useState(null);
+
+
+const useDataFetch = (url, dependencies, validation, showErrorToast) => {
+    const [data, setData] = useState(null);
     const [errors, setErrors] = useState({ loading: false, error: false, message: '' });
+
     useEffect(() => {
         const fetchData = async () => {
+            console.log("url", url)
             try {
-                setErrors({ loading: true, error: false });
-                const response = await axios.get(url).then((response) => {
-                    const { data, statusCode,message } = response;
-                    if (statusCode === 200) {
+                setErrors((prev) => ({ ...prev, loading: true }))
+                const response = await axios.get(url);
+                setErrors((prev) => ({ ...prev, loading: false }))
+                const { data, statusCode, message } = response;
+                switch (statusCode) {
+                    case 200:
                         setData(data);
-                    }else{
-                        setErrors({
-                            loading: false,
-                            error: true,
-                            message: message,
-                        });
-                    }
-                });
-            
+                        break;
+                    default:
+                        setErrors((prev) => ({ ...prev, loading: false, error: true, message: message }))
+                        if (showErrorToast) {
+                            toast.error(message);
+                        }
+                        break;
+                }
             } catch (error) {
                 console.error(error);
-                setErrors({
-                    loading: false,
+                setErrors((prev) => ({
+                    ...prev, loading: false,
                     error: true,
-                    message: error.data ? error.data.message : 'An error occurred',
-                });
+                    message: error.message ? error.message : 'An error occurred'
+                }))
+                if (showErrorToast) {
+                    toast.error(error.message ? error.message : 'An error occurred')
+                }
                 setData(null);
             }
         };
 
-        fetchData();
-        // You might want to add dependencies to the useEffect if needed
-    }, [...dependencies]);
+        if (validation) {
+            const { CallBack, data } = validation;
+            if (typeof CallBack === 'function') {
+                console.log("CallBack", CallBack)
+                const validationError = CallBack(data);
+                console.log("validationError", validationError)
+                if (validationError) {
+                    setErrors((prev) => ({ ...prev, loading: false, error: true, message: validationError }))
+                    if (showErrorToast) {
+                        toast.error(validationError);
+                    }
+                } else {
+                    fetchData();
+                }
+            }
+        } else {
+            fetchData();
+        }
+    }, dependencies);
 
-    return { Data, errors };
+    return { data, errors };
 };
+
+
+export default useDataFetch;
+
 const usePostData = () => {
     const [Data, setData] = useState(null);
     const [errors, setErrors] = useState({ loading: false, error: false, message: '' });
-        const handleSubmit = async (e,url, data) => {
-          
-            try {
-                setErrors({ loading: true, error: false });
-                  await axios.post(url, data).then((response) => {
-                    const { data, statusCode ,message} = response;
-                    if (statusCode === 200) {
-                        setData(data);
-                        toast.success(message)
-                     
-                    }else{
-                        setErrors({
-                            loading: false,
-                            error: true,
-                            message: message,
-                        });
-                        toast.error(message)
-                        
-                    }
-                    
-                });
-            
-            } catch (error) {
-                console.error(error);
-                setErrors({
-                    loading: false,
-                    error: true,
-                    message: error.data ? error.data.message : 'An error occurred',
-                });
-                setData(null);
-               toast.error(error.data ? error.data.message : 'An error occurred')
-            }
-        
-        
-        };
-        // You might want to add dependencies to the useEffect if needed
+    const handleSubmit = async (e, url, data) => {
+        try {
+            setErrors({ loading: true, error: false });
+            await axios.post(url, data).then((response) => {
+                const { data, statusCode, message } = response;
+                if (statusCode === 200) {
+                    setData(data);
+                    toast.success(message)
+
+                } else {
+                    setErrors({
+                        loading: false,
+                        error: true,
+                        message: message,
+                    });
+                    toast.error(message)
+
+                }
+
+            });
+
+        } catch (error) {
+            console.error(error);
+            setErrors({
+                loading: false,
+                error: true,
+                message: error.data ? error.data.message : 'An error occurred',
+            });
+            setData(null);
+            toast.error(error.data ? error.data.message : 'An error occurred')
+        }
 
 
-    return { Data, errors,handleSubmit };
+    }
+ 
+
+    // You might want to add dependencies to the useEffect if needed
+
+
+    return { Data, errors, handleSubmit };
 };
 const usePutData = () => {
     const [Data, setData] = useState(null);
     const [errors, setErrors] = useState({ loading: false, error: false, message: '' });
-        const handleSubmit = async (e,url, data) => {
-            try {
-                setErrors({ loading: true, error: false });
-                const response = await axios.put(url, data).then((response) => {
-                    const { data, statusCode } = response;
-                    if (statusCode === 200) {
-                        setData(data);
-                    }
-                });
-            
-            } catch (error) {
-                console.error(error);
-                setErrors({
-                    loading: false,
-                    error: true,
-                    message: error.data ? error.data.message : 'An error occurred',
-                });
-                setData(null);
-            }
-        };
-        return { Data, errors,handleSubmit };
-    }
+    const handleSubmit = async (e, url, data) => {
+        try {
+            setErrors({ loading: true, error: false });
+            const response = await axios.put(url, data).then((response) => {
+                const { data, statusCode } = response;
+                if (statusCode === 200) {
+                    setData(data);
+                }
+            });
+
+        } catch (error) {
+            console.error(error);
+            setErrors({
+                loading: false,
+                error: true,
+                message: error.data ? error.data.message : 'An error occurred',
+            });
+            setData(null);
+        }
+    };
+    return { Data, errors, handleSubmit };
+}
 const useDeleteData = () => {
     const [Data, setData] = useState(null);
     const [errors, setErrors] = useState({ loading: false, error: false, message: '' });
-        const handleSubmit = async (url) => {
-            try {
-                setErrors({ loading: true, error: false });
-                const response = await axios.delete(url).then((response) => {
-                    const { data, statusCode } = response;
-                    if (statusCode === 200) {
-                        setData(data);
-                    }
-                });
-            
-            } catch (error) {
-                console.error(error);
-                setErrors({
-                    loading: false,
-                    error: true,
-                    message: error.data ? error.data.message : 'An error occurred',
-                });
-                setData(null);
-            }
-        };
-        return { Data, errors,handleSubmit };
-    }
-export  {useDataFetch,usePostData,usePutData,useDeleteData};
+    const handleSubmit = async (url) => {
+        try {
+            setErrors({ loading: true, error: false });
+            const response = await axios.delete(url).then((response) => {
+                const { data, statusCode } = response;
+                if (statusCode === 200) {
+                    setData(data);
+                }
+            });
+
+        } catch (error) {
+            console.error(error);
+            setErrors({
+                loading: false,
+                error: true,
+                message: error.data ? error.data.message : 'An error occurred',
+            });
+            setData(null);
+        }
+    };
+    return { Data, errors, handleSubmit };
+}
+export { useDataFetch, usePostData, usePutData, useDeleteData };

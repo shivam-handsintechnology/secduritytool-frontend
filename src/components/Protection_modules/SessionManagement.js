@@ -2,26 +2,17 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { setLogsData } from '../../redux/reducers/LogsDataReducer'
+import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
+import { Validators } from '../../utils/Validators/Validator'
 
 const SessionManagement = () => {
     const data = useSelector((state) => state.LogDataReducer)
     const UserData = useSelector((state) => state.UserReducer)
-    console.log("UserData>>>>>", UserData)
-    const dispatch = useDispatch()
-    const GetallLogsData = (async () => {
-        await axios.get(`security/test/session-data`).then((response) => {
-          const { data, statusCode } = response
-          if (statusCode === 200) {
-            console.log("data>>>>>>", data)
-            dispatch(setLogsData(data))
-          }
-        }
-        ).catch((error) => { console.log(error) })
-      })
-      // Assign Useffects 
-      useEffect(() => {
-        GetallLogsData()
-      }, [UserData.domain])
+    let validation = null
+    const showErrorToast=true
+    const postSessionData=useDataFetch(`security/test/session-data?hostname=${UserData.domain}&type=nodejs`,[UserData.domain],validation,showErrorToast)
+    console.log("postSessionData", postSessionData)
+   
     return (
         <div className="card card-primary card-outline">
             <div className="card-header">
@@ -33,8 +24,8 @@ const SessionManagement = () => {
                     <div className="col-md-12 col-lg-12">
                         <ul className="ul-styling">
                             {
-                                data.sessionvulnerability && Object.keys(data.sessionvulnerability).slice(0, 6).map((propertyname) => (
-                                    <li className="list-styling"><span className="text-capitalize">{propertyname + " "}</span>:{data.sessionvulnerability[propertyname]}</li>
+                                postSessionData.data && Object.keys(postSessionData.data).slice(0, 6).map((propertyname) => (
+                                    <li className="list-styling"><span className="text-capitalize">{propertyname + " "}</span>:{postSessionData.data[propertyname]}</li>
                                 ))
 
                             }

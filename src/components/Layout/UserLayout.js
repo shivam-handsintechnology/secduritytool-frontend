@@ -8,9 +8,9 @@ import Footer from './Footer';
 const UserLayout = ({ children }) => {
     const statedata = useSelector((state) => state.UserReducer)
     const navigate = useNavigate()
-    useEffect(() => {
-        statedata.domain == "" && navigate("/Websites")
-    }, [statedata])
+    // useEffect(() => {
+    //     statedata.domain == "" && navigate("/Websites")
+    // }, [statedata])
     return (
         <React.Fragment>
             <Headers />

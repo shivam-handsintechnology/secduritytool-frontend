@@ -38,14 +38,19 @@ import SSLInformation from './pages/master/security/SSLInformation';
 import ErrorPageHandler from './pages/ErrorPageHandler';
 // import SessionInfo from './pages/master/security/SessionInfo';
 import AllWebsites from './pages/master/security/AllWebsite';
-import AllLogs from './pages/master/security/AllLogs';
-import Dashboard from "./pages/master/dashboard";
+import AllLogs from './pages/master/security/Alllogs';
+import Dashboard from './pages/master/security/Dashboard';
 
 export const ProtectedRoutes = [
-
-
   {
     path: '/dashboard',
+    exact: true,
+    element: <Dashboard />,
+    Layout: "AdminLayout"
+
+  },
+  {
+    path: '/',
     exact: true,
     element: <Dashboard />,
     Layout: "AdminLayout"

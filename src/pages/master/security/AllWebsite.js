@@ -64,10 +64,10 @@ const AllWebsites = () => {
         toast.success('Domain Added Successfully')
     }
    },[PostDomain.Data])
-   console.log("PostDomain.Dat",PostDomain)
+   console.log("PostDomain",PostDomain)
     return (
         <div className="content-wrapper" style={{ height: "100%", minHeight: "0" }}>
-            <button onClick={handleOpenModal} className='botton-add-website '>Add Website</button>
+            {/* <button onClick={handleOpenModal} className='botton-add-website '>Add Website</button> */}
             {getAllDomains && getAllDomains.Data && getAllDomains.Data.data.length > 0 ? (
             <div>
               {/* Render pagination component */}
@@ -85,7 +85,7 @@ const AllWebsites = () => {
             <h1>No Data Found</h1>
           )}
             {/* Modal */}
-            <Modal show={showModal} onHide={()=> setShowModal(false)}>
+            {/* <Modal show={showModal} onHide={()=> setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Success</Modal.Title>
                 </Modal.Header>
@@ -117,13 +117,12 @@ const AllWebsites = () => {
                                         value={initialdata.domain}
                                         placeholder='example.com'
                                         onChange={handleChange}
-                                    // className="w-25"
+                               
                                     />
                                     <Form.Select aria-label="Select Type Of Application" name='type'  onChange={handleChange} className='form-cotrol'>
                                         <option hidden>Select Type Of Application </option>
                                         <option value="nodejs">Server Side(Nodejs)</option>
                                         <option value="web">Client Side(Web Application)</option>
-                                        {/* <option value="mobil">Mobile Application</option> */}
 
                                     </Form.Select>
 
@@ -156,7 +155,8 @@ const AllWebsites = () => {
                         Close
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
+            {/* End Modal */}
         </div>
     );
 }

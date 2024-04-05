@@ -10,16 +10,21 @@ const DirectObjectReferenceProtection = () => {
     console.log("Logreducer", Logreducer)
     const [isloading, setisloading] = useState(true)
     const [obj, setObj] = useState({
-        DirectryListing: null,
-        robottxt: null,
-        httpparameterpollution: null
+        DirectryListing: [],
+        robottxt: {
+            succces: false,data:""
+        },
+        httpparameterpollution: {
+                succces: false,data:""
+        }
     })
 
     const GetallDirectryferenceData = async () => {
         // await axios.get(`client/directory_listing_is_enabled_on_the_server?url=https://${userData.domain}/`).then((response) => {
-        await axios.get(`client/directory_listing_is_enabled_on_the_server?url=https://${userData.domain}/`).then((response) => {
+        await axios.get(`http://${userData.domain}/DirectoryListingEnable`).then((response) => {
+            console.log("DirectoryListingEnable",response)
             const { data, statusCode } = response
-            console.log("fsa", data)
+            console.log("DirectoryListingEnable", data)
             if (statusCode === 200) {
                 setObj((prev) => ({ ...prev, DirectryListing: data }))
                 setisloading(false)
@@ -29,36 +34,37 @@ const DirectObjectReferenceProtection = () => {
             console.log(error)
             setisloading(false)
 
-            setObj((prev) => ({ ...prev, DirectryListing: null }))
+            setObj((prev) => ({ ...prev, DirectryListing: [] }))
         })
     }
     const GetallRobottxtData = async () => {
         await axios.get(`security/test/robottxt?domain=${userData.domain}`).then((response) => {
-            const { data, statusCode } = response
-            console.log("data", data, statusCode)
+            const { data, statusCode,message } = response
+     
+            setisloading(false)
             if (statusCode === 200) {
-
-                setObj((prev) => ({ ...prev, robottxt: data }))
-                setisloading(false)
+                setObj((prev) => ({ ...prev, robottxt: {succces:data.includes("not")?false:true,data:data} }))
+              
+            }else if(statusCode===422){
+                setObj((prev) => ({ ...prev, robottxt: {succces:false,data:message} }))
             }
         }
         ).catch((error) => {
-            console.log(error)
+        console.log("errorrrrrrrr>>>",error)
             setisloading(false)
             setObj((prev) => ({ ...prev, robottxt: null }))
         })
     }
     const getrameterpolution = async () => {
-        await axios.get(`client/httpparameterpollution?url=http://${userData.domain}`).then((response) => {
+        await axios.get(`client/httpparameterpollution?domain=${userData.domain}`).then((response) => {
             const { data, statusCode, message } = response
-            console.log("data", data, statusCode)
             if (statusCode === 200) {
-                if (data) {
-                    dispatch(setLogsData(data))
-                }
-                setObj((prev) => ({ ...prev, httpparameterpollution: message }))
-                setisloading(false)
+                setObj((prev) => ({ ...prev, httpparameterpollution: {succces:data.includes("Yes")?false:true,data:data} }))
+              
+            }else if(statusCode===422){
+                setObj((prev) => ({ ...prev, httpparameterpollution: {succces:false,data:message} }))
             }
+            setisloading(false)
         }
         ).catch((error) => {
             console.log(error)
@@ -69,12 +75,12 @@ const DirectObjectReferenceProtection = () => {
 
     useEffect(() => {
         if (userData.domain) {
-            GetallDirectryferenceData()
             GetallRobottxtData()
             getrameterpolution()
+            GetallDirectryferenceData()
         }
-    }, [userData])
-    console.log("obj", obj)
+    }, [userData.domain])
+    console.log("robottxt", obj.robottxt)
     return (
         <React.Fragment>
             <div className="card card-primary card-outline">
@@ -85,11 +91,9 @@ const DirectObjectReferenceProtection = () => {
                     <div className="row">
                         <div className="col-md-12 col-lg-12">
                             <ul>
-                                <li><span><b>Directry Listing :</b></span>{obj.DirectryListing ? obj.DirectryListing : ""}</li>
-                                <li>Direct Object Reference occurs when a developer exposes a reference to an internal implementation object, such as a file, directory, database record, or key, as a URL or form parameter. Attackers can manipulate those references to access other objects without authorization.</li>
-                                <li>Protection: Use an access control list to prevent unauthorized users from accessing other users' data. Use an indirect reference map to map internal object references to external references. Use per-session indirect object references to prevent attackers from manipulating the references.</li>
-                                <li><span><b>The remote server contains a ‘robots.txt’ file</b></span>: {obj.robottxt}</li>
-                                <li><span><b>HTTP parameter pollution</b></span>: {obj.httpparameterpollution}</li>
+                                {/* <li><span><b>Directry Listing :</b></span>{obj.DirectryListing ? obj.DirectryListing : ""}</li> */}
+                                <li><b>The remote server contains a ‘robots.txt’ file</b>:<span className={!obj.robottxt.succces?"error":""}> {obj.robottxt.data}</span></li>
+                                <li><b>HTTP parameter pollution</b>:<span className={!obj.httpparameterpollution.succces?"error":""}> {obj.httpparameterpollution.data}</span></li>
                             </ul>
                         </div>
                     </div>

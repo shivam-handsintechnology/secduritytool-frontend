@@ -25,7 +25,7 @@ export default function Dashboard() {
   // Assign All Funtions
   const dispatch = useDispatch()
   const getAllDomains = useDataFetch(`security/domain?limit=${limit}&page=${pageNumber}`, [pageNumber])
-
+  console.log("getAllDomains",getAllDomains)
  // Add Columns/Rows
   const columns = [
     {
@@ -35,9 +35,10 @@ export default function Dashboard() {
     },
     {
       name: "Action",
-      cell: (row) => <Button onClick={() => dispatch(setUserDetails(row))} variant="primary">Select Domain</Button>,
+      cell: (row) => <Button onClick={() => dispatch(setUserDetails({domain:row.domain,type:row.type}))} variant="primary">Select Domain</Button>,
     }
   ];
+  console.log("getAllDomains",getAllDomains)
   return (
     <React.Fragment>
       <div>
@@ -67,15 +68,15 @@ export default function Dashboard() {
         <div className="content">
           {/* Select  Domains */}
           {/* Check if data is available */}
-          {getAllDomains && getAllDomains.Data && getAllDomains.Data.data.length > 0 ? (
+          {getAllDomains.data && getAllDomains.data.data.length > 0 ? (
             <div>
               {/* Render pagination component */}
               <PaginationComponent
                 columns={columns}
-                data={getAllDomains.Data.data}
+                data={getAllDomains.data.data}
                 pageNumber={pageNumber}
                 setPageNumber={setPageNumber}
-                totalPages={getAllDomains.Data.totalPages}
+                totalPages={getAllDomains.data.totalPages}
                 showData={true}
               />
             </div>

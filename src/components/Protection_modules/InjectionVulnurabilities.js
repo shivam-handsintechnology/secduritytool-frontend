@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Chart3 from '../Charts/Chart3';
+import Chart4 from '../Charts/Chart4';
 
 const InjectionVulnurabilities = () => {
     const { xframe } = useSelector((state) => state.LogDataReducer)
@@ -72,7 +74,8 @@ const InjectionVulnurabilities = () => {
                     <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules ( Injections)</h5>
                 </div>
                 <div className="card-body">
-                    <div className="row">
+                    {counts && counts.length >0  && <Chart4 data={counts} title={"Injections"}/>}
+                    {/* <div className="row">
                         {
                             Object.keys(middlewareState).length > 0 ? Object.keys(middlewareState).map((propertyname) => (
                                 <div className="col-md-3">
@@ -93,9 +96,9 @@ const InjectionVulnurabilities = () => {
 
                         }
 
-                    </div>
+                    </div> */}
                     <div>
-                        <ul>
+                        {/* <ul>
                             {Object.keys(counts).length > 0 ? Object.keys(counts).map((propertyname) => (
                                 <li key={propertyname}>
                                     <strong>
@@ -114,7 +117,7 @@ const InjectionVulnurabilities = () => {
 
 
                             <li><strong>Application is vulnerable to iframe injection attack</strong>: {xframe || ""}</li>
-                        </ul>
+                        </ul> */}
 
 
                     </div>
@@ -124,7 +127,7 @@ const InjectionVulnurabilities = () => {
             </div>
             <div className="col-lg-12">
                 <div className="row justify-content-center mt-3">
-                    {counts.length > 0 ? counts.map((item) => (
+                    {/* {counts.length > 0 ? counts.map((item) => (
                         <div className="col-sm-3 col-lg-3">
                             <div className="card card-primary card-outline card-height">
                                 <div className="card-body text-center">
@@ -138,7 +141,7 @@ const InjectionVulnurabilities = () => {
                                 </div>
                             </div>
                         </div>
-                    )) : <React.Fragment></React.Fragment>}
+                    )) : <React.Fragment></React.Fragment>} */}
                 </div>
             </div>
         </React.Fragment>
