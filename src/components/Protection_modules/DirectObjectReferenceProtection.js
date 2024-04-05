@@ -43,7 +43,7 @@ const DirectObjectReferenceProtection = () => {
      
             setisloading(false)
             if (statusCode === 200) {
-                setObj((prev) => ({ ...prev, robottxt: {succces:data.includes("not")?false:true,data:data} }))
+                setObj((prev) => ({ ...prev, robottxt: {succces:true,data:data} }))
               
             }else if(statusCode===422){
                 setObj((prev) => ({ ...prev, robottxt: {succces:false,data:message} }))
@@ -59,7 +59,7 @@ const DirectObjectReferenceProtection = () => {
         await axios.get(`client/httpparameterpollution?domain=${userData.domain}`).then((response) => {
             const { data, statusCode, message } = response
             if (statusCode === 200) {
-                setObj((prev) => ({ ...prev, httpparameterpollution: {succces:data.includes("Yes")?false:true,data:data} }))
+                setObj((prev) => ({ ...prev, httpparameterpollution: {succces:true,data:data} }))
               
             }else if(statusCode===422){
                 setObj((prev) => ({ ...prev, httpparameterpollution: {succces:false,data:message} }))
@@ -91,8 +91,7 @@ const DirectObjectReferenceProtection = () => {
                     <div className="row">
                         <div className="col-md-12 col-lg-12">
                             <ul>
-                                {/* <li><span><b>Directry Listing :</b></span>{obj.DirectryListing ? obj.DirectryListing : ""}</li> */}
-                                <li><b>The remote server contains a ‘robots.txt’ file</b>:<span className={!obj.robottxt.succces?"error":""}> {obj.robottxt.data}</span></li>
+                               <li><b>The remote server contains a ‘robots.txt’ file</b>:<span className={!obj.robottxt.succces?"error":""}> {obj.robottxt.data}</span></li>
                                 <li><b>HTTP parameter pollution</b>:<span className={!obj.httpparameterpollution.succces?"error":""}> {obj.httpparameterpollution.data}</span></li>
                             </ul>
                         </div>
