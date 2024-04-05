@@ -1,7 +1,7 @@
 import React from "react";
 import "./SecureHeaders.css";
-import additionalinfo from '../../pages/master/security/additionalinfo.json'
-import mandatory from '../../pages/master/security/mandatory.json'
+import additionalinfo from '../../helpers/additionalinfo.json'
+import mandatory from '../../helpers/mandatory.json'
 const additionalinfokeys = Object.keys(additionalinfo)
 const mandatorykeys = Object.keys(mandatory)
 const SecureHeaders = ({ site, Headers, RawHeaders }) => {

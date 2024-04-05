@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import LoadingSpinner from '../../loader'
-import { GetSysteminfo } from '../../Services/AxiosRoutes'
+import LoadingSpinner from '../LoaderAndError/loader'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLogsData } from '../../redux/reducers/LogsDataReducer'
 const SSLInfo = () => {
     const userData = useSelector(state => state.UserReducer)
     const dispatch = useDispatch()
-    const [data, setData] = useState(null)
+    const [data, setData] = useState({ data: null, succces: false, message: '' })
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [Headers, setHeaders] = useState([])
     const [RawHeaders, setRawHeaders] = useState(null)
     // securityheaders
-    const site = `https://${userData.domain}/`
+
     useEffect(() => {
-        userData.domain && SSlInfo(userData.domain)
+        userData.domain && SSlInfo()
         userData.domain && SecureHeaders(`https://${userData.domain}/`)
     }, [])
-    const SSlInfo = async (url) => {
+    const SSlInfo = async () => {
         setLoading(true)
-        const res = await GetSysteminfo(url)
+        const res = await axios.get(`client/sslverify?hostname=${userData.domain}`)
             .then((res) => {
                 setLoading(false)
-                dispatch(setLogsData({ cookieSecureFlag: res.data?.cookieSecureFlag }))
                 setData(res.data)
+                dispatch(setLogsData({ cookieSecureFlag: res.data?.cookieSecureFlag }))
             })
             .catch((error) => {
                 setLoading(false)
@@ -48,24 +47,23 @@ const SSLInfo = () => {
             })
 
     }
+
     return (
         <React.Fragment>
-
-
             {
-                loading ? <LoadingSpinner /> : error ? <h1 className='heading ml-2'>Interval server error</h1> : <div className="container-fluid">
+                loading ? <LoadingSpinner /> :  !data.succces ? <h1 className=' error text-center'>{data?.message}</h1> : <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-3 col-lg-3">
                             <div className="small-box  bg-primary">
                                 <div className="inner">
-                                    <p>{data ? data.valid : ""}</p>
+                                    <p>{data.data ? data.data.valid : ""}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-sm-3 col-lg-3">
                             <div className="small-box bg-success">
                                 <div className="inner">
-                                    <p>{data ? data.self : ""}</p>
+                                    <p>{data.data ? data.data.self : ""}</p>
 
                                 </div>
                             </div>
@@ -74,7 +72,7 @@ const SSLInfo = () => {
                             <div className="small-box bg-primary">
                                 <div className="inner">
                                     {/* <h3 /> */}
-                                    <p className='mb-0'>{data ? data.negotiatedProtocol : ""}</p>
+                                    <p className='mb-0'>{data.data ? data.data.negotiatedProtocol : ""}</p>
                                     {/* <p>No SSL cookie found.</p> */}
                                 </div>
                             </div>
@@ -83,7 +81,7 @@ const SSLInfo = () => {
                             <div className="small-box bg-primary">
                                 <div className="inner">
                                     {/* <h3 /> */}
-                                    <p className='mb-0' id="">{data ? data.cookieSecureFlag : ""}</p>
+                                    <p className='mb-0' id="">{data.data ? data.data.cookieSecureFlag : ""}</p>
                                     {/* <p>No SSL cookie found.</p> */}
                                 </div>
                             </div>
@@ -92,7 +90,7 @@ const SSLInfo = () => {
                             <div className="small-box bg-success">
                                 <div className="inner">
 
-                                    <p className='mb-0'>{data ? data.expired : ""}</p>
+                                    <p className='mb-0'>{data.data ? data.data.expired : ""}</p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +98,6 @@ const SSLInfo = () => {
                     </div>
                 </div>
             }
-
         </React.Fragment>
 
 

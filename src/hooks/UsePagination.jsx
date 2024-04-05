@@ -3,7 +3,6 @@ import Pagination from 'react-bootstrap/Pagination';
 
 function UsePagination(data, TotalNoOfPages) {
   const [limit, setLimit] = useState(10);
-  const [NewData, setNewData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [Pages, setPages] = useState(null)
@@ -78,7 +77,7 @@ function UsePagination(data, TotalNoOfPages) {
     setNumberOfPages,
     pageNumber,
     Pages,
-    limit, setLimit, NewData
+    limit, setLimit
   }
 }
 
