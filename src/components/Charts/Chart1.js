@@ -1,20 +1,22 @@
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const Chart1 = ({data}) => {
-  
+const Chart1 = ({ data,title }) => {
+    console.log("all chart data", data);
 
     return (
         <div className='border'>
-            <div className='bg-primary p-1'> <h3>Recharts Area Chart</h3></div>
-            <AreaChart width={500} height={300} data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="location" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Area type="monotone" dataKey="value" stroke="rgba(75, 192, 192, 1)" fill="rgba(75, 192, 192, 0.5)" />
-            </AreaChart>
+            <div className='bg-primary p-1'><h3>{title ||"Pie Chart"}</h3></div>
+            <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="labels" interval={0} textAnchor="middle" angle={-45} height={100} />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="values" fill="rgba(75, 192, 192, 0.5)" />
+                </BarChart>
+            </ResponsiveContainer>
         </div>
     );
 };

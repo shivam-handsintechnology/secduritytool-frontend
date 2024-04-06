@@ -15,7 +15,8 @@ axios.interceptors.response.use(response => {
 },
   error => {
     console.log(error.response)
-    return error.response.data;
+    return Promise.reject(error);
+   
   }
 );
 ReactDOM.render(
