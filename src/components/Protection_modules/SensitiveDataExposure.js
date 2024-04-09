@@ -1,207 +1,107 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import useDataFetch from '../../hooks/DataFetchHook'
-import { Container } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import useDataFetch from '../../hooks/DataFetchHook';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+
 const SensitiveDataExposure = () => {
-  const site="jhkjh"
-    const userData = useSelector(state => state.UserReducer)
-    const SecureHeaders = useDataFetch(`client/securityheaders?domain=${userData?.domain}`, [userData?.domain])
-    console.log("SecureHeaders",SecureHeaders)
+    const [progress, setProgress] = useState(0);
+    const [completeed, setCompleted] = useState(0);
+    const [responseData, setResponseData] = useState([]);
+    const UserData = useSelector((state) => state.UserReducer);
+    const sourcecodeDisclosoure = useDataFetch(`SensitiveDataExposure/sourcecode-disclosoure?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
+    const DefaultWebPage = useDataFetch(`SensitiveDataExposure/DefaultWebPage?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
+    console.log("DefaultWebPage.data.length",DefaultWebPage.data)
+    // Function to make an API request
+    async function fetchData(url, filepath) {
+        try {
+            // Make API request using directoryPath and name
+            const response = await axios.get(url);
+            // Process response as needed
+            return response.status
+        } catch (error) {
+            return 400
+        }
+    }
 
-    const data = SecureHeaders?.data
-    const Headers = data?.headersinfo
-    const RawHeaders = data?.rawHeaders
+    useEffect(() => {
+        // Process data array sequentially
+        const processSequentially = async () => {
+            try {
+                const totalItems = sourcecodeDisclosoure.data.length;
+                let completedItems = 0;
+                const responses = [];
+                
+                for (const item of sourcecodeDisclosoure.data) {
+                    // Make API request for the current item
+                   
+                        const data = await fetchData(`http://${UserData.domain + item.directoryPath}/${item.name + item.extension}`, `${item.directoryPath}/${item.name + item.extension}`);
+                        data===200 && responses.push(data);
+                        completedItems++
+                        setCompleted(completedItems)
+                        // Update progress
+                        const progressPercentage = Math.round((completedItems / totalItems) * 100);
+                        setProgress(progressPercentage);
 
+                        // Optionally, you can wait for some time before making the next API call
+                        // For example, wait for 1 second
+                        await delay(1000); // 1000 milliseconds = 1 second
+                    
+                }
 
+                setResponseData(responses);
+            } catch (error) {
+                console.error('Error processing data:', error);
+            }
+        };
 
+        // SensitiveDataExposure.data && SensitiveDataExposure.data.length > 0 && processSequentially();
+    }, [sourcecodeDisclosoure.data]); // Empty dependency array ensures useEffect runs only once on component mount
 
+    // Function to simulate a delay
+    const delay = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    };
+console.log("completeed",completeed)
     return (
-        <>
-       
-           <React.Fragment>
-              <div className="container">
-           <div className="row">
-             <div className="12u">
-               <div className="reportSection push-top">
-                 <div className="reportTitle">Security Report Summary</div>
-                 <div className="reportBody">
-                   <div className="row">
-                     <div className="2u">
-                       <div className="score">
-                         <div className="score_red">
-                           <span>F</span>
-                         </div>
-                       </div>
-                     </div>
-                     <div className="10u push-left">
-                       <table className="reportTable">
-                         <colgroup>
-                           <col className="col1" />
-                           <col className="col2" />
-                         </colgroup>
-                         <tbody>
-                           <tr className="tableRow">
-                             <th className="tableLabel">Site:</th>
-                             <td className="tableCell">
-                               <a
-                                 href={site}
-                                 target="_blank"
-                                 rel="nofollow noreferrer noopener"
-                               >
-                                 {site}
-                               </a>
-                             </td>
-                           </tr>
-                           <tr className="tableRow">
-                             {/* <th className="tableLabel">IP Address:</th>
-                             <td className="tableCell">192.185.129.169 </td> */}
-                           </tr>
-                           <tr className="tableRow">
-                             <th className="tableLabel">Report Time:</th>
-                             <td className="tableCell">{new Date().toLocaleString()}</td>
-                           </tr>
-                           <tr className="tableRow">
-                             <th className="tableLabel">Headers:</th>
-                             <td className="tableCell">
-                               <ul className="pillList">
-                                 {Headers && Headers.length > 0 ? (
-                                   <React.Fragment>
-                                     {Headers.map((item, index) => {
-                                       return item.msg.availableFields ?
-                                         <li className="headerItem pill pill-green">
-                                           <i className="fa fa-times" />
-                                           {item.msg.availableFields}
-                                         </li>
-                                         : item.msg.Missing_field ?
-                                           <li className="headerItem pill pill-red">
-                                             <i className="fa fa-times" />
-                                             {item.msg.Missing_field}
-                                           </li>
-                                           : <React.Fragment></React.Fragment>
-                                     })}
-                                   </React.Fragment>
-                                 ) : (
-                                   <React.Fragment></React.Fragment>
-                                 )}
-     
-                               </ul>
-                             </td>
-                           </tr>
-                           <tr className="tableRow">
-                             <th className="tableLabel">Advanced:</th>
-                             <td className="tableCell">
-                               <table>
-                                 <tbody>
-                                   <tr>
-                                     <td id="demo-button" width="80%">
-                                       Ouch, you should work on your security posture
-                                       immediately:{" "}
-                                     </td>
-                                     <td id="demo-button" width="20%">
-                                       <a
-                                         href="https://prbly.us/3o8vetV"
-                                         target="_blank"
-                                       >
-                                         <input
-                                           className="button"
-                                           defaultValue="Start Now"
-                                           type="submit"
-                                         />
-                                       </a>
-                                     </td>
-                                   </tr>
-                                 </tbody>
-                               </table>{" "}
-                             </td>
-                           </tr>
-                         </tbody>
-                       </table>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-               <div className="reportSection">
-                 <div className="reportTitle">Missing Headers</div>
-                 <div className="reportBody">
-                   <table className="reportTable">
-                     <colgroup>
-                       <col className="col1" />
-                       <col className="col2" />
-                     </colgroup>
-                     <tbody>
-                     {Headers && Headers.length > 0 ? (
-                    <React.Fragment>
-                      {Headers?.map((item, index) => {
-                        console.log(item.msg.Missing_field)
-                        return item.msg.Missing_field ? <React.Fragment>  <tr className="tableRow">
-                          {/* <th className="tableLabel table_red">
-                            {item.msg.Missing_field}
-                          </th> */}
-                          <td className="tableCell">
-                            {item.msg.Missing_field}
-                          </td>
-                        </tr></React.Fragment> : <React.Fragment></React.Fragment>;
-                      })}
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment></React.Fragment>
-                  )}
-     
-                     </tbody>
-                   </table>
-                 </div>
-               </div>
-               <div className="reportSection">
-                 <div className="reportTitle">Raw Headers</div>
-                 <div className="reportBody">
-                   <table className="reportTable">
-                     <colgroup>
-                       <col className="col1" />
-                       <col className="col2" />
-                     </colgroup>
-                     <tbody>
-                     {RawHeaders ? (
-                    <React.Fragment>
-                      {Object.keys(RawHeaders).map((item, index) => {
-                        return <React.Fragment>
-                          <tr className="tableRow">
-                            <th className="tableLabel table_#696E76">{item}</th>
-                            <td className="tableCell">{RawHeaders[item]}</td>
-                          </tr>
-                          {" "}
-                        </React.Fragment>
-                      })}
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment></React.Fragment>
-                  )}
-                     </tbody>
-                   </table>
-                 </div>
-               </div>
-     
-               {/* <div className="reportSection">
-                 <div className="reportTitle">Additional Information</div>
-                 <div className="reportBody">
-                   <table className="reportTable">
-                     <colgroup>
-                       <col className="col1" />
-                       <col className="col2" />
-                     </colgroup>
-                     <tbody>
-     
-                      
-                     </tbody>
-                   </table>
-                 </div>
-               </div> */}
-             </div>
-           </div>
-            
+        <React.Fragment>
+            <div className="card card-primary card-outline">
+                <div className="card-header">
+                    <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules (Sensitive Data Exposure)</h5>
+                </div>
+                <div className="card-body">
+                    <div className="row">
+                        <div className="col-md-12 col-lg-12">
+                            <ul>
+                                <li>An adversary can harvest email ids for spamming:</li>
+                                <li>
+                                 Application’s server side source code disclosure
+                                    {/* Progress bar */}
+                                    <div style={{ width: '100%', backgroundColor: '#ddd', borderRadius: '4px', marginTop: '20px' }}>
+                                        <div style={{ width: `${progress}%`, backgroundColor: '#007bff', height: '20px', borderRadius: '4px', transition: 'width 0.5s ease-in-out' }}></div>
+                                    </div>
+                                    {/* Progress text */}
+                                    <p style={{ marginTop: '10px' }}>{progress}% Complete</p>
+                                    <p style={{ marginTop: '10px' }}> {`${completeed}/${SensitiveDataExposure.data?.length}`}</p>
+                                </li>
+                                {responseData.map((response, index) => (
+                                    <li key={index}><span><b>{response.message}</b></span></li>
+                                ))}
+                                <li>Critical information in URL</li>
+                                <li>Default web-page present in the server :{DefaultWebPage?.data}</li>
+                                <li>Physical server path disclosure</li>
+                                <li> Sensitive application configuration architecture files available at users machine in clear text </li>
+                                <li> Sensitive information revealed in HTTP response </li>
+                                <li> Credentials are transmitted to server in plain text </li>
+                                <li> Sensitive data is transmitted to server in plain text </li>
+                                <li>Cleartext Password returned in login response  </li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
-         </React.Fragment>
-         </>
-    )
-}
+        </React.Fragment>
+    );
+};
 
-export default SensitiveDataExposure
+export default SensitiveDataExposure;
