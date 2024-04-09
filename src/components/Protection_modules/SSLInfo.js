@@ -6,7 +6,8 @@ const SSLInfo = () => {
     const userData = useSelector(state => state.UserReducer)
     const SSlInfo = useDataFetch(`client/sslverify?domain=${userData.domain}`, [userData.domain])
     console.log("SSlInfo",SSlInfo)
-    // const SecureHeaders = useDataFetch(`client/securityheaders?domain=${userData.domain}`, [userData.domain])
+  
+   
     
 
     return (
