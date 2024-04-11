@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useDataFetch from '../../hooks/DataFetchHook';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import Chart1 from '../Charts/Chart1';
 
 const SensitiveDataExposure = () => {
     const [progress, setProgress] = useState(0);
@@ -10,7 +11,10 @@ const SensitiveDataExposure = () => {
     const UserData = useSelector((state) => state.UserReducer);
     const sourcecodeDisclosoure = useDataFetch(`SensitiveDataExposure/sourcecode-disclosoure?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
     const DefaultWebPage = useDataFetch(`SensitiveDataExposure/DefaultWebPage?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
-    console.log("DefaultWebPage.data.length",DefaultWebPage.data)
+    const emailHarvesting = useDataFetch(`SensitiveDataExposure/email-harvesting?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
+    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url`, [UserData.domain]);
+    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response`, [UserData.domain]);
+    console.log("SensitiveKeysinUrl",SensitiveKeysinBody)
     // Function to make an API request
     async function fetchData(url, filepath) {
         try {
@@ -34,7 +38,7 @@ const SensitiveDataExposure = () => {
                 for (const item of sourcecodeDisclosoure.data) {
                     // Make API request for the current item
                    
-                        const data = await fetchData(`http://${UserData.domain + item.directoryPath}/${item.name + item.extension}`, `${item.directoryPath}/${item.name + item.extension}`);
+                        const data = await fetchData(`http://${UserData.domain + item.directoryPath.replace("G:/git_repositories/Security Tool/securitytool-backend","")}/${item.name + item.extension}`, `${item.directoryPath}/${item.name + item.extension}`);
                         data===200 && responses.push(data);
                         completedItems++
                         setCompleted(completedItems)
@@ -72,7 +76,7 @@ console.log("completeed",completeed)
                     <div className="row">
                         <div className="col-md-12 col-lg-12">
                             <ul>
-                                <li>An adversary can harvest email ids for spamming:</li>
+                                <li>An adversary can harvest email ids for spamming: {emailHarvesting.data?"Yes":"No"}</li>
                                 <li>
                                  Application’s server side source code disclosure
                                     {/* Progress bar */}
@@ -86,7 +90,9 @@ console.log("completeed",completeed)
                                 {responseData.map((response, index) => (
                                     <li key={index}><span><b>{response.message}</b></span></li>
                                 ))}
-                                <li>Critical information in URL</li>
+                             
+                                {SensitiveKeysinUrl.data && <Chart1 url={"/SensitiveData/url"} data={SensitiveKeysinUrl.data} title={"Critical information in URL"}/> }
+                                {SensitiveKeysinBody.data && <Chart1 url={"/SensitiveData/response"} data={SensitiveKeysinBody.data} title={"Sensitive information revealed in HTTP response"}/> }
                                 <li>Default web-page present in the server :{DefaultWebPage?.data}</li>
                                 <li>Physical server path disclosure</li>
                                 <li> Sensitive application configuration architecture files available at users machine in clear text </li>

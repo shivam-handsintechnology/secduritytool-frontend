@@ -41,6 +41,7 @@ import AllWebsites from './pages/master/security/AllWebsite';
 import AllLogs from './pages/master/security/Alllogs';
 import Dashboard from "./pages/master/security/Dashboard";
 import Main from './pages/master/Main';
+import SensitiveData from './pages/master/security/SensitiveDataExposure/SensitiveData';
 
 export const ProtectedRoutes = [
 
@@ -95,6 +96,12 @@ export const ProtectedRoutes = [
     exact: true,
     Layout: "AdminLayout",
     element: <AllLogs />,
+  },
+  {
+    path: '/SensitiveData/:type',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <SensitiveData />,
   },
   {
     path: 'Websites',
