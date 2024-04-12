@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import {useSelector} from "react-redux"
 import { usePostData, useDataFetch } from "../../../../hooks/DataFetchHook";
 import { PaginationComponent } from "../../../../hooks/PaginationComponent";
 import LoadingSpinner from "../../../../components/LoaderAndError/loader";
@@ -9,7 +10,7 @@ const SensitiveData = () => {
     const [limit, setLimit] = useState(5)
     const [pageNumber, setPageNumber] = useState(1)
     const { type } = useParams()
-  
+    const UserData = useSelector((state) => state.UserReducer);
     let columns = [
       // { name: "Id", selector: "_id", sortable: true },
       { name: "Sensitive Data", selector: "sensitivekeys", sortable: true },
@@ -29,7 +30,7 @@ const SensitiveData = () => {
       //   width: "28%",
       // },
     ]
-    const sensitiveDataHttp = useDataFetch(`SensitiveDataExposure/sensitive-data?complete=true&limit=${limit}&type=${type}&page=${pageNumber}`, [pageNumber, type])
+    const sensitiveDataHttp = useDataFetch(`SensitiveDataExposure/sensitive-data?complete=true&limit=${limit}&type=${type}&page=${pageNumber}&domain=${UserData.domain}`, [pageNumber, type])
   console.log(sensitiveDataHttp)
   return (
     <div>
