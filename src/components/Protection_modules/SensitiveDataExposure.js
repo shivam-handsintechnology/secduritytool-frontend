@@ -12,9 +12,9 @@ const SensitiveDataExposure = () => {
     const sourcecodeDisclosoure = useDataFetch(`SensitiveDataExposure/sourcecode-disclosoure?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
     const DefaultWebPage = useDataFetch(`SensitiveDataExposure/DefaultWebPage?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
     const emailHarvesting = useDataFetch(`SensitiveDataExposure/email-harvesting?domain=${UserData.domain}&type=nodejs`, [UserData.domain]);
-    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url`, [UserData.domain]);
-    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response`, [UserData.domain]);
-    console.log("SensitiveKeysinUrl",SensitiveKeysinBody)
+    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url&domain=${UserData.domain}`, [UserData.domain]);
+    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response&domain=${UserData.domain}`, [UserData.domain]);
+    console.log("SensitiveKeysinUrl",sourcecodeDisclosoure)
     // Function to make an API request
     async function fetchData(url, filepath) {
         try {
@@ -27,7 +27,6 @@ const SensitiveDataExposure = () => {
         }
     }
 
-    useEffect(() => {
         // Process data array sequentially
         const processSequentially = async () => {
             try {
@@ -38,7 +37,7 @@ const SensitiveDataExposure = () => {
                 for (const item of sourcecodeDisclosoure.data) {
                     // Make API request for the current item
                    
-                        const data = await fetchData(`http://${UserData.domain + item.directoryPath.replace("G:/git_repositories/Security Tool/securitytool-backend","")}/${item.name + item.extension}`, `${item.directoryPath}/${item.name + item.extension}`);
+                        const data = await fetchData(`http://${UserData.domain + item.directoryPath}/${item.name + item.extension}`, `${item.directoryPath}/${item.name + item.extension}`);
                         data===200 && responses.push(data);
                         completedItems++
                         setCompleted(completedItems)
@@ -59,8 +58,7 @@ const SensitiveDataExposure = () => {
         };
 
         // SensitiveDataExposure.data && SensitiveDataExposure.data.length > 0 && processSequentially();
-    }, [sourcecodeDisclosoure.data]); // Empty dependency array ensures useEffect runs only once on component mount
-
+  
     // Function to simulate a delay
     const delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -80,12 +78,17 @@ console.log("completeed",completeed)
                                 <li>
                                  Application’s server side source code disclosure
                                     {/* Progress bar */}
-                                    <div style={{ width: '100%', backgroundColor: '#ddd', borderRadius: '4px', marginTop: '20px' }}>
-                                        <div style={{ width: `${progress}%`, backgroundColor: '#007bff', height: '20px', borderRadius: '4px', transition: 'width 0.5s ease-in-out' }}></div>
-                                    </div>
-                                    {/* Progress text */}
-                                    <p style={{ marginTop: '10px' }}>{progress}% Complete</p>
-                                    <p style={{ marginTop: '10px' }}> {`${completeed}/${SensitiveDataExposure.data?.length}`}</p>
+                                 {
+                                    sourcecodeDisclosoure.errors.loading ? <div>Loading...</div> : sourcecodeDisclosoure.errors.error ? <div>Error: {sourcecodeDisclosoure.errors.message}</div> : sourcecodeDisclosoure.data && sourcecodeDisclosoure.data.length > 0 ? (
+                                        <div>
+                                            <div className="progress">
+                                                <div className="progress-bar" role="progressbar" style={{ width: `${progress}%` }} aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">{progress}%</div>
+                                            </div>
+                                            <div className="text-center">{completeed} of {sourcecodeDisclosoure?.data?.length} completed</div>
+                                            <button className="btn btn-primary" onClick={processSequentially}>Check For Source Code Disclosure</button>
+                                        </div>
+                                    ) : <div>No data available</div>
+                                 }
                                 </li>
                                 {responseData.map((response, index) => (
                                     <li key={index}><span><b>{response.message}</b></span></li>
