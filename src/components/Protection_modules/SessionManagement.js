@@ -10,7 +10,7 @@ const SessionManagement = () => {
     const UserData = useSelector((state) => state.UserReducer)
     let validation = null
     const showErrorToast=true
-    const postSessionData=useDataFetch(`security/test/session-data?hostname=${UserData.domain}&type=nodejs`,[UserData.domain],validation,showErrorToast)
+    const postSessionData=useDataFetch(`AuthSessionGuardian/session-vulnurability?domain=${UserData.domain}&type=nodejs`,[UserData.domain],validation,showErrorToast)
     console.log("postSessionData", postSessionData)
    
     return (
@@ -24,8 +24,15 @@ const SessionManagement = () => {
                     <div className="col-md-12 col-lg-12">
                         <ul className="ul-styling">
                             {
-                                postSessionData.data && Object.keys(postSessionData.data).slice(0, 6).map((propertyname) => (
-                                    <li className="list-styling"><span className="text-capitalize">{propertyname + " "}</span>:{postSessionData.data[propertyname]}</li>
+                                postSessionData.data && postSessionData.data.length>0 && postSessionData.data.map((obj, index) => (
+                                    <div key={index}>
+                                    {Object.entries(obj).map(([key, value]) => (
+                                        <div key={key}>
+                                            <li className="list-styling"><strong className="text-capitalize">{key}</strong>:{value}</li>
+                                        </div>
+                                    ))}
+                                </div>
+                                   
                                 ))
 
                             }

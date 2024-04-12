@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import data from "../../helpers/dashboard"
 export default function Menu(props) {
   const userreducerDetails = useSelector((state) => state.UserReducer)
   const [isSubMenuOpen, setIsSubMenuOpen] = useState([
-    {name:"whiteList",isOpen:false},
-    {name:"logs",isOpen:false},
-    {name:"bans",isOpen:false}
+    // {name:"whiteList",isOpen:false},
+    // {name:"logs",isOpen:false},
+    // {name:"bans",isOpen:false}
 
   ]);
 
@@ -106,10 +106,6 @@ export default function Menu(props) {
                 </p></a>
               <ul className="nav nav-treeview">
                 <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-                {/* <li className="nav-item "><Link to="/Banscountry" className="nav-link "><i className="fas fa-globe" />&nbsp; <p>Country Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-                <li className="nav-item "><Link to="/Bansiprange" className="nav-link "><i className="fas fa-grip-horizontal" />&nbsp; <p>IP Range Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-                <li className="nav-item "><Link to="/Otherbans" className="nav-link "><i className="fas fa-desktop" />&nbsp; <p>Other Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-            */}
               </ul>
             </li>
 
@@ -129,6 +125,22 @@ export default function Menu(props) {
                 <i className="fas fa-search" />&nbsp; <p>Port Scanner</p>
               </Link>
             </li>
+            {data.map((category, index) => (
+              <li key={index} className={`nav-item ${isOpen(`category-${index}`) ? 'menu-open' : ''}`}>
+                <a href="#" className="nav-link" onClick={() => toggleSubMenu(`category-${index}`)}>
+                  <i className="fas fa-flag" />&nbsp; <p>{category.Category} <i className="fas fa-angle-right right" /></p>
+                </a>
+                <ul className="nav nav-treeview">
+                  {category.UseCases.map((useCase, i) => (
+                    <li key={i} className="nav-item">
+                      <Link to={`${useCase.label}`} className="nav-link">
+                        <i className="far fa-file-alt" />&nbsp; <p>{useCase.label}</p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
 
           </ul>
         </nav>
