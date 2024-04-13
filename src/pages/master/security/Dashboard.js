@@ -1,10 +1,5 @@
-import axios from "axios";
 import React from "react";
-import { toast } from "react-toastify";
-import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import SSLInfo from "../../../components/Protection_modules/SSLInfo";
 import SessionManagement from "../../../components/Protection_modules/SessionManagement";
 import InjectionVulnurabilities from "../../../components/Protection_modules/InjectionVulnurabilities";

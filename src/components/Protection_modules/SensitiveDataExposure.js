@@ -99,9 +99,8 @@ console.log("completeed",completeed)
                                 <li>Default web-page present in the server :{DefaultWebPage?.data}</li>
                                 <li>Physical server path disclosure</li>
                                 <li> Sensitive application configuration architecture files available at users machine in clear text </li>
-                                <li> Sensitive information revealed in HTTP response </li>
-                                <li> Credentials are transmitted to server in plain text </li>
-                                <li> Sensitive data is transmitted to server in plain text </li>
+                                {/* <li> Credentials are transmitted to server in plain text </li> */}
+                                {/* <li> Sensitive data is transmitted to server in plain text </li> */}
                                 <li>Cleartext Password returned in login response  </li>
                             </ul>
                             
