@@ -125,6 +125,7 @@ export default function Menu(props) {
                 <i className="fas fa-search" />&nbsp; <p>Port Scanner</p>
               </Link>
             </li>
+
             {data.map((category, index) => (
               <li key={index} className={`nav-item ${isOpen(`category-${index}`) ? 'menu-open' : ''}`}>
                 <a href="#" className="nav-link" onClick={() => toggleSubMenu(`category-${index}`)}>
@@ -133,7 +134,7 @@ export default function Menu(props) {
                 <ul className="nav nav-treeview">
                   {category.UseCases.map((useCase, i) => (
                     <li key={i} className="nav-item">
-                      <Link to={`${useCase.label}`} className="nav-link">
+                      <Link to={`${useCase.link}`} className="nav-link">
                         <i className="far fa-file-alt" />&nbsp; <p>{useCase.label}</p>
                       </Link>
                     </li>
