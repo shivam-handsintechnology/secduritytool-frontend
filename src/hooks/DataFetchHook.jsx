@@ -27,7 +27,7 @@ const useDataFetch = (url, dependencies=[], validation=null, showErrorToast=fals
                 }
             } catch (error) {
                 const {response}=error
-                 let message=response?.data?.data?.message ? response?.data?.data?.message : 'An error occurred'
+                 let message=response?.data?.message ? response?.data?.message : 'An error occurred'
                 setErrors((prev) => ({
                     ...prev, loading: false,
                     error: true,

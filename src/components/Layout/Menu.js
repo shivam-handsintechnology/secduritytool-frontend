@@ -68,12 +68,6 @@ export default function Menu(props) {
                 <i className="fas fa-info-circle" />&nbsp; <p>Dashboard</p>
               </Link>
             </li>
-            <li className="nav-item active">
-              <Link to="/Websites" className="nav-link">
-                <i className="fas fa-home" />&nbsp; <p>Websites</p>
-              </Link>
-            </li>
-          
             <li className="nav-item ">
               <Link to="/SSLInformation" className="nav-link ">
                 <i className="fas fa-user-secret" />&nbsp; <p>SSL Information</p>
@@ -110,22 +104,6 @@ export default function Menu(props) {
             </li>
 
             <li className="nav-header">TOOLS</li>
-            <li className="nav-item ">
-              <Link to="/Errormonitoring" className="nav-link ">
-                <i className="fas fa-exclamation-circle" />&nbsp; <p>Error Monitoring</p>
-              </Link>
-            </li>
-            <li className="nav-item ">
-              <Link to="/socketchecker" className="nav-link ">
-                <i className="fas fa-exclamation-circle" />&nbsp; <p>Validation Monitoring</p>
-              </Link>
-            </li>
-            <li className="nav-item ">
-              <Link to="/Portscanner" className="nav-link ">
-                <i className="fas fa-search" />&nbsp; <p>Port Scanner</p>
-              </Link>
-            </li>
-
             {data.map((category, index) => (
               <li key={index} className={`nav-item ${isOpen(`category-${index}`) ? 'menu-open' : ''}`}>
                 <a href="#" className="nav-link" onClick={() => toggleSubMenu(`category-${index}`)}>
