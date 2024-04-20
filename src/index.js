@@ -7,15 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import axios from 'axios';
-const baseURL = 'http://localhost:20000/api/'
-// const baseURL = 'https://securitytool.handsintechnology.in/api/'
 
-axios.defaults.baseURL = baseURL
+axios.defaults.baseURL = process.env.NODE_ENV==="development"?process.env.REACT_APP_DEVELOPMENT_BASEURL:process.env.REACT_APP_PRODUCTION_BASEURL;
 axios.interceptors.response.use(response => {
   return response.data;
 },
   error => {
-    console.log(error.response)
+    console.log(error)
     return Promise.reject(error);
    
   }
