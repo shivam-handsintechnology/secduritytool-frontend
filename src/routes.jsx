@@ -201,7 +201,7 @@ export const ProtectedRoutes = [
     element:<ServerErrorMessage Goback={<GoBack/>} />
   },
   {
-    path: '/Directorylisting',
+    path: '/InsecureDirectObjectReferences',
     exact: true,
     element: <Directorylisting Goback={<GoBack/>}  />,
   },

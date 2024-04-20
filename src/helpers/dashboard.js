@@ -111,28 +111,29 @@
   },
   {
     "Category": "Insecure Direct Object References",
+    "link": "/InsecureDirectObjectReferences",
     "UseCases": [
-      {
-        "label": "Directory listing is enabled on the server",
-        "link" : "/Directorylisting"
-      },
+      // {
+      //   "label": "Directory listing is enabled on the server",
+      //   "link" : "/Directorylisting"
+      // },
       // {
       //   "label": "Directory traversal attack"
       // },
-      {
-        "label": "HTTP parameter pollution",
-        "link" : "/HTTPparameterpollution"
-      },
+      // {
+      //   "label": "HTTP parameter pollution",
+      //   "link" : "/HTTPparameterpollution"
+      // },
       // {
       //   "label": "Non-HTML contents directly accessible without logging-in"
       // },
       // {
       //   "label": "Internal pages accessible without login"
       // },
-      {
-        "label": "The remote server contains a 'robots.txt' file",
-        "link" : "/Serverobotstxtfile"
-      }
+      // {
+      //   "label": "The remote server contains a 'robots.txt' file",
+      //   "link" : "/Serverobotstxtfile"
+      // }
     ]
   },
   // {
@@ -225,7 +226,7 @@
       // },
       {
         "label": "Critical information in URL",
-        "link" : "/Criticalinformationinurl"
+        "link" : "/SensitiveData/url"
       },
       {
         "label": "Default web-page present in the server",
@@ -240,13 +241,13 @@
       // {
       //   "label": "Sensitive application configuration architecture files available at users machine in clear text"
       // },
-      {
-        "label": "Sensitive data is accessible from cache",
-        "link" : "/Sensitivedataaccessible"
-      },
+      // {
+      //   "label": "Sensitive data is accessible from cache",
+      //   "link" : "/Sensitivedataaccessible"
+      // },
       {
         "label": "Sensitive information revealed in HTTP response",
-        "link" : "/Sensitiveinformationrevealed"
+        "link" : "/SensitiveData/response"
       },
       // {
       //   "label": "Credentials are transmitted to server in plain text"
