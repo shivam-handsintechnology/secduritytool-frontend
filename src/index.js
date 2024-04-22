@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import axios from 'axios';
 
-axios.defaults.baseURL =process.env.REACT_APP_PRODUCTION_BASEURL;
-// axios.defaults.baseURL = process.env.NODE_ENV==="development"?process.env.REACT_APP_DEVELOPMENT_BASEURL:process.env.REACT_APP_PRODUCTION_BASEURL;
+// axios.defaults.baseURL =process.env.REACT_APP_PRODUCTION_BASEURL;
+axios.defaults.baseURL = process.env.NODE_ENV==="development"?process.env.REACT_APP_DEVELOPMENT_BASEURL:process.env.REACT_APP_PRODUCTION_BASEURL;
 axios.interceptors.response.use(response => {
   return response.data;
 },

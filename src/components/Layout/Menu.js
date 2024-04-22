@@ -62,7 +62,7 @@ export default function Menu(props) {
                 <i className="fas fa-info-circle" />&nbsp; <p>Dashboard</p>
               </Link>
             </li>
-            <li  className={`nav-item ${isOpen("whiteList") ? 'menu-open' : ''}`}>
+            {/* <li  className={`nav-item ${isOpen("whiteList") ? 'menu-open' : ''}`}>
               <a href="#" className="nav-link" onClick={()=>toggleSubMenu("whiteList")}>
                 <i className="fas fa-flag" />&nbsp; <p>Whitelist <i className="fas fa-angle-right right" />
                 </p></a>
@@ -70,16 +70,16 @@ export default function Menu(props) {
                 <li className="nav-item "><Link to="/Ipwhitelist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Whitelist</p></Link></li>
                 <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>File Whitelist</p></Link></li>
               </ul>
-            </li>
+            </li> */}
             <li className="nav-header">SECURITY</li>
-            <li  className={`nav-item ${isOpen("bans") ? 'menu-open' : ''}`}>
+            {/* <li  className={`nav-item ${isOpen("bans") ? 'menu-open' : ''}`}>
               <a  className="nav-link " onClick={()=>toggleSubMenu("bans")}>
                 <i className="fas fa-ban" />&nbsp; <p>Bans <i className="fas fa-angle-right right" />
                 </p></a>
               <ul className="nav nav-treeview">
                 <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Bans <span className="badge right badge-secondary">0</span></p></Link></li>
               </ul>
-            </li>
+            </li> */}
             <li className="nav-header">TOOLS</li>
             {data.map((category, index) => (
               <li key={index} className={`nav-item ${isOpen(`category-${index}`) ? 'menu-open' : ''}`}>

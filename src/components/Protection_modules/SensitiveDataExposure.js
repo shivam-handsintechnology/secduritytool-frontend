@@ -13,12 +13,16 @@ const SensitiveDataExposure = () => {
     const sourcecodeDisclosoure = useDataFetch(`SensitiveDataExposure/sourcecode-disclosoure?domain=${UserData.domain}`, [UserData.domain]);
     const fingerprintDetection = useDataFetch(`SensitiveDataExposure/fingerprint-detection?domain=${UserData.domain}`, [UserData.domain]);
     const DefaultWebPage = useDataFetch(`SensitiveDataExposure/DefaultWebPage?domain=${UserData.domain}`, [UserData.domain]);
-    const emailHarvesting = useDataFetch(`SensitiveDataExposure/email-harvesting?domain=${UserData.domain}`, [UserData.domain]);
-    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url&domain=${UserData.domain}&isQuestion=1`, [UserData.domain],[]);
-    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response&domain=${UserData.domain}&isQuestion=1`, [UserData.domain],[]);
-    const ServerPathDisclosure = useDataFetch(`SensitiveDataExposure/server-path-disclosure?domain=${UserData.domain}`, [UserData.domain],"")    
-    const ServerFileAvailbleInCLearText = useDataFetch(`SensitiveDataExposure/ServerFileAvailbleInCLearText?domain=${UserData.domain}`, [UserData.domain],[])    
+    // const emailHarvesting = useDataFetch(`SensitiveDataExposure/email-harvesting?domain=${UserData.domain}`, [UserData.domain]);
+    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url&domain=${UserData.domain}&isQuestion=1`, [UserData.domain], []);
+    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response&domain=${UserData.domain}&isQuestion=1`, [UserData.domain], []);
+    const ServerPathDisclosure = useDataFetch(`SensitiveDataExposure/server-path-disclosure?domain=${UserData.domain}`, [UserData.domain], "")
+    const ServerFileAvailbleInCLearText = useDataFetch(`SensitiveDataExposure/ServerFileAvailbleInCLearText?domain=${UserData.domain}`, [UserData.domain], [])
+    const sensitiveDataPlain = useDataFetch(`SensitiveDataExposure/server-plain-text?domain=${UserData.domain}`, [UserData.domain])
+    const Cleartextpassword = useDataFetch(`SensitiveDataExposure/server-plain-text?domain=${UserData.domain}`, [UserData.domain])
+    console.log("sensitiveDataPlain", sensitiveDataPlain)
     console.log("ServerFileAvailbleInCLearText", ServerFileAvailbleInCLearText)
+    console.log("sensitiveDataPlain", sensitiveDataPlain)
 
     // Function to make an API request
     async function fetchData(url, filepath) {
@@ -80,14 +84,14 @@ const SensitiveDataExposure = () => {
                         <div className="col-md-12 col-lg-12">
                             <ul>
                                 <li className="list-unstyled">An adversary can fingerprint the web server from the HTTP responses :{
-                                    fingerprintDetection.errors.loading ?<LoadingSpinner/> : fingerprintDetection.errors.error ? <div>Error: {fingerprintDetection.errors.message}</div> : fingerprintDetection.data  &&  fingerprintDetection.data.length>0 ? "Yes" : "No"
+                                    fingerprintDetection.errors.loading ? <LoadingSpinner /> : fingerprintDetection.errors.error ? <span className='error'> {fingerprintDetection.errors.message}</span> : fingerprintDetection.data && fingerprintDetection.data.length > 0 ? "Yes" : "No"
                                 }</li>
-                                <li className="list-unstyled">An adversary can harvest email ids for spamming: {emailHarvesting.data ? "Yes" : "No"}</li>
+                                {/* <li className="list-unstyled">An adversary can harvest email ids for spamming: {emailHarvesting.data ? "Yes" : "No"}</li> */}
                                 <li className="list-unstyled">
                                     Application’s server side source code disclosure
                                     {/* Progress bar */}
                                     {
-                                        sourcecodeDisclosoure.errors.loading ? <LoadingSpinner/> : sourcecodeDisclosoure.errors.error ? <div>Error: {sourcecodeDisclosoure.errors.message}</div> : sourcecodeDisclosoure.data && sourcecodeDisclosoure.data.length > 0 ? (
+                                        sourcecodeDisclosoure.errors.loading ? <LoadingSpinner /> : sourcecodeDisclosoure.errors.error ? <span className='error'> {sourcecodeDisclosoure.errors.message}</span> : sourcecodeDisclosoure.data && sourcecodeDisclosoure.data.length > 0 ? (
                                             <div>
                                                 <div className="progress">
                                                     <div className="progress-bar" role="progressbar" style={{ width: `${progress}%` }} aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">{progress}%</div>
@@ -102,16 +106,43 @@ const SensitiveDataExposure = () => {
                                     <li key={index}><span><b>{response.message}</b></span></li>
                                 ))}
 
-                               <li className='list-unstyled'>
-                                Critical information in URL: {SensitiveKeysinUrl.data && SensitiveKeysinUrl.data.length > 0 ? "Yes" : "No"}
+                                <li className="list-unstyled">Default web page is accessible: {DefaultWebPage.errors.loading ? <LoadingSpinner /> :
+                                    DefaultWebPage.errors.error ? <span className='error'> {DefaultWebPage.errors.message}</span> : DefaultWebPage.data && DefaultWebPage.data.length > 0 ? "Yes" : "No"
+                                }</li>
+                                <li className="list-unstyled">Sensitive keys in URL: {SensitiveKeysinUrl.errors.loading ? <LoadingSpinner /> :
+                                    SensitiveKeysinUrl.errors.error ? <span className='error'> {SensitiveKeysinUrl.errors.message}</span> : SensitiveKeysinUrl.data && SensitiveKeysinUrl.data.length > 0 ? "Yes" : "No"
+                                }</li>
+                                <li className="list-unstyled">Sensitive keys in body: {SensitiveKeysinBody.errors.loading ? <LoadingSpinner /> :
+                                    SensitiveKeysinBody.errors.error ? <span className='error'> {SensitiveKeysinBody.errors.message}</span> : SensitiveKeysinBody.data && SensitiveKeysinBody.data.length > 0 ? "Yes" : "No"
+                                }</li>
+                                <li className="list-unstyled">Sensitive data is transmitted to server in plain text: {sensitiveDataPlain.errors.loading ? <LoadingSpinner /> :
+                                    sensitiveDataPlain.errors.error ? <span className='error'> {sensitiveDataPlain.errors.message}</span> : SensitiveKeysinBody.data && SensitiveKeysinBody.data.keys.length > 0 ? "Yes" : "No"
+                                }</li>
+                                <li className="list-unstyled">Sensitive data is transmitted to server in plain text: {sensitiveDataPlain.errors.loading ? <LoadingSpinner /> :
+                                    sensitiveDataPlain.errors.error ? <span className='error'>{sensitiveDataPlain.errors.message}</span> : sensitiveDataPlain.data && sensitiveDataPlain.data.key.length > 0 ? "Yes" : "No"
+                                }</li>
+
+                                <li className="list-unstyled">Physical server path disclosure: {ServerPathDisclosure.errors.loading ? <LoadingSpinner /> :
+                                    ServerPathDisclosure.errors.error ? <span className='error'>{ServerPathDisclosure.errors.message}</span> : ServerPathDisclosure.data && ServerPathDisclosure.data.length > 0 ? "Yes" : "No"
+                                }</li>
+                                <li className="list-unstyled">Server files available in clear text: {ServerFileAvailbleInCLearText.errors.loading ? <LoadingSpinner /> :
+                                    ServerFileAvailbleInCLearText.errors.error ? <span className='error'> {ServerFileAvailbleInCLearText.errors.message}</span> : ServerFileAvailbleInCLearText.data && ServerFileAvailbleInCLearText.data.length > 0 ? "Yes" : "No"
+                                }</li>
+                                <li>
+                                    Cleartext Password returned in login response:
+                                    Cleartext Password returned in login response:
+                                    {
+                                        Cleartextpassword.errors.loading ? <LoadingSpinner /> :
+                                            Cleartextpassword.errors.error ? <span className='error'>{Cleartextpassword.errors.message}</span> :
+                                                <div>{Cleartextpassword.data && Cleartextpassword.data.password ? (
+                                                    <>
+                                                        {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ? <div className='text-center'>Yes</div> : <div className='text-center'>No</div>}
+                                                    </>
+                                                ) : <div>Password Related Information Not Fund</div>
+                                                }</div>
+                                    }
                                 </li>
-                               <li className='list-unstyled'>
-                               Sensitive information revealed in HTTP response: {SensitiveKeysinBody.data && SensitiveKeysinBody.data.length > 0 ? "Yes" : "No"}
-                                </li>
-                                <li className="list-unstyled">Default web-page present in the server :{DefaultWebPage?.data}</li>
-                                <li className="list-unstyled">Physical server path disclosure: {ServerPathDisclosure.data}</li>
-                                <li className="list-unstyled"> Sensitive application configuration architecture files available at users machine in clear text :{ServerFileAvailbleInCLearText.data.length>0?"Yes":"No"} </li>
-                                <li className="list-unstyled">Cleartext Password returned in login response  </li>
+
                             </ul>
 
                         </div>

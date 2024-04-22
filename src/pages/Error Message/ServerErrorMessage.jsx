@@ -11,7 +11,7 @@ const ServerErrorMessage = (props) => {
   return (
     <div>
       {
-        ErrorMessage.errors.loading ? <div>Loading...</div> : ErrorMessage.errors.error ? <div>{ErrorMessage.errors.message}</div> :
+        ErrorMessage.errors.loading ? <LoadingSpinner/> : ErrorMessage.errors.error ? <span className='error'>{ErrorMessage.errors.message}</span> :
           <table className="table table-striped">
               <tbody>
         {

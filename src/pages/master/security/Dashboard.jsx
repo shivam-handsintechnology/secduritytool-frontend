@@ -53,11 +53,25 @@ export default function Dashboard() {
           <InjectionVulnurabilities />
           {/* ENd  injections modules */}
           {/* SSl Info */}
-          <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules ( SSL Information)</h5>
-          <SSLInfo />
+        
+          <div className="card card-primary card-outline">
+                <div className="card-header">
+                <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules ( SSL Information)</h5>
+                </div>
+                <div className="card-body">
+                <SSLInfo />
+                </div>
+            </div>
           {/* End SSl Info */}
           {/* Error Message */}
-          <ServerErrorMessage/>
+          <div className="card card-primary card-outline">
+                <div className="card-header">
+                <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules ( Error Messages)</h5>
+                </div>
+                <div className="card-body">
+                <ServerErrorMessage/>
+                </div>
+            </div>
           {/* End Error Message */}
           {/* Insecure Direct Object References */}
           <DirectObjectReferenceProtection />

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLogsData } from '../../redux/reducers/LogsDataReducer'
 import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
 import { Validators } from '../../utils/Validators/Validator'
+import LoadingSpinner from '../LoaderAndError/loader'
 
 const SessionManagement = () => {
   const data = useSelector((state) => state.LogDataReducer)
@@ -20,26 +21,31 @@ const SessionManagement = () => {
         <div className="row">
 
           <div className="col-md-12 col-lg-12">
-            <table className="table table-striped">
-              <tbody>
-                {postSessionData.data.length > 0 ? (
-                  postSessionData.data.map((obj, index) => (
-                    <tr key={index}>
-                      {Object.entries(obj).map(([key, value]) => (
-                        <React.Fragment key={key}>
-                          <td><strong className="text-capitalize">{key}</strong></td>
-                          <td>{value}</td>
-                        </React.Fragment>
-                      ))}
+            {
+              postSessionData.errors.loading ? <LoadingSpinner />:
+                postSessionData.errors.error ? <div className="error">{postSessionData.errors.message}</div> : 
+                <table className="table table-striped">
+                <tbody>
+                  {postSessionData.data.length > 0 ? (
+                    postSessionData.data.map((obj, index) => (
+                      <tr key={index}>
+                        {Object.entries(obj).map(([key, value]) => (
+                          <React.Fragment key={key}>
+                            <td><strong className="text-capitalize">{key}</strong></td>
+                            <td>{value}</td>
+                          </React.Fragment>
+                        ))}
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="2">No data available</td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="2">No data available</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            }
+          
           </div>
 
         </div>

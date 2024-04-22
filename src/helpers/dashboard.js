@@ -210,10 +210,10 @@
         "label": "An adversary can fingerprint the web server from the HTTP responses",
         "link": "/Adversaryfingerprint"
       },
-      {
-        "label": "An adversary can harvest email ids for spamming",
-        "link" : "/Adversaryemailidsspaming"
-      },
+      // {
+      //   "label": "An adversary can harvest email ids for spamming",
+      //   "link" : "/Adversaryemailidsspaming"
+      // },
       // {
       //   "label": "Application displays database server error message"
       // },
@@ -249,12 +249,14 @@
         "label": "Sensitive information revealed in HTTP response",
         "link" : "/SensitiveData/response"
       },
-      // {
-      //   "label": "Credentials are transmitted to server in plain text"
-      // },
-      // {
-      //   "label": "Sensitive data is transmitted to server in plain text"
-      // },
+      {
+        "label": "Credentials are transmitted to server in plain text",
+        "link" : "/Credentialsplaintext"
+      },
+      {
+        "label": "Sensitive data is transmitted to server in plain text",
+        "link" : "/Sensitivedataplain"
+      },
       {
         "label": "Cleartext Password returned in login response",
         "link" : "/Cleartextpassword"

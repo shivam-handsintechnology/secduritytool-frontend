@@ -11,7 +11,7 @@ const Adversaryfingerprint = () => {
     {postSessionData.errors.loading ? (
       <LoadingSpinner />
     ) : postSessionData.errors.error ? (
-      <p>{postSessionData.errors.message}</p>
+      <span className='error'>{postSessionData.errors.message}</span>
     ) : (
         <table className="table table-striped">
         <tbody>

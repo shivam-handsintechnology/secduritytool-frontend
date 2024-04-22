@@ -35,7 +35,7 @@ const useDataFetch = (url, dependencies=[],type=null) => {
                     error: true,progress: 100,
                     message: message
                 }))
-                setData(null);
+                setData(type);
             }
         };
         fetchData();

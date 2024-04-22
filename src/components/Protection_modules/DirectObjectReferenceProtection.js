@@ -71,9 +71,9 @@ const DirectObjectReferenceProtection = () => {
                         <div className="col-md-12 col-lg-12">
                             <ul>
                                 <li className="list-unstyled">
-                                   <b>Directory listing is enabled on the server </b> 
+                                   <b>Directory listing is enabled on the server :</b> 
                                     {
-                                        DirectoryListingEnable.errors.loading ? <LoadingSpinner /> : DirectoryListingEnable.errors.error ? <h1 className=' error text-center'>{DirectoryListingEnable.errors.message}</h1> : 
+                                        DirectoryListingEnable.errors.loading ? <LoadingSpinner /> : DirectoryListingEnable.errors.error ? <span className=' error '>{DirectoryListingEnable.errors.message}</span> : 
                                    <>
                                     <div style={{ width: '100%', backgroundColor: '#ddd', borderRadius: '4px', marginTop: '20px' }}>
                                     <div style={{ width: `${progress}%`, backgroundColor: '#007bff', height: '20px', borderRadius: '4px', transition: 'width 0.5s ease-in-out' }}></div>
@@ -91,8 +91,7 @@ const DirectObjectReferenceProtection = () => {
                                     <li key={index}><span><b>{response.message}</b></span></li>
                                 ))}
                                  <li className="list-unstyled"><b>HTTP parameter pollution</b>:<span className={httpparameterpollution.errors.error ? "error" : ""}> {httpparameterpollution.errors.error ? robottxt.errors.message : httpparameterpollution?.data}</span></li>
-                                {robottxt.errors.loading? <LoadingSpinner />:robottxt.errors.error?<span>{robottxt.errors.message}</span>: <li className='list-unstyled' ><b>The remote server contains a ‘robots.txt’ file</b>{robottxt?.data}</li> }
-                                
+                                 <li className="list-unstyled"><b>Robots.txt file is present</b>:<span className={robottxt.errors.error ? "error" : ""}> {robottxt.errors.error ? robottxt.errors.message : robottxt?.data}</span></li>
                             </ul>
                         </div>
                     </div>

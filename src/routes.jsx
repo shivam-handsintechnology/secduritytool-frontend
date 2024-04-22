@@ -81,6 +81,8 @@ import ServerErrorMessage from './pages/Error Message/ServerErrorMessage';
 import GoBack from './components/GoBack';
 import DomainSeletor from './components/DomainSeletor';
 import Loader from './components/Loader';
+import SensitiveDataplain from './pages/Sensitive_Data_Exposure/Sensitivedataplain';
+import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialsplaintext';
 
 export const ProtectedRoutes = [
 
@@ -141,6 +143,17 @@ export const ProtectedRoutes = [
     exact: true,
     Layout: "AdminLayout",
     element: <SensitiveData Goback={<GoBack/>}  />,
+  },
+  {
+    path:'/Sensitivedataplain',
+    exact:true,
+    Layout:"AdminLayout",
+    element:<SensitiveDataplain Goback={<GoBack/>} />
+  },{
+    path:'/Credentialsplaintext',
+    exact:true,
+    Layout:"AdminLayout",
+    element:<CredentialsPlaintext Goback={<GoBack/>} />
   },
   {
     path: 'Websites',

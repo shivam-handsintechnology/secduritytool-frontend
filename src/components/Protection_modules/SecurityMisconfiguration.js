@@ -23,25 +23,21 @@ const SecurityMisconfiguration = (props) => {
                     <h5><i className="fas fa-shield-alt" /> &nbsp;Protection Modules (Security Misconfiguration)</h5>
                 </div>
                 <div className="card-body">
-                    {
-                      arbitraryMethods.errors.loading  || dangerousMethods.errors.loading || passwordTestHash.errors.loading || Nodejs.errors.loading || OptionMethods.errors.loading ? (
-                       <LoadingSpinner/>
-                        ) : arbitraryMethods.errors.error || dangerousMethods.errors.error || passwordTestHash.errors.error || Nodejs.errors.error || OptionMethods.errors.error ? (
-
-                            <p className='error'>{arbitraryMethods.errors.message}</p>
-                        ) : (
+                   
                             <ul>
-                                <li className='list-unstyled'>Application accepts arbitrary methods :{arbitraryMethods.data && arbitraryMethods.data.length>0?"Yes":"No"}</li>
+                                <li className='list-unstyled'>Application accepts arbitrary methods :{
+                                    arbitraryMethods.errors.loading?<LoadingSpinner/>:arbitraryMethods.errors.error?<span className=' error'>{arbitraryMethods.errors.message}</span>:
+                                arbitraryMethods.data && arbitraryMethods.data.length>0?"Yes":"No"}</li>
                                 
-                                <li  className='list-unstyled'>Application database stores password in plain text :  {passwordTestHash.data}</li>
-                                <li  className='list-unstyled'>Support Old Nodejs Version :{Nodejs.data && Nodejs.data.older_version_support ? "Yes" : "No"}</li>
-                                <li  className='list-unstyled'>Dangerous HTTP Methods : {dangerousMethods.data && dangerousMethods.data.length > 0 ? "Yes":"No"}</li>
-                                <li  className='list-unstyled'>Option Methods Enabled : {OptionMethods.data && OptionMethods.data.length>0?"Yes":"No"}</li>
-                                <li  className='list-unstyled'>Password is encrypted/encoded using weak algorithm : {passwordWeekTest.data}</li>
+                                <li  className='list-unstyled'>Application database stores password in plain text :  {passwordTestHash.errors.loading?<LoadingSpinner/>:passwordTestHash.errors.error?<span className=' error'>{passwordTestHash.errors.message}</span>:passwordTestHash.data}</li>
+                                <li  className='list-unstyled'>Support Old Nodejs Version :{Nodejs.errors.loading?<LoadingSpinner/>:Nodejs.errors.error?<span className=' error'>{Nodejs.errors.message}</span>:Nodejs.data && Nodejs.data.older_version_support ? "Yes" : "No"}</li>
+                                <li  className='list-unstyled'>Dangerous HTTP Methods : {dangerousMethods.errors.loading?<LoadingSpinner/>:dangerousMethods.errors.error?<span className=' error'>{dangerousMethods.errors.message}</span>:dangerousMethods.data && dangerousMethods.data.length > 0 ? "Yes":"No"}</li>
+                                <li  className='list-unstyled'>Option Methods Enabled : {OptionMethods.errors.loading?<LoadingSpinner/>:OptionMethods.errors.error?<span className=' error'>{OptionMethods.errors.message}</span>:OptionMethods.data && OptionMethods.data.length>0?"Yes":"No"}</li>
+                                <li  className='list-unstyled'>Password is encrypted/encoded using weak algorithm : {passwordWeekTest.errors.loading?<LoadingSpinner/>:passwordWeekTest.errors.error?<span className=' error'>{passwordWeekTest.errors.message}</span>:passwordWeekTest.data}</li>
                              
                             </ul>
-                        )
-                    }
+                        
+                    
                     <ul>
                     </ul>
                 </div>

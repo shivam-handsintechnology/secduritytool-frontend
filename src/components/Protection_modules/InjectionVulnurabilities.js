@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Chart3 from '../Charts/Chart3';
 import useDataFetch from '../../hooks/DataFetchHook';
+import LoadingSpinner from '../LoaderAndError/loader';
 
 const InjectionVulnurabilities = () => {
      const {domain}=useSelector((state)=>state.UserReducer)
@@ -17,7 +18,7 @@ const InjectionVulnurabilities = () => {
                 </div>
                 <div className="card-body">
                     {
-                        AlllogsData.errors.loading?(<div className="text-center"><div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div></div>):AlllogsData.errors.error?(<h1 className=' error text-center'>{AlllogsData.errors.message}</h1>):(
+                        AlllogsData.errors.loading?(<LoadingSpinner/>):AlllogsData.errors.error?(<span className=' error'>{AlllogsData.errors.message}</span>):(
                             <>
                             <div className="row">
                                 <div className="col-md-6">

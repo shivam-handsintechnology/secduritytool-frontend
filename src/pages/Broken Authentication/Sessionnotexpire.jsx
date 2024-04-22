@@ -10,7 +10,7 @@ const Sessionnotexpire = () => {
   console.log("postSessionData", postSessionData.data)
   return (
     <div>
-      {postSessionData.errors.loading ? <LoadingSpinner /> : postSessionData.errors.error ? <p>{postSessionData.errors.message}</p> :
+      {postSessionData.errors.loading ? <LoadingSpinner /> : postSessionData.errors.error ? <span className='error'>{postSessionData.errors.message}</span> :
        <table className="table table-striped">
        <tbody>
          {postSessionData.data && postSessionData.data.length > 0 ? (
