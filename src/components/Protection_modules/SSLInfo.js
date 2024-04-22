@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import LoadingSpinner from '../LoaderAndError/loader'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import useDataFetch from '../../hooks/DataFetchHook'
 const SSLInfo = () => {
     const userData = useSelector(state => state.UserReducer)
-    const SSlInfo = useDataFetch(`client/sslverify?domain=${userData.domain}`, [userData.domain])
+    const SSlInfo = useDataFetch(`SSLVerify?domain=${userData.domain}`, [userData.domain],)
     console.log("SSlInfo",SSlInfo)
   
    
@@ -14,7 +14,7 @@ const SSLInfo = () => {
       <>
         <React.Fragment>
             {
-                SSlInfo.errors.loading ? <LoadingSpinner /> :SSlInfo.errors.error ? <h1 className=' error text-center'>{SSlInfo.errors.message}</h1> : 
+                SSlInfo.errors.loading ? <LoadingSpinner /> :SSlInfo.errors.error ? <span className=' error'>{SSlInfo.errors.message}</span> : 
               
                 <div className="container-fluid">
                       {SSlInfo.data  && (

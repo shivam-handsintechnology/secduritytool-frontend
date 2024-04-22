@@ -30,7 +30,7 @@ const SensitiveData = () => {
       //   width: "28%",
       // },
     ]
-    const sensitiveDataHttp = useDataFetch(`SensitiveDataExposure/sensitive-data?complete=true&limit=${limit}&type=${type}&page=${pageNumber}&domain=${UserData.domain}`, [pageNumber, type])
+    const sensitiveDataHttp = useDataFetch(`SensitiveDataExposure/sensitive-data?complete=true&limit=${limit}&type=${type}&page=${pageNumber}&domain=${UserData.domain}`, [pageNumber, type,UserData.domain])
   console.log(sensitiveDataHttp)
   return (
     <div>

@@ -8,10 +8,10 @@ const DirectObjectReferenceProtection = () => {
     const [completeed, setCompleted] = useState(0);
     const [responseData, setResponseData] = useState([]);
     const userData = useSelector((state) => state.UserReducer)
-    const robottxt = useDataFetch(`security/test/robottxt?domain=${userData.domain}`, [userData.domain], null, false)
-    const httpparameterpollution = useDataFetch(`client/httpparameterpollution?domain=${userData.domain}`, [userData.domain], null, false)
-    const DirectoryListingEnable = useDataFetch(`InsecureObjectRefGuard/DirectoryListingEnable?domain=${userData.domain}`, [userData.domain], null, false)
-    console.log("robottxt", DirectoryListingEnable)
+    const robottxt = useDataFetch(`InsecureObjectRefGuard/robottxt?domain=${userData.domain}`, [userData.domain],"" )
+    const httpparameterpollution = useDataFetch(`InsecureObjectRefGuard/httpparameterpollution?domain=${userData.domain}`, [userData.domain],"" )
+    const DirectoryListingEnable = useDataFetch(`InsecureObjectRefGuard/DirectoryListingEnable?domain=${userData.domain}`, [userData.domain], )
+    console.log("robottxt", robottxt)
     // Function to make an API request
     async function fetchData(url, filepath) {
         try {
@@ -70,12 +70,10 @@ const DirectObjectReferenceProtection = () => {
                     <div className="row">
                         <div className="col-md-12 col-lg-12">
                             <ul>
-                                <li>
-                                    Directory listing is enabled on the server
-                                    {/* Progress bar */}
-
+                                <li className="list-unstyled">
+                                   <b>Directory listing is enabled on the server :</b> 
                                     {
-                                        DirectoryListingEnable.errors.loading ? <LoadingSpinner /> : DirectoryListingEnable.errors.error ? <h1 className=' error text-center'>{DirectoryListingEnable.errors.message}</h1> : 
+                                        DirectoryListingEnable.errors.loading ? <LoadingSpinner /> : DirectoryListingEnable.errors.error ? <span className=' error '>{DirectoryListingEnable.errors.message}</span> : 
                                    <>
                                     <div style={{ width: '100%', backgroundColor: '#ddd', borderRadius: '4px', marginTop: '20px' }}>
                                     <div style={{ width: `${progress}%`, backgroundColor: '#007bff', height: '20px', borderRadius: '4px', transition: 'width 0.5s ease-in-out' }}></div>
@@ -92,9 +90,8 @@ const DirectObjectReferenceProtection = () => {
                                 {responseData.map((response, index) => (
                                     <li key={index}><span><b>{response.message}</b></span></li>
                                 ))}
-                                <li><b>The remote server contains a ‘robots.txt’ file</b>:<span className={robottxt.errors.error ? "error" : ""}> {robottxt.errors.error ? robottxt.errors.message : robottxt?.data}</span></li>
-                                <li><b>HTTP parameter pollution</b>:<span className={httpparameterpollution.errors.error ? "error" : ""}> {httpparameterpollution.errors.error ? robottxt.errors.message : httpparameterpollution?.data?.data}</span></li>
-
+                                 <li className="list-unstyled"><b>HTTP parameter pollution</b>:<span className={httpparameterpollution.errors.error ? "error" : ""}> {httpparameterpollution.errors.error ? robottxt.errors.message : httpparameterpollution?.data}</span></li>
+                                 <li className="list-unstyled"><b>Robots.txt file is present</b>:<span className={robottxt.errors.error ? "error" : ""}> {robottxt.errors.error ? robottxt.errors.message : robottxt?.data}</span></li>
                             </ul>
                         </div>
                     </div>
