@@ -360,19 +360,20 @@
   },
   {
     "Category": "Weak Cross domain policy",
+    "link" : "/WeakCrossDomainPolicy",
     "UseCases": [
-      {
-        "label": "Is \"allow-access-from domain\" in cross-domain.xml policy file set to * or unauthorized domains?",
-        "link" : "/Crossdomainpolicy"
-      },
-      {
-        "label": "Is \"Origin\" header in client request validated at the server?",
-        "link" : "/Originheader"
-      },
-      {
-        "label": "Is \"Access-Control-Allow-Origin\" header in server response is set securely?",
-        "link" : "/AccessControlAllowOrigin"
-      }
+      // {
+      //   "label": "Is \"allow-access-from domain\" in cross-domain.xml policy file set to * or unauthorized domains?",
+      //   "link" : "/Crossdomainpolicy"
+      // },
+      // {
+      //   "label": "Is \"Origin\" header in client request validated at the server?",
+      //   "link" : "/Originheader"
+      // },
+      // {
+      //   "label": "Is \"Access-Control-Allow-Origin\" header in server response is set securely?",
+      //   "link" : "/AccessControlAllowOrigin"
+      // }
     ]
   },
   {

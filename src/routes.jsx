@@ -83,6 +83,7 @@ import DomainSeletor from './components/DomainSeletor';
 import Loader from './components/Loader';
 import SensitiveDataplain from './pages/Sensitive_Data_Exposure/Sensitivedataplain';
 import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialsplaintext';
+import WeakCrossDomainPolicy from './pages/Weak_cross_domain_Policy';
 
 export const ProtectedRoutes = [
 
@@ -327,6 +328,11 @@ export const ProtectedRoutes = [
     path: '/Sensitivedatastored',
     exact: true,
     element: <Sensitivedatastored Goback={<GoBack/>}  />,
+  },
+  {
+    path:"/WeakCrossDomainPolicy",
+    exact:true,
+    element:<WeakCrossDomainPolicy Goback={<GoBack/>} />
   },
   {
     path: '/Crossdomainpolicy',
