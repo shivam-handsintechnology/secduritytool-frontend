@@ -387,7 +387,7 @@ export const RoutePages = () => {
 
 
   }, [userreducerDetails,])
-
+const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
 
   return (
     <React.Fragment>{Loader ? <div >..Loading</div> :
@@ -409,7 +409,9 @@ export const RoutePages = () => {
               key={route.path}
               path={route.path}
               element={userreducerDetails.isAuthenticated ? <Layout>
-                <DomainSeletor />
+                {
+                  letSkipDomainSelectorPages.includes(route.path)?'':<DomainSeletor />
+                }
                 {userreducerDetails.domain? route.element:<div>Please Select Domain</div>}
                 </Layout>
                 : <Navigate to="/login"  />}

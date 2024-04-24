@@ -284,10 +284,10 @@
         "label": "Application is vulnerable to stored Cross Site Scripting attack",
         "link" : "/logs/xss-injection"
       },
-      // {
-      //   "label": "Is XSS possible via CSS injection?",
-      //   "link" : "/XSSpossible"
-      // }
+      {
+        "label": "Is XSS possible via CSS injection?",
+        "link" : "/logs/CSS"
+      }
     ]
   },
   // {
