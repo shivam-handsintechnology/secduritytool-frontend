@@ -83,6 +83,7 @@ import DomainSeletor from './components/DomainSeletor';
 import Loader from './components/Loader';
 import SensitiveDataplain from './pages/Sensitive_Data_Exposure/Sensitivedataplain';
 import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialsplaintext';
+import WeakCrossDomainPolicy from './pages/Weak_cross_domain_Policy';
 
 export const ProtectedRoutes = [
 
@@ -329,6 +330,11 @@ export const ProtectedRoutes = [
     element: <Sensitivedatastored Goback={<GoBack/>}  />,
   },
   {
+    path:"/WeakCrossDomainPolicy",
+    exact:true,
+    element:<WeakCrossDomainPolicy Goback={<GoBack/>} />
+  },
+  {
     path: '/Crossdomainpolicy',
     exact: true,
     element: <Crossdomainpolicy Goback={<GoBack/>}  />,
@@ -387,7 +393,7 @@ export const RoutePages = () => {
 
 
   }, [userreducerDetails,])
-
+const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
 
   return (
     <React.Fragment>{Loader ? <div >..Loading</div> :
@@ -409,7 +415,9 @@ export const RoutePages = () => {
               key={route.path}
               path={route.path}
               element={userreducerDetails.isAuthenticated ? <Layout>
-                <DomainSeletor />
+                {
+                  letSkipDomainSelectorPages.includes(route.path)?'':<DomainSeletor />
+                }
                 {userreducerDetails.domain? route.element:<div>Please Select Domain</div>}
                 </Layout>
                 : <Navigate to="/login"  />}
