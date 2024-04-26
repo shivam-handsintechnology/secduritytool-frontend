@@ -123,13 +123,12 @@ const SensitiveDataExposure = () => {
                                 }</li>
 
                                 <li className="list-unstyled">Physical server path disclosure: {ServerPathDisclosure.errors.loading ? <LoadingSpinner /> :
-                                    ServerPathDisclosure.errors.error ? <span className='error'>{ServerPathDisclosure.errors.message}</span> : ServerPathDisclosure.data && ServerPathDisclosure.data.length > 0 ? "Yes" : "No"
+                                    ServerPathDisclosure.errors.error ? <span className='error'>{ServerPathDisclosure.errors.message}</span> : ServerPathDisclosure.data && ServerPathDisclosure.data
                                 }</li>
-                                <li className="list-unstyled">Server files available in clear text: {ServerFileAvailbleInCLearText.errors.loading ? <LoadingSpinner /> :
+                                <li className="list-unstyled">Sensitive application configuration architecture files available at users machine in clear text: {ServerFileAvailbleInCLearText.errors.loading ? <LoadingSpinner /> :
                                     ServerFileAvailbleInCLearText.errors.error ? <span className='error'> {ServerFileAvailbleInCLearText.errors.message}</span> : ServerFileAvailbleInCLearText.data && ServerFileAvailbleInCLearText.data.length > 0 ? "Yes" : "No"
                                 }</li>
                                 <li>
-                                    Cleartext Password returned in login response:
                                     Cleartext Password returned in login response:
                                     {
                                         Cleartextpassword.errors.loading ? <LoadingSpinner /> :

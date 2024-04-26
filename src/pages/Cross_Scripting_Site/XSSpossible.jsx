@@ -6,7 +6,7 @@ import LoadingSpinner from '../../components/LoaderAndError/loader'
 const XSSpossible = () => {
 
   const CrossSiteScriptingXSS = useDataFetch(`CrossSiteScripting`, [], [])
-  console.log("CrossSiteScriptingXSS", CrossSiteScriptingXSS)
+  console.log("CrossSiteScripting", CrossSiteScriptingXSS)
   return (
     <div>
       {

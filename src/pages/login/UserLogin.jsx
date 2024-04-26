@@ -36,7 +36,7 @@ export default function UserLogin() {
           let decryptedData = encryptData({ token: data.token })
           sessionStorage.setItem('token', decryptedData)
           dispatch(setUserDetails({ isAuthenticated: true }))
-          navigate('/dashboard')
+          window.location.assign('/dashboard')
         } else {
           toast.error(message)
         }

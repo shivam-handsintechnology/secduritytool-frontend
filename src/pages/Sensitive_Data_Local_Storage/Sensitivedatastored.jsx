@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 const Sensitivedatastored = () => {
   const UserData = useSelector((state) => state.UserReducer)
 
-  const postSessionData=useDataFetch(`AuthSessionGuardian/session-vulnurability?domain=${UserData.domain}`,[UserData.domain])
-    console.log("postSessionData", postSessionData)
+  const SensitiveStorageLocalStorage=useDataFetch(`SensitiveStorageLocalStorage`,[],[])
+    console.log("SensitiveStorageLocalStorage", SensitiveStorageLocalStorage)
   return (
     <div>Sensitivedatastored</div>
   )
