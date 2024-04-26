@@ -64,7 +64,7 @@ const Directorylisting = () => {
     <div>
       <ul className='list-unstyled'>
         <li className="list-unstyled">
-          
+
           {
             DirectoryListingEnable.errors.loading ? <LoadingSpinner /> : DirectoryListingEnable.errors.error ? <li className='list-unstyled'><b>Directory listing is enabled on the server </b>:<span className='error'>{DirectoryListingEnable.errors.message}</span></li> :
               <>
@@ -72,18 +72,26 @@ const Directorylisting = () => {
                   <div style={{ width: `${progress}%`, backgroundColor: '#007bff', height: '20px', borderRadius: '4px', transition: 'width 0.5s ease-in-out' }}></div>
                 </div>
 
-                <p style={{ marginTop: '10px' }}>{progress}% Complete</p>
-                <p style={{ marginTop: '10px' }}> {`${completeed}/${DirectoryListingEnable?.data?.directoryUrls?.length}`}</p>
+                <p style={{ marginTop: '10px', marginLeft: '20px' }}>{progress}% Complete</p>
+                <p style={{ marginTop: '10px', marginLeft: '20px' }}> {`${completeed}/${DirectoryListingEnable?.data?.directoryUrls?.length}`}</p>
 
-                <button onClick={processSequentially} className="btn btn-primary">Check Directory listing is enabled or Not  on the server</button>
+                <button onClick={processSequentially} className="btn btn-primary" style={{ marginTop: '10px', marginLeft: '20px' }}>Check Directory listing is enabled or Not  on the server</button>
               </>
 
           }
         </li>
-        {responseData.length > 0 && completeed === DirectoryListingEnable?.data?.directoryUrls?.length && <h3 className='error'>Directory listing is enabled on the server</h3>}
-        {responseData.length === 0 && completeed === DirectoryListingEnable?.data?.directoryUrls?.length && <h3 className='success'>Directory listing is not enabled on the server</h3>}
-        <li className="list-unstyled"><b>HTTP parameter pollution</b>:<span className={httpparameterpollution.errors.error ? "error" : ""}> {httpparameterpollution.errors.error ? robottxt.errors.message : httpparameterpollution?.data}</span></li>
-        {robottxt.errors.loading ? <LoadingSpinner /> : robottxt.errors.error ? <li className='list-unstyled' ><b>The remote server contains a ‘robots.txt’ file</b><span className='error'>{robottxt.errors.message}</span></li>: <li className='list-unstyled' ><b>The remote server contains a ‘robots.txt’ file</b>{robottxt?.data}</li>}
+        {responseData.length > 0 && completeed === DirectoryListingEnable?.data?.directoryUrls?.length && <h3 className='error' style={{ marginTop: '10px', marginLeft: '20px' }}>Directory listing is enabled on the server</h3>}
+        {responseData.length === 0 && completeed === DirectoryListingEnable?.data?.directoryUrls?.length && <h3 className='success' style={{ marginTop: '10px', marginLeft: '20px' }}>Directory listing is not enabled on the server</h3>}
+
+        <li>
+          <b>HTTP parameter pollution</b>
+          {httpparameterpollution.errors.loading ? <LoadingSpinner /> : httpparameterpollution.errors.error ? httpparameterpollution.errors.message : robottxt.data}
+        </li>
+        <li>
+          <b>The remote server contains a ‘robots.txt’ file</b>
+          {robottxt.errors.loading ? <LoadingSpinner /> : robottxt.errors.error ? robottxt.errors.message : robottxt.data}
+        </li>
+
       </ul>
     </div>
   )

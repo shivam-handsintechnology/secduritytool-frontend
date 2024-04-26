@@ -17,6 +17,10 @@ const ServerErrorMessage = (props) => {
         {
         ErrorMessage.data &&   ErrorMessage.data.length>0?ErrorMessage.data.map((item,index)=>(
           <tr key={index}>
+            <td><i class="fa fa-check" style={{
+              background: "#002446", borderRadius: "50%",
+              padding: "3px", color: 'white'
+            }}></i></td>
               <td><strong className="text-capitalize">{item.text}</strong></td>
               <td>{item.value}</td>
               {item.value==="Yes"?<td><Link to={item.link}>Click here</Link></td>:null}

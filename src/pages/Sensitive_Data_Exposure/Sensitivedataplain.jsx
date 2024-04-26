@@ -18,9 +18,7 @@ const SensitiveDataplain = () => {
                                 {
                                     sensitiveDataPlain.data.key.length > 0 &&
                                     sensitiveDataPlain.data.key.map((item, index) => (
-                                        <div key={index}>
-                                            <div>{item}</div>
-                                        </div>
+<li></li>                                                                                                                     
                                     ))
 
                                 }

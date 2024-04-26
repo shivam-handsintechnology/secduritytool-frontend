@@ -16,21 +16,26 @@ const Serverreturnserror = (props) => {
         <p>{postSessionData.errors.message}</p>
       ) : (
         <>
-        <h1>Server returns 403 error message: {postSessionData.data && postSessionData.data.length>0?"Yes":"No"}</h1>
-        <table className="table table-striped">
-          <tbody>
-            <tr>
-              <th>Name</th>
-            </tr>
-            {postSessionData.data && postSessionData.data.length>0 ?postSessionData.data.map((item, index) => (
-              <tr key={index}>
-                <td>{item.name}</td>
-              </tr>
-            )): <tr>
-            <td colSpan="2">No data available</td>
-              </tr>}
-          </tbody>
-        </table>
+        <div className='m-2'>
+                <h1>Server returns 403 error message: {postSessionData.data && postSessionData.data.length > 0 ? "Yes" : "No"}</h1>
+                <table className="table table-striped">
+                  <tbody>
+                    <tr>
+                      <th>Name</th>
+                    </tr>
+                    {postSessionData.data && postSessionData.data.length > 0 ? postSessionData.data.map((item, index) => (
+                      <tr key={index}>
+                        <td><i class="fa fa-check" style={{
+                          background: "#002446", borderRadius: "50%",
+                          padding: "3px", marginRight: "5px", color: 'white', marginLeft: "5px",
+                        }}></i>{item.name}</td>
+                      </tr>
+                    )) : <tr>
+                      <td colSpan="2">No data available</td>
+                    </tr>}
+                  </tbody>
+                </table>
+        </div>
         </>
       )}
     </div>
