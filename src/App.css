@@ -285,3 +285,6 @@ ul.ul-styling {
   color: green;
   font-size: 15px;
 }
+.xss {
+  background-image: url('javascript:alert("XSS")');
+}

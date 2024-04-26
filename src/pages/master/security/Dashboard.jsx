@@ -9,6 +9,8 @@ import SensitiveDataExposure from "../../../components/Protection_modules/Sensit
 import useDataFetch from "../../../hooks/DataFetchHook";
 import { useSelector } from "react-redux";
 import ServerErrorMessage from "../../Error Message/ServerErrorMessage";
+import UnvalidatedRedirectsForwards from "../../../components/Protection_modules/UnvalidatedRedirectsForwards";
+import CrossSiteScriptingXSS from "../../../components/Protection_modules/CrossSiteScriptingXSS";
 
 
 export default function Dashboard() {
@@ -82,6 +84,13 @@ export default function Dashboard() {
           {/* Sensiotive Data Expoture */}
           <SensitiveDataExposure />
           {/* End Sensiotive Data Expoture */}
+          {/* Unvalidate Redirects */}
+         <UnvalidatedRedirectsForwards/>
+          {/* End Unvalidate Redirects */}
+
+          {/* Cross-Site Scripting (XSS) */}
+          <CrossSiteScriptingXSS />
+          {/* End Cross-Site Scripting (XSS) */}
         </div>
 
         {/* /.content */}
