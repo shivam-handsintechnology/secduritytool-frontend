@@ -18,6 +18,10 @@ const Sessionnotexpire = () => {
              <tr key={index}>
                {Object.entries(obj).map(([key, value]) => (
                  <React.Fragment key={key}>
+                   <td><i class="fa fa-check" style={{
+                     background: "#002446", borderRadius: "50%",
+                     padding: "3px", color: 'white'
+                   }}></i></td>
                    <td><strong className="text-capitalize">{key}</strong></td>
                    <td>{value}</td>
                  </React.Fragment>

@@ -25,10 +25,16 @@ const WeakCrossDomainPolicy = () => {
                     {AccessControlAllowOriginHeaderSecure.errors.message}
                 </span>
             ) : (
-                <ul className="table table-bordered">
+                <ul className="table table-bordered p-4">
 
-                    <li className='list-unstyled'>Is "Origin" header in client request validated at the server? : {OriginHeaderValidation.data}</li>
-                    <li className='list-unstyled'>Is "Access-Control-Allow-Origin" header in server response set securely? :{AccessControlAllowOriginHeaderSecure.data}</li>
+                            <li className='list-unstyled mb-2 '><i class="fa fa-check" style={{
+                                background: "#002446", borderRadius: "50%",
+                                padding: "3px", marginRight: "5px", color: 'white', marginLeft: "5px",
+                            }}></i>Is "Origin" header in client request validated at the server? : {OriginHeaderValidation.data}</li>
+                            <li className='list-unstyled'><i class="fa fa-check" style={{
+                                background: "#002446", borderRadius: "50%",
+                                padding: "3px", marginRight: "5px", color: 'white', marginLeft: "5px",
+                            }}></i>Is "Access-Control-Allow-Origin" header in server response set securely? :{AccessControlAllowOriginHeaderSecure.data}</li>
                 </ul>
             )}
         </div>

@@ -4,19 +4,22 @@ import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
 const Chart3 = ({ data }) => {
     // Check if all values are zero
     const allZero = data.every(entry => entry.value === 0);
+    const divStyle = {
+        backgroundColor: 'aquamarine',
 
+    };
     if (allZero) {
         return (
             <div className='border'>
-                <div className='bg-primary p-1'> <h3> Doughnut Chart</h3></div>
+                <div className=' p-1' style={divStyle}> <h3> Doughnut Chart</h3></div>
                 <p>No data available for graph</p>
             </div>
         );
     }
-
+   
     return (
         <div className='border'>
-            <div className='bg-primary p-1'> <h3> Doughnut Chart</h3></div>
+            <div className=' p-1' style={divStyle}> <h3> Doughnut Chart</h3></div>
 
             <PieChart width={500} height={300}>
                 <Pie

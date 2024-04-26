@@ -273,18 +273,22 @@ ul.ul-styling {
 .text-table-format {
   text-align: center;
 }
-.text-table-format th{
-      font-weight: bold;
-        font-size: 20px;
+
+.text-table-format th {
+  font-weight: bold;
+  font-size: 20px;
 }
-.error{
+
+.error {
   color: red;
   font-size: 15px;
 }
-.success{
+
+.success {
   color: green;
   font-size: 15px;
 }
+
 .xss {
   background-image: url('javascript:alert("XSS")');
 }
