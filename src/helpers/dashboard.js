@@ -290,65 +290,13 @@
       }
     ]
   },
-  // {
-  //   "Category": "Miscellaneous Attacks",
-  //   "UseCases": [
-  //     {
-  //       "label": "Application accepts special characters as user inputs"
-  //     },
-  //     {
-  //       "label": "Auto-complete is enabled for sensitive fields"
-  //     },
-  //     {
-  //       "label": "captcha can be bypassed"
-  //     },
-  //     {
-  //       "label": "Captcha is not implemented for publicly available forms"
-  //     },
-  //     {
-  //       "label": "click jacking"
-  //     },
-  //     {
-  //       "label": "Default/Test files found on the web server"
-  //     },
-  //     {
-  //       "label": "Developer comments revealed in page source"
-  //     },
-  //     {
-  //       "label": "Email Flooding"
-  //     },
-  //     {
-  //       "label": "Insecure administrator login name"
-  //     },
-  //     {
-  //       "label": "Server Side input validations are not in place"
-  //     },
-  //     {
-  //       "label": "Temporary account lockout feature is not implemented"
-  //     },
-  //     {
-  //       "label": "Weak auditing and logging mechanisms"
-  //     },
-  //     {
-  //       "label": "DOS using sql wildcards"
-  //     },
-  //     {
-  //       "label": "OTPs and credentials communicated in clear text on emails"
-  //     },
-  //     {
-  //       "label": "Can Registrations override another user's record or username or email address?"
-  //     },
-  //     {
-  //       "label": "Can Profile updations override another user's record or username or email address, thereby taking over another user's identity?"
-  //     },
-  //     {
-  //       "label": "Submit a valid username and invalid password and see if the application has already created a valid session even though login process generated an error response"
-  //     },
-  //     {
-  //       "label": "Vulnerabilities in known components"
-  //     }
-  //   ]
-  // },
+  {
+    "Category": "Miscellaneous Attacks",
+    "link" : "/MiscellaneousAttacks",
+    "UseCases": [
+     
+    ]
+  },
   {
     "Category": "Sensitive Data stored in local storage",
     "UseCases": [
