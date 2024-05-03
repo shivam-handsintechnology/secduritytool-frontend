@@ -5,14 +5,22 @@ import LoadingSpinner from '../../components/LoaderAndError/loader'
 const Adversaryfingerprint = () => {
     const UserData = useSelector((state) => state.UserReducer)
     const postSessionData=useDataFetch(`SensitiveDataExposure/fingerprint-detection?domain=${UserData.domain}`,[UserData.domain])
-    console.log("postSessionData", postSessionData)
+    const isNotFound = postSessionData.data && postSessionData.data.every(item => Object.values(item).includes("Not Found"));
+  
   return (
     <div>
     {postSessionData.errors.loading ? (
       <LoadingSpinner />
     ) : postSessionData.errors.error ? (
       <span className='error'>{postSessionData.errors.message}</span>
-    ) : (
+    ) :
+
+     (
+      <>
+       <span>
+          An adversary can fingerprint the web server from the HTTP responses:
+          {isNotFound ? "No" : "Yes"}
+        </span>
         <table className="table table-striped">
         <tbody>
           {postSessionData.data && postSessionData.data.length > 0 ? (
@@ -37,6 +45,7 @@ const Adversaryfingerprint = () => {
           )}
         </tbody>
       </table>
+      </>
       
     )}
   </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { usePostData, useDataFetch ,useDeleteData} from "../../../hooks/DataFetchHook";
+import { usePostData, useDataFetch, useDeleteData } from "../../../hooks/DataFetchHook";
 import { PaginationComponent } from "../../../hooks/PaginationComponent";
 import LoadingSpinner from "../../../components/LoaderAndError/loader";
 import { useSelector } from "react-redux";
@@ -10,7 +10,7 @@ const AllLogs = () => {
   const [limit, setLimit] = useState(5)
   const [pageNumber, setPageNumber] = useState(1)
   const PostDomain = usePostData()
-  const {handleSubmit,Data}=useDeleteData()
+  const { handleSubmit, Data } = useDeleteData()
   const { type } = useParams()
 
   let columns = [
@@ -39,7 +39,7 @@ const AllLogs = () => {
           <Button
             variant="btn btn-primary acasd"
             onClick={(e) => {
-              PostDomain.handleSubmit(e,`security/blacklist/`, { ip: rowData.ip });
+              PostDomain.handleSubmit(e, `security/blacklist/`, { ip: rowData.ip });
             }}
           >
             Add To Black List
@@ -50,9 +50,9 @@ const AllLogs = () => {
       width: "28%",
     },
   ]
-  const {domain}=useSelector((state)=>state.UserReducer)
-  const getAlLLogs = useDataFetch(`injections?limit=${limit}&&type=${type}&page=${pageNumber}`, [pageNumber,domain, type, PostDomain.Data,Data])
- console.log("getAlLLogs",getAlLLogs)
+  const { domain } = useSelector((state) => state.UserReducer)
+  const getAlLLogs = useDataFetch(`injections?limit=${limit}&&type=${type}&page=${pageNumber}`, [pageNumber, domain, type, PostDomain.Data, Data])
+  console.log("getAlLLogs", getAlLLogs)
   return (
     <div>
       {/* <Headers />
@@ -65,7 +65,7 @@ const AllLogs = () => {
             <div className="row mb-2">
               <div className="col-sm-6">
                 <h1 className="m-0 ">
-                  <i className="fas fa-align-justify text-capitalize" /> {type } Logs
+                  <i className="fas fa-align-justify text-capitalize" /> {type} Logs
                 </h1>
               </div>
               <div className="col-sm-6">
@@ -77,7 +77,7 @@ const AllLogs = () => {
                   </li>
                   <li className="breadcrumb-item active">
                     {" "}
-                    {type } Logs
+                    {type} Logs
                   </li>
                 </ol>
               </div>
@@ -107,27 +107,38 @@ const AllLogs = () => {
                   </div>
                   <div className="card-body ">
                     {
-                      getAlLLogs.errors.loading ?(
-                        <LoadingSpinner/>
-                      ):getAlLLogs.errors.error ? (
+                      getAlLLogs.errors.loading ? (
+                        <LoadingSpinner />
+                      ) : getAlLLogs.errors.error ? (
                         <span className="error">{getAlLLogs.errors.message}</span>
-                      ):
-                    getAlLLogs.data && getAlLLogs.data.data.length > 0 ? (
-                      <div>
-                        {/* Render pagination component */}
+                      ) :
+                        getAlLLogs.data && getAlLLogs.data.data.length > 0 ? (
+                          <div>
+                            {
+                              type === "html" && <>
+                                <p><strong>Warning:</strong> When sending HTML data, please be aware of the risks associated with HTML injection attacks. HTML injection occurs when malicious code is injected into HTML content, potentially leading to security vulnerabilities such as cross-site scripting (XSS). To mitigate these risks:</p>
+                                <ol>
+                                  <li>Sanitize user input: Use libraries or functions to remove any HTML tags or special characters that could be exploited for injection.</li>
+                                  <li>Encode output: Encode HTML content before displaying it to users to prevent the browser from interpreting it as executable code.</li>
+                                  <li>Consider encryption: If transmitting sensitive HTML data, encrypt it to ensure confidentiality and protect against unauthorized access.</li>
+                                </ol>
+                                <p>By following these best practices, you can enhance the security of your data and applications. If you have any questions or need assistance with secure data handling, feel free to reach out.</p>
+                              </>
+                            }
+                            {/* Render pagination component */}
 
-                        <PaginationComponent
-                          columns={columns}
-                          data={getAlLLogs.data.data}
-                          pageNumber={pageNumber}
-                          setPageNumber={setPageNumber}
-                          totalPages={getAlLLogs.data.totalPages}
-                          showData={true}
-                        />
-                      </div>
-                    ) : (
-                      <h1>No Data Found</h1>
-                    )}
+                            <PaginationComponent
+                              columns={columns}
+                              data={getAlLLogs.data.data}
+                              pageNumber={pageNumber}
+                              setPageNumber={setPageNumber}
+                              totalPages={getAlLLogs.data.totalPages}
+                              showData={true}
+                            />
+                          </div>
+                        ) : (
+                          <h1>No Data Found</h1>
+                        )}
                   </div>
                 </div>
               </div>

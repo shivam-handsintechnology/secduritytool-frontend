@@ -22,6 +22,7 @@
 // import SpamLogs from './pages/master/security/Spamlogs';
 // import SocketChecker from './pages/master/security/SocketChecker';
 // import HashGenerator from './pages/master/security/HashGenrator';
+import WebSocket from 'ws';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Routes, Route, useNavigate } from 'react-router-dom';
@@ -84,6 +85,8 @@ import Loader from './components/Loader';
 import SensitiveDataplain from './pages/Sensitive_Data_Exposure/Sensitivedataplain';
 import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialsplaintext';
 import WeakCrossDomainPolicy from './pages/Weak_cross_domain_Policy';
+import { websocketConnected } from './redux/reducers/websocketReducer';
+import MiscellaneousAttacks from './pages/MiscellaneousAttacks';
 
 export const ProtectedRoutes = [
 
@@ -372,6 +375,11 @@ const PublicRoutes = [
     exact: true,
     element: <ErrorPageHandler Goback={<GoBack/>}  />,
   },
+  {
+    path: '/MiscellaneousAttacks',
+    exact: true,
+    element: <MiscellaneousAttacks Goback={<GoBack/>}  />,
+  },
 ];
 
 
@@ -386,13 +394,16 @@ export const RoutePages = () => {
     const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
     if (userreducerDetails.isAuthenticated && encrypteddata.token) {
       axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
-      axios.defaults.headers.common['SelectedHost'] = userreducerDetails.domain
-    }
+   }
 
     setLoding(false)
 
 
   }, [userreducerDetails,])
+  useEffect(() => {
+   
+   
+  }, [])
 const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
 
   return (
@@ -418,7 +429,7 @@ const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
                 {
                   letSkipDomainSelectorPages.includes(route.path)?'':<DomainSeletor />
                 }
-                {userreducerDetails.domain? route.element:<div>Please Select Domain</div>}
+                {userreducerDetails.domain? route.element:<span className='error'>Please Select Domain</span>}
                 </Layout>
                 : <Navigate to="/login"  />}
            />
