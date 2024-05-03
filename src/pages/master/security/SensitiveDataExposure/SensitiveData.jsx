@@ -39,30 +39,7 @@ const SensitiveData = () => {
       <div>
         {/*CONTENT CONTAINER*/}
         {/*===================================================*/}
-        <div className="content-header">
-          <div className="container-fluid">
-            <div className="row mb-2">
-              <div className="col-sm-6">
-                <h1 className="m-0 ">
-                  <i className="fas fa-align-justify" /> {type == "isBot" ? "Bot" : type == "VPN" ? "Proxy" : type == "Spam" ? "Spam" : type == "SQLI" ? "Sql Injection" : type == "All" ? "All" : ""} Logs
-                </h1>
-              </div>
-              <div className="col-sm-6">
-                <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item">
-                    <a href="dashboard.php">
-                      <i className="fas fa-home" /> Admin Panel
-                    </a>
-                  </li>
-                  <li className="breadcrumb-item active">
-                    {" "}
-                    {type == "isBot" ? "Bot" : type == "VPN" ? "Proxy" : type == "Spam" ? "Spam" : type == "SQLI" ? "Sql Injection" : type == "All" ? "All" : ""} Logs
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         {/*Page content*/}
         {/*===================================================*/}
         <div className="content">
@@ -71,7 +48,7 @@ const SensitiveData = () => {
               <div className="col-md-12">
                 <div className="card card-primary card-outline">
                   <div className="card-header">
-                    <h3 className="card-title heading-title">SQL Injection Logs</h3>
+                    <h3 className="card-title heading-title">{type == "url" ?  "Critical information in URL":"Sensitive information revealed in HTTP response"} </h3>
                     {/* <button
                       onClick={() => {
                         deleteAllSqllLogs();

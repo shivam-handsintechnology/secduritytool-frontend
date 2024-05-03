@@ -44,13 +44,23 @@ axios.interceptors.request.use(config => {
 });
 
 axios.interceptors.response.use(response => {
+  console.log("response",response)
     // Decrypt response data if needed
     // if (response.data && typeof response.data === 'string') {
     //     response.data = decryptData(response.data);
+    //   return response.data;
+    // }
+    // else{
+    //   return response.data;
     // }
     return response.data;
+ 
 }, error => {
-    console.log(error);
+  
+    // if(error.response && error.response.data  && typeof error.response.data === 'string'){
+    //   error.response.data = decryptData(error.response.data);
+    //   return Promise.reject(error);
+    // }
     return Promise.reject(error);
 });
 ReactDOM.render(

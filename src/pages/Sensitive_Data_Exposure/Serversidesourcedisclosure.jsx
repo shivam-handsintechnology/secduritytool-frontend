@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
+import { useDataFetch } from '../../hooks/DataFetchHook'
 import { useSelector } from 'react-redux'
 import LoadingSpinner from '../../components/LoaderAndError/loader';
 import axios from 'axios';
@@ -13,7 +13,9 @@ const Serversidesourcedisclosure = () => {
     async function fetchData(url, filepath) {
       try {
           // Make API request using directoryPath and name
-          const response = await axios.get(url);
+          const response = await axios.post('InsecureObjectRefGuard/post',{
+            url:url
+          });
           // Process response as needed
           return response.status
       } catch (error) {
@@ -30,9 +32,9 @@ const Serversidesourcedisclosure = () => {
 
           for (const item of sourcecodeDisclosoure.data) {
               // Make API request for the current item
-
-              const data = await fetchData(`http://${UserData.domain + item.directoryPath}/${item.name + item.extension}`, `${item.directoryPath}/${item.name + item.extension}`);
-              data === 200 && responses.push(data);
+               let url = `http://${UserData.domain + item.directoryPath}/${item.name + item.extension}`
+              const data = await fetchData(url);
+              data === 200 && responses.push(url);
               completedItems++
               setCompleted(completedItems)
               // Update progress
@@ -71,7 +73,19 @@ const Serversidesourcedisclosure = () => {
                                                 </div>
                                                 <div className="text-center">{completeed} of {sourcecodeDisclosoure?.data?.length} completed</div>
                                                 <button className="btn btn-primary" onClick={processSequentially}>Check For Source Code Disclosure</button>
+                                               <br/>
+                                              {
+                                                responseData.length > 0 ? responseData.map((item, index) => {
+                                                  return <li key={index}>{
+                                                    "Server Side Disclosure is Enable on the " + item
+                                                  }</li>
+                                                }):(
+                                                    <span className='success'>Server side source code disclosure  Issue is Not Found</span>
+                                                )
+                                              
+                                              }
                                             </div>
+ 
                                         ) : <div>No data available</div>
                                     }
                                 </li>
