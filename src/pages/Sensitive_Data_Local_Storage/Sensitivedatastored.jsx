@@ -28,19 +28,20 @@ const Sensitivedatastored = () => {
                             background: "#002446", borderRadius: "50%",
                             padding: "3px", color: 'white'
                           }}></i>
+                          {" "}
                           {obj.key}
                         </th>
                         <td>
                           <strong className="text-capitalize">Sensitive data is stored in local storage</strong>
-                          <br />
+                          {" "}
                           {obj.value && obj.value.length > 0 && (
-                            <ul>
+                            <>
                               {obj.value.map((item, index) => (
-                                <li className='list-unstyled' key={index}>
-                                  <span className="font-weight-bold">{item.k.replace("is","Is ")}</span> 
-                                </li>
+
+                                <span className="font-weight-bold" key={index}>{item.k.replace("is", "Is ")}</span>
+
                               ))}
-                            </ul>
+                            </>
                           )}
                         </td>
                       </tr>

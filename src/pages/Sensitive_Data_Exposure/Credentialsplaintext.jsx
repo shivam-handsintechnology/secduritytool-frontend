@@ -17,15 +17,19 @@ const CredentialsPlaintext = () => {
                                 {
                                     Cleartextpassword.data.key.length > 0 &&
                                     Cleartextpassword.data.key.map((item, index) => (
-                                        <div key={index}>
-                                            <div className='mb-3'><i className=' fa fa-chevron-right  ' style={{
-                                                background: "#002446", borderRadius: "50%",
-                                                padding: "4px", marginRight: "5px", color: 'white', marginLeft: "5px",
-                                            }}></i>{item}</div>
-                                        </div>
+
+                                        <table className="table table-striped">
+                                            <tbody className=''>
+                                                <tr key={index}><i className=' fa fa-chevron-right  ' style={{
+                                                    background: "#002446", borderRadius: "50%",
+                                                    padding: "4px", marginRight: "5px", color: 'white', marginLeft: "5px",
+                                                }}></i>{item}</tr>
+                                            </tbody>
+                                        </table>
                                     ))
 
                                 }
+
                             </>
                         ) : <div>No Data</div>
                         }</div>
