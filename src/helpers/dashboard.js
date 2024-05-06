@@ -232,9 +232,10 @@
         "label": "Default web-page present in the server",
         "link" : "/Defaultwebpageinserver"
       },
-      // {
-      //   "label": "Physical server path disclosure"
-      // },
+      {
+        "label": "Physical server path disclosure",
+        "link":"/PhysicalServerPathDisclousere"
+      },
       // {
       //   "label": "Private IP address disclosed"
       // },

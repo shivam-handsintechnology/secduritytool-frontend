@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { WEBSOCKET_SEND_MESSAGE } from '../../redux/reducers/websocketReducer'
+import { WEBSOCKET_SEND_MESSAGE, WEBSOCKET_CONNECT, RECEIVE_MESSAGE, ws } from '../../redux/reducers/websocketReducer'
 
 const MiscellaneousAttacks = () => {
     const {connection,messages} = useSelector((state) => state.websocketReducer)
     const dispatch=useDispatch()
+    useEffect(() => {
+      dispatch(WEBSOCKET_CONNECT());
+      ws.onmessage = async (event) => {
+        const message = await event.data;
+        dispatch(RECEIVE_MESSAGE(message));
+      };
+    }, []);
   return (
     <div>MiscellaneousAttacks
         <button type="button" onClick={() =>dispatch(WEBSOCKET_SEND_MESSAGE('https://mlsdev.sblcorp.com')) }>Send Message</button>

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import useDataFetch from '../../hooks/DataFetchHook';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import Chart1 from '../Charts/Chart1';
 import LoadingSpinner from '../LoaderAndError/loader';
 
 const SensitiveDataExposure = () => {
@@ -107,7 +106,7 @@ const SensitiveDataExposure = () => {
                                 ))}
 
                                 <li className="list-unstyled">Default web page is accessible: {DefaultWebPage.errors.loading ? <LoadingSpinner /> :
-                                    DefaultWebPage.errors.error ? <span className='error'> {DefaultWebPage.errors.message}</span> : DefaultWebPage.data && DefaultWebPage.data.length > 0 ? "Yes" : "No"
+                                    DefaultWebPage.errors.error ? <span className='error'> {DefaultWebPage.errors.message}</span> : DefaultWebPage.data && DefaultWebPage.data
                                 }</li>
                                 <li className="list-unstyled">Sensitive keys in URL: {SensitiveKeysinUrl.errors.loading ? <LoadingSpinner /> :
                                     SensitiveKeysinUrl.errors.error ? <span className='error'> {SensitiveKeysinUrl.errors.message}</span> : SensitiveKeysinUrl.data && SensitiveKeysinUrl.data.length > 0 ? "Yes" : "No"
@@ -135,7 +134,7 @@ const SensitiveDataExposure = () => {
                                             Cleartextpassword.errors.error ? <span className='error'>{Cleartextpassword.errors.message}</span> :
                                                 <div>{Cleartextpassword.data && Cleartextpassword.data.password ? (
                                                     <>
-                                                        {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ? <div className='text-center'>Yes</div> : <div className='text-center'>No</div>}
+                                                        {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ? "Yes":"No"}
                                                     </>
                                                 ) : <div>Password Related Information Not Fund</div>
                                                 }</div>

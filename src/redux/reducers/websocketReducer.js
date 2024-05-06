@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+export const ws = new WebSocket("ws://localhost:20000");
 
-let ws;
 let messageChannel;
 let isEventListenerSetup = false;
 
@@ -24,22 +25,6 @@ const webSocketSlice = createSlice({
                 console.log(Object.keys(state), state.messages,"check data")
 
                 const messageValue=[]
-
-                ws.onmessage = async (event) => {
-
-                    const message = await event.data;
-                    // const formattedMessage = `${userId}: ${message}`;
-                    // messageChannel.postMessage(formattedMessage);
-                    // Dispatch action to handle received message
-                    // Assuming state.messages is an array
-                    // return {
-                    //     ...state,
-                    //     messages: state.messages.push(message) || [...state.messages, message]
-                    // };
-
-                    return messageValue.push(message)
-                };
-
                 console.log("check data", messageValue)
 
                 ws.onerror = (error) => {
@@ -69,9 +54,17 @@ const webSocketSlice = createSlice({
                 console.log('Error sending message:', error);
             }
         },
+        RECEIVE_MESSAGE: (state, action) => {
+            const message = action.payload;
+            // Update the state with the received message
+            return {
+              ...state,
+              messages: [...state.messages, message]
+            };
+          }
     },
 });
 
-export const { WEBSOCKET_CONNECT, WEBSOCKET_SEND_MESSAGE } = webSocketSlice.actions;
-
+export const { WEBSOCKET_CONNECT,RECEIVE_MESSAGE, WEBSOCKET_SEND_MESSAGE } = webSocketSlice.actions;
+// Dispatch the action from the event handler
 export default webSocketSlice.reducer;
