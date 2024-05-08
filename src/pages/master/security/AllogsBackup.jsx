@@ -58,16 +58,16 @@ const AllLogs = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(WEBSOCKET_CONNECT());
-  // }, []);
-  // useEffect(() => {
-  //   dispatch(WEBSOCKET_CONNECT());
-  //   socket &&   socket.on("sql-injection", (message) => {
-  //     dispatch(RECEIVE_MESSAGE(message));
-  //   }
-  //   );
-  // }, [socket]);
+  useEffect(() => {
+    dispatch(WEBSOCKET_CONNECT());
+  }, []);
+  useEffect(() => {
+    dispatch(WEBSOCKET_CONNECT());
+    socket &&   socket.on("sql-injection", (message) => {
+      dispatch(RECEIVE_MESSAGE(message));
+    }
+    );
+  }, [socket]);
   
 
   const handleNavigate = (path) => {
@@ -113,15 +113,56 @@ console.log(messages,"messages")
         {/*===================================================*/}
         <div className="content">
           <div className="container-fluid">
-           
+            {type === "SQLI" ? (
+              <>
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="card card-primary card-outline">
+                      <div className="card-header">
+                        <h3 className="card-title heading-title text-capitalize">
+                          {type} Injection Logs
+                        </h3>
+                        <button
+                          onClick={() => {
+                            socket && socket.emit('sql-injection',`https://${domain}`);
+                          }}
+                        >
+                        Scan Website
+                        </button>
+                     
+                      </div>
+                      <div className="card-body ">
+                        {
+                          messages.length > 0 && messages.map((message, index) => {
+                            return <div key={index}>{message}</div>;
+                          })
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ):
+            (
             <>
              <div className="row">
               <div className="col-md-12">
                 <div className="card card-primary card-outline">
                   <div className="card-header">
                     <h3 className="card-title heading-title text-capitalize">{type} Injection Logs</h3>
-                    
-                   
+                    {type=="SQLI" &&          <button type="button" onClick={() =>dispatch(WEBSOCKET_SEND_MESSAGE('https://mlsdev.sblcorp.com')) }>Send Message</button>
+}
+                    {/* <button
+                      onClick={() => {
+                        deleteAllSqllLogs();
+                      }}
+                      className="btn btn-flat btn-danger btn-sm float-sm-right p-2" style={{ fontSize: "17px" }}
+                      data-toggle="tooltip"
+                      title=""
+                      data-original-title="Delete all Spammer logs"
+                    >
+                      <i className="fas fa-trash" /> Delete All
+                    </button> */}
                   </div>
                   <div className="card-body ">
                     
@@ -163,7 +204,8 @@ console.log(messages,"messages")
               </div>
             </div>
             </>
-           
+            )
+            }
            
           </div>
         </div>
