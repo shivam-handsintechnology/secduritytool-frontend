@@ -5,6 +5,7 @@ import { useDataFetch } from "../hooks/DataFetchHook";
 import { PaginationComponent } from "../hooks/PaginationComponent";
 import { setUserDetails } from "../redux/reducers/UserReducer";
 const DomainSeletor = () => {
+  const userreducerDetails = useSelector((state) => state.UserReducer)
     const [limit, setLimit] = useState(1)
     const [pageNumber, setPageNumber] = useState(1)
     // Assign All Funtions
@@ -36,6 +37,7 @@ const DomainSeletor = () => {
          totalPages={getAllDomains.data.totalPages}
          showData={true}
        />
+       {!userreducerDetails.domain && <span className='error'>Please Select Domain</span>}
      </div>
    ) : (
      <h1>No Data Found</h1>

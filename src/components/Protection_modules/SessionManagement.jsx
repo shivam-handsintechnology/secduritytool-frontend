@@ -1,13 +1,10 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { setLogsData } from '../../redux/reducers/LogsDataReducer'
-import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
-import { Validators } from '../../utils/Validators/Validator'
+
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { useDataFetch } from '../../hooks/DataFetchHook'
 import LoadingSpinner from '../LoaderAndError/loader'
 
 const SessionManagement = () => {
-  const data = useSelector((state) => state.LogDataReducer)
   const UserData = useSelector((state) => state.UserReducer)
   const postSessionData = useDataFetch(`AuthSessionGuardian/session-vulnurability?domain=${UserData.domain}`, [UserData.domain], [])
   console.log("postSessionData", postSessionData)

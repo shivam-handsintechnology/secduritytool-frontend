@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import axios from 'axios';
-import { decryptData, encryptData } from './helpers/commonFunctions';
+import {  encryptData } from './helpers/commonFunctions';
 
 // axios.defaults.baseURL =process.env.REACT_APP_PRODUCTION_BASEURL;
 // Set base URL based on environment
@@ -40,6 +40,7 @@ axios.interceptors.request.use(config => {
     
     return config;
 }, error => {
+  console.log("error",error)
     return Promise.reject(error);
 });
 
@@ -61,6 +62,7 @@ axios.interceptors.response.use(response => {
     //   error.response.data = decryptData(error.response.data);
     //   return Promise.reject(error);
     // }
+    console.log(error)
     return Promise.reject(error);
 });
 ReactDOM.render(

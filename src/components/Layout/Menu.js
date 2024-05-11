@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import data from "../../helpers/dashboard"
-export default function Menu(props) {
+export default function Menu() {
   const userreducerDetails = useSelector((state) => state.UserReducer)
   const [isSubMenuOpen, setIsSubMenuOpen] = useState([]);
 
   const toggleSubMenu = (name) => {
     let temp = [...isSubMenuOpen];
+    // eslint-disable-next-line array-callback-return
     temp.map((item)=>{
       if(item.name === name){
         item.isOpen = !item.isOpen;
@@ -18,6 +19,7 @@ export default function Menu(props) {
   };
   const isOpen = (name) => {
    let isOpen = false;
+   // eslint-disable-next-line array-callback-return
    isSubMenuOpen.find((item)=>{
       if(item.name === name){
         isOpen = item.isOpen;
@@ -41,16 +43,17 @@ export default function Menu(props) {
         {/* Sidebar user panel (optional) */}
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
+          {/*  eslint-disable-next-line */}
             <img
               src="dist/img/user2-160x160.jpg"
               className="img-circle elevation-2"
-              alt="User Image"
+              alt="photo"
             />
           </div>
           <div className="info">
-            <a href="#" className="d-block">
+            <Link className="d-block">
               {userreducerDetails.isAuthenticated && userreducerDetails?.email}
-            </a>
+            </Link>
           </div>
         </div>
         {/* Sidebar Menu */}
@@ -62,24 +65,9 @@ export default function Menu(props) {
                 <i className="fas fa-info-circle" />&nbsp; <p>Dashboard</p>
               </Link>
             </li>
-            {/* <li  className={`nav-item ${isOpen("whiteList") ? 'menu-open' : ''}`}>
-              <a href="#" className="nav-link" onClick={()=>toggleSubMenu("whiteList")}>
-                <i className="fas fa-flag" />&nbsp; <p>Whitelist <i className="fas fa-angle-right right" />
-                </p></a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item "><Link to="/Ipwhitelist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Whitelist</p></Link></li>
-                <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="far fa-file-alt" />&nbsp; <p>File Whitelist</p></Link></li>
-              </ul>
-            </li> */}
+           
             <li className="nav-header">SECURITY</li>
-            {/* <li  className={`nav-item ${isOpen("bans") ? 'menu-open' : ''}`}>
-              <a  className="nav-link " onClick={()=>toggleSubMenu("bans")}>
-                <i className="fas fa-ban" />&nbsp; <p>Bans <i className="fas fa-angle-right right" />
-                </p></a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item "><Link to="/Blacklist" className="nav-link "><i className="fas fa-user" />&nbsp; <p>IP Bans <span className="badge right badge-secondary">0</span></p></Link></li>
-              </ul>
-            </li> */}
+          
             <li className="nav-header">TOOLS</li>
             {data.map((category, index) => (
               <li key={index} className={`nav-item ${isOpen(`category-${index}`) ? 'menu-open' : ''}`}>

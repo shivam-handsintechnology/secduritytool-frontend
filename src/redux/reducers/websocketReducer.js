@@ -8,7 +8,9 @@ let websocketurl =
 
 console.log(websocketurl, "websocketurl");
 
-export const socket = io(websocketurl);
+export const socket = io.connect(websocketurl, {
+  "transports": ['websocket']
+});
 
 // Define the initial state of the WebSocket connection
 const initialState = {

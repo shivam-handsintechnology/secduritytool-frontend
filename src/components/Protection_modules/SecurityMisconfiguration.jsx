@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import useDataFetch from '../../hooks/DataFetchHook'
-// import Chart from 'chart.js/auto';
-import Chart1 from '../Charts/Chart1';
-import MyChart from '../Charts/Mychart';
 import LoadingSpinner from '../LoaderAndError/loader';
 
 

@@ -85,6 +85,8 @@ import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialspla
 import WeakCrossDomainPolicy from './pages/Weak_cross_domain_Policy';
 import MiscellaneousAttacks from './pages/MiscellaneousAttacks';
 import PhysicalServerPathDisclousere from './pages/Sensitive_Data_Exposure/PhysicalServerPathDisclouser';
+import NonHtmlContentAccess from './pages/Broken Authentication/NonHtmlContentAccess';
+import WebDomainSelector from './components/WebDomainSelector';
 
 export const ProtectedRoutes = [
 
@@ -189,6 +191,11 @@ export const ProtectedRoutes = [
     path: '/Sessionhijackattack',
     exact: true,
     element: <Sessionhijackattack Goback={<GoBack/>}  />,
+  },
+  {
+    path: '/NonHtmlContentAccess',
+    exact: true,
+    element: <NonHtmlContentAccess Goback={<GoBack/>}  />,
   },
   {
     path: '/Ssl',
@@ -407,7 +414,8 @@ export const RoutePages = () => {
    
    
   }, [])
-const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
+const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible','/NonHtmlContentAccess']
+const AddWebdomainSelector=['/NonHtmlContentAccess']
 
   return (
     <React.Fragment>{Loader ? <div >..Loading</div> :
@@ -432,7 +440,10 @@ const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
                 {
                   letSkipDomainSelectorPages.includes(route.path)?'':<DomainSeletor />
                 }
-                {userreducerDetails.domain? route.element:<span className='error'>Please Select Domain</span>}
+                {
+                  AddWebdomainSelector.includes(route.path)?<WebDomainSelector/>:""
+                }
+                
                 </Layout>
                 : <Navigate to="/login"  />}
            />

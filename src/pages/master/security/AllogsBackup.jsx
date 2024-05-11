@@ -150,19 +150,6 @@ console.log(messages,"messages")
                 <div className="card card-primary card-outline">
                   <div className="card-header">
                     <h3 className="card-title heading-title text-capitalize">{type} Injection Logs</h3>
-                    {type=="SQLI" &&          <button type="button" onClick={() =>dispatch(WEBSOCKET_SEND_MESSAGE('https://mlsdev.sblcorp.com')) }>Send Message</button>
-}
-                    {/* <button
-                      onClick={() => {
-                        deleteAllSqllLogs();
-                      }}
-                      className="btn btn-flat btn-danger btn-sm float-sm-right p-2" style={{ fontSize: "17px" }}
-                      data-toggle="tooltip"
-                      title=""
-                      data-original-title="Delete all Spammer logs"
-                    >
-                      <i className="fas fa-trash" /> Delete All
-                    </button> */}
                   </div>
                   <div className="card-body ">
                     

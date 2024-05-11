@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
+import { useDataFetch } from '../../hooks/DataFetchHook'
 import { useSelector } from 'react-redux'
 
 const AccessControlAllowOrigin = () => {

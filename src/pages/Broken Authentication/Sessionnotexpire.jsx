@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
+import { useDataFetch } from '../../hooks/DataFetchHook'
 import { useSelector } from 'react-redux'
 import LoadingSpinner from '../../components/LoaderAndError/loader'
 
@@ -7,7 +7,7 @@ const Sessionnotexpire = () => {
   const UserData = useSelector((state) => state.UserReducer)
 
   const postSessionData = useDataFetch(`AuthSessionGuardian/session-vulnurability?domain=${UserData.domain}`, [UserData.domain])
-  console.log("postSessionData", postSessionData.data)
+  
   return (
     <div>
       {postSessionData.errors.loading ? <LoadingSpinner /> : postSessionData.errors.error ? <span className='error'>{postSessionData.errors.message}</span> :
@@ -34,7 +34,7 @@ const Sessionnotexpire = () => {
            </tr>
          )}
        </tbody>
-     </table>
+      </table>
       }
     </div>
   )
