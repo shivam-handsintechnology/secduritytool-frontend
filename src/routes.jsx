@@ -22,10 +22,9 @@
 // import SpamLogs from './pages/master/security/Spamlogs';
 // import SocketChecker from './pages/master/security/SocketChecker';
 // import HashGenerator from './pages/master/security/HashGenrator';
-import WebSocket from 'ws';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Navigate, Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, Suspense } from 'react';
+import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { decryptData } from './helpers/commonFunctions';
 import UserRegister from './pages/login/UserRegister';
@@ -81,12 +80,15 @@ import Adversaryfingerprint from './pages/Sensitive_Data_Exposure/Adversaryfinge
 import ServerErrorMessage from './pages/Error Message/ServerErrorMessage';
 import GoBack from './components/GoBack';
 import DomainSeletor from './components/DomainSeletor';
-import Loader from './components/Loader';
 import SensitiveDataplain from './pages/Sensitive_Data_Exposure/Sensitivedataplain';
 import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialsplaintext';
 import WeakCrossDomainPolicy from './pages/Weak_cross_domain_Policy';
-import { websocketConnected } from './redux/reducers/websocketReducer';
 import MiscellaneousAttacks from './pages/MiscellaneousAttacks';
+import PhysicalServerPathDisclousere from './pages/Sensitive_Data_Exposure/PhysicalServerPathDisclouser';
+import NonHtmlContentAccess from './pages/Broken Authentication/NonHtmlContentAccess';
+import WebDomainSelector from './components/WebDomainSelector';
+import LoadingSpinner from './components/LoaderAndError/loader';
+import Managementinterface from './pages/Missing_Function_Level_Access_Control/Managementinterface';
 
 export const ProtectedRoutes = [
 
@@ -191,6 +193,16 @@ export const ProtectedRoutes = [
     path: '/Sessionhijackattack',
     exact: true,
     element: <Sessionhijackattack Goback={<GoBack/>}  />,
+  },
+  {
+    path: '/NonHtmlContentAccess',
+    exact: true,
+    element: <NonHtmlContentAccess Goback={<GoBack/>}  />,
+  },
+  {
+    path: '/Managementinterface',
+    exact: true,
+    element: <Managementinterface Goback={<GoBack/>}  />,
   },
   {
     path: '/Ssl',
@@ -357,6 +369,11 @@ export const ProtectedRoutes = [
     exact: true,
     element: <XXE Goback={<GoBack/>}  />,
   },
+  {
+    path: '/PhysicalServerPathDisclousere',
+    exact: true,
+    element: <PhysicalServerPathDisclousere Goback={<GoBack/>}  />,
+  },
 
 ];
 const PublicRoutes = [
@@ -400,11 +417,8 @@ export const RoutePages = () => {
 
 
   }, [userreducerDetails,])
-  useEffect(() => {
-   
-   
-  }, [])
-const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
+
+const AddWebdomainSelector=['/NonHtmlContentAccess',"/Managementinterface"]
 
   return (
     <React.Fragment>{Loader ? <div >..Loading</div> :
@@ -422,17 +436,29 @@ const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible']
           }
           {
           ProtectedRoutes.map((route) => (
+           
             <Route
               key={route.path}
               path={route.path}
-              element={userreducerDetails.isAuthenticated ? <Layout>
+              element={userreducerDetails.isAuthenticated ?
+                <Suspense fallback={<LoadingSpinner />}>
+              <Layout>
                 {
-                  letSkipDomainSelectorPages.includes(route.path)?'':<DomainSeletor />
+                 AddWebdomainSelector.includes(route.path)?<>
+                  <WebDomainSelector/>
+                  {!userreducerDetails.webdomain ? <span className='error'>Please Select Domain</span>:route.element}
+                  </>:<>
+                  <DomainSeletor/>
+                  {!userreducerDetails.domain ? <span className='error'>Please Select Domain</span>:route.element}
+                  </>
+                
                 }
-                {userreducerDetails.domain? route.element:<span className='error'>Please Select Domain</span>}
+         
                 </Layout>
+                </Suspense>
                 : <Navigate to="/login"  />}
            />
+           
           ))}
         </Routes>
 

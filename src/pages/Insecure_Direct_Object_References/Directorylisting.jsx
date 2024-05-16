@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
+import { useDataFetch } from '../../hooks/DataFetchHook'
 import { useSelector } from 'react-redux'
 import LoadingSpinner from '../../components/LoaderAndError/loader'
 import axios from 'axios'
@@ -13,10 +13,12 @@ const Directorylisting = () => {
 
   const DirectoryListingEnable = useDataFetch(`InsecureObjectRefGuard/DirectoryListingEnable?domain=${UserData.domain}`, [UserData.domain],)
   // Function to make an API request
-  async function fetchData(url, filepath) {
+  async function fetchData(url) {
     try {
       // Make API request using directoryPath and name
-      const response = await axios.get(url);
+      const response = await axios.post('InsecureObjectRefGuard/fetch',{
+        url:url
+      });
       // Process response as needed
       return response.status
     } catch (error) {
@@ -31,7 +33,7 @@ const Directorylisting = () => {
       console.log("totalItems", totalItems)
       let completedItems = 0;
       const responses = [];
-
+     
       for (const item of DirectoryListingEnable.data.directoryUrls) {
         // Make API request for the current item
         console.log(item)

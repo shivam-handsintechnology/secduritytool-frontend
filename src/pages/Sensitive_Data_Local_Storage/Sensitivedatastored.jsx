@@ -37,7 +37,7 @@ const Sensitivedatastored = () => {
                             <ul>
                               {obj.value.map((item, index) => (
                                 <li className='list-unstyled' key={index}>
-                                  <span className="font-weight-bold">{item.k.replace("is","Is ")}</span> 
+                                  <span className="font-weight-bold">{item}</span> 
                                 </li>
                               ))}
                             </ul>

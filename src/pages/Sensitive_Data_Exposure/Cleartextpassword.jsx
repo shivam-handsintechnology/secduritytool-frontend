@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDataFetch, usePostData } from '../../hooks/DataFetchHook'
+import { useDataFetch } from '../../hooks/DataFetchHook'
 import { useSelector } from 'react-redux'
 import LoadingSpinner from '../../components/LoaderAndError/loader'
 
@@ -15,7 +15,8 @@ const Cleartextpassword = () => {
           Cleartextpassword.errors.error ? <span className='error'>{Cleartextpassword.errors.message}</span> :
             <div>{Cleartextpassword.data && Cleartextpassword.data.password ? (
               <>
-                {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ? <div className='text-center'>Cleartext Password returned in login response:Yes</div> : <div className='text-center'>Cleartext Password returned in login response:No</div>}
+               Cleartext Password returned in login response:
+                {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ?"No":"Yes"}
               </>
             ) : <div>Password Related Information Not Fund</div>
             }</div>

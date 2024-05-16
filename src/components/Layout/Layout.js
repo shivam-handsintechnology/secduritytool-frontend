@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import UserLayout from './UserLayout';
-import AdminLayout from './AdminLayout';
 import axios from 'axios';
 import { decryptData } from '../../helpers/commonFunctions';
 import { setUserDetails } from '../../redux/reducers/UserReducer';
@@ -24,20 +22,16 @@ const Layout = ({ children }) => {
       console.log(error)
     })
   }
-  // useEffect(() => {
-  //   statedata.domain == "" && navigate("/Websites")
-  // }, [statedata.domain])
   useEffect(() => {
     if (statedata.isAuthenticated && encrypteddata.token) {
       GetProfileData()
     }
+    // eslint-disable-next-line
   }, [statedata.isAuthenticated])
-  console.log("statedata", statedata)
   return (
     <React.Fragment>
       {
-        statedata.isAuthenticated && statedata.userType && statedata.userType == "Admin" ?
-          <AdminLayout children={children} /> : <UserLayout children={children} />
+        statedata.isAuthenticated && <UserLayout children={children} />
       }
     </React.Fragment>
   )

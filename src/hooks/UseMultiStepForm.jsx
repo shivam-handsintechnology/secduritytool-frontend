@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const UseMultiStepForm = (steps) => {
     //console.log(steps.length)
-    const [currentStep, setcurrentStep] = useState(0)
+    const [currentStep, setcurrentStep] = React.useState(0)
     const handleNext = () => {
         setcurrentStep((prev) => {
             if (prev >= steps.length - 1) return prev
