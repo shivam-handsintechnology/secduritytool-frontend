@@ -29,7 +29,10 @@ const useDataFetch = (url, dependencies=[],type=null) => {
                 }
             } catch (error) {
                 const {response}=error
-                 let message=response?.data?.message ? response?.data?.message : 'An error occurred'
+                console.log(url+error,error)
+                 let message= error.code=="ECONNREFUSED" ? "Server is down, Please try again later":error.code=="ERR_NETWORK"?"Network Error, Please try again later":response?.data?.message ? response?.data?.message : 'An error occurred'
+                
+
                 setErrors((prev) => ({
                     ...prev, loading: false,
                     error: true,progress: 100,

@@ -1,4 +1,17 @@
+import Userdata from "../components/Layout/Userdata"
+
  const data=[
+  {
+    Category: <Userdata/>,
+    link: window.location.pathname,
+    UseCases: []
+
+  },
+  {
+    "Category": "Dashboard",
+    "link": "/dashboard",
+    "UseCases": []
+  },
   {
     "Category": "Broken Authentication and Session Management",
     "link": "/Sessionnotexpire",
@@ -136,20 +149,21 @@
       // }
     ]
   },
-  // {
-  //   "Category": "Missing Function Level Access Control",
-  //   "UseCases": [
-  //     {
-  //       "label": "An adversary can change the password of other users"
-  //     },
-  //     {
-  //       "label": "Improper access control implementation"
-  //     },
-  //     {
-  //       "label": "Management interface is not restricted for specific IPs"
-  //     }
-  //   ]
-  // },
+  {
+    "Category": "Missing Function Level Access Control",
+    "UseCases": [
+      {
+        "label": "An adversary can change the password of other users"
+      },
+      {
+        "label": "Improper access control implementation"
+      },
+      {
+        "label": "Management interface is not restricted for specific IPs",
+        "link" : "/Managementinterface"
+      }
+    ]
+  },
   {
     "Category": "Security Misconfiguration",
     "UseCases": [

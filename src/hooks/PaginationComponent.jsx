@@ -2,6 +2,10 @@ import React from 'react'
 import { Pagination } from 'react-bootstrap';
 
 export const PaginationComponent = ({ columns, data, pageNumber, setPageNumber, totalPages, showData }) => {
+    console.log("columns", columns)
+    console.log("data", data)
+    console.log("pageNumber", pageNumber)
+    
     console.log("totalPages", totalPages)
     const gotoPrevious = () => {
         setPageNumber((prevPage) => Math.max(prevPage - 1, 1));

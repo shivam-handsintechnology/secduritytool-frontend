@@ -14,7 +14,7 @@ const MiscellaneousAttacks = () => {
     }, []);
   return (
     <div>MiscellaneousAttacks
-        <button type="button" onClick={() =>dispatch(WEBSOCKET_SEND_MESSAGE('https://mlsdev.sblcorp.com')) }>Send Message</button>
+        <button type="button" onClick={() =>dispatch(WEBSOCKET_SEND_MESSAGE('https://www.muscleblaze.com')) }>Send Message</button>
        {
         messages.length> 0 && messages.map((message,index) => {
             return <div key={index}>{message}</div>

@@ -23,7 +23,7 @@
 // import SocketChecker from './pages/master/security/SocketChecker';
 // import HashGenerator from './pages/master/security/HashGenrator';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { decryptData } from './helpers/commonFunctions';
@@ -87,6 +87,8 @@ import MiscellaneousAttacks from './pages/MiscellaneousAttacks';
 import PhysicalServerPathDisclousere from './pages/Sensitive_Data_Exposure/PhysicalServerPathDisclouser';
 import NonHtmlContentAccess from './pages/Broken Authentication/NonHtmlContentAccess';
 import WebDomainSelector from './components/WebDomainSelector';
+import LoadingSpinner from './components/LoaderAndError/loader';
+import Managementinterface from './pages/Missing_Function_Level_Access_Control/Managementinterface';
 
 export const ProtectedRoutes = [
 
@@ -196,6 +198,11 @@ export const ProtectedRoutes = [
     path: '/NonHtmlContentAccess',
     exact: true,
     element: <NonHtmlContentAccess Goback={<GoBack/>}  />,
+  },
+  {
+    path: '/Managementinterface',
+    exact: true,
+    element: <Managementinterface Goback={<GoBack/>}  />,
   },
   {
     path: '/Ssl',
@@ -410,12 +417,8 @@ export const RoutePages = () => {
 
 
   }, [userreducerDetails,])
-  useEffect(() => {
-   
-   
-  }, [])
-const letSkipDomainSelectorPages = ['/login','/register','*','/XSSpossible','/NonHtmlContentAccess']
-const AddWebdomainSelector=['/NonHtmlContentAccess']
+
+const AddWebdomainSelector=['/NonHtmlContentAccess',"/Managementinterface"]
 
   return (
     <React.Fragment>{Loader ? <div >..Loading</div> :
@@ -433,20 +436,29 @@ const AddWebdomainSelector=['/NonHtmlContentAccess']
           }
           {
           ProtectedRoutes.map((route) => (
+           
             <Route
               key={route.path}
               path={route.path}
-              element={userreducerDetails.isAuthenticated ? <Layout>
+              element={userreducerDetails.isAuthenticated ?
+                <Suspense fallback={<LoadingSpinner />}>
+              <Layout>
                 {
-                  letSkipDomainSelectorPages.includes(route.path)?'':<DomainSeletor />
-                }
-                {
-                  AddWebdomainSelector.includes(route.path)?<WebDomainSelector/>:""
-                }
+                 AddWebdomainSelector.includes(route.path)?<>
+                  <WebDomainSelector/>
+                  {!userreducerDetails.webdomain ? <span className='error'>Please Select Domain</span>:route.element}
+                  </>:<>
+                  <DomainSeletor/>
+                  {!userreducerDetails.domain ? <span className='error'>Please Select Domain</span>:route.element}
+                  </>
                 
+                }
+         
                 </Layout>
+                </Suspense>
                 : <Navigate to="/login"  />}
            />
+           
           ))}
         </Routes>
 

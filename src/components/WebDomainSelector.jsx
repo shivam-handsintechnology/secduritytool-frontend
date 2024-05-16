@@ -23,7 +23,7 @@ const WebDomainSelector = () => {
       cell: (row) => <Button onClick={() => dispatch(setUserDetails({ webdomain: row.domain }))} variant="primary">Select Domain</Button>,
     }
   ];
-  console.log("getAllDomains", getAllDomains)
+  console.log("web", getAllDomains.data && getAllDomains.data.data.length > 0)
   return (
     <div>
       {getAllDomains.data && getAllDomains.data.data.length > 0 ? (
@@ -37,7 +37,7 @@ const WebDomainSelector = () => {
             totalPages={getAllDomains.data.totalPages}
             showData={true}
           />
-          {!userreducerDetails.webdomain && <span className='error'>Please Select Domain</span>}
+        
         </div>
       ) : (
         <h1>No Data Found</h1>
