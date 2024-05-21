@@ -1,27 +1,4 @@
 
-// import Systeminfo from "./pages/master/security/Systeminfo";
-// import Loginsecurity from "./pages/master/security/Loginsecurity";
-// import Portscanner from "./pages/master/security/Portscanner";
-// import Htaccesseditor from "./pages/master/security/Htaccesseditor";
-// import Errormonitoring from "./pages/master/security/Errormonitoring";
-// import Visitanalytics from "./pages/master/security/Visitanalytics";
-// import Livetraffic from "./pages/master/security/Livetraffic";
-// import Badwords from "./pages/master/security/Badwords";
-// import Badbots from "./pages/master/security/Badbots";
-// import Proxy from "./pages/master/security/Proxy";
-// import Spam from "./pages/master/security/Spam";
-// import Alllogs from "./pages/master/security/Alllogs";
-// import Badbotlogs from "./pages/master/security/Badbotlogs";
-// import Bansip from "./pages/master/security/Bansip";
-// import Banscountry from "./pages/master/security/Banscountry";
-// import Bansiprange from "./pages/master/security/Bansiprange";
-// import Otherbans from "./pages/master/security/Otherbans";
-// import Warningpages from './pages/master/security/Warningpages';
-// import ApiTesting from './pages/login/ApiTesting';
-// import BadPoxylogs from './pages/master/security/BadbProxyogs';
-// import SpamLogs from './pages/master/security/Spamlogs';
-// import SocketChecker from './pages/master/security/SocketChecker';
-// import HashGenerator from './pages/master/security/HashGenrator';
 import axios from 'axios';
 import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
@@ -89,290 +66,306 @@ import NonHtmlContentAccess from './pages/Broken Authentication/NonHtmlContentAc
 import WebDomainSelector from './components/WebDomainSelector';
 import LoadingSpinner from './components/LoaderAndError/loader';
 import Managementinterface from './pages/Missing_Function_Level_Access_Control/Managementinterface';
+import PrivateIPaddressdisclosed from './pages/Sensitive_Data_Exposure/PrivateIPaddressdisclosed';
+import ErrorBoundary from './utils/ErrorBoundary';
+import SecondFactorAuth from './pages/Broken Authentication/SecondFactorAuth';
 
 export const ProtectedRoutes = [
 
 
   {
+    path: '/PrivateIPaddressdisclosed',
+    exact: true,
+    element: <PrivateIPaddressdisclosed Goback={<GoBack />} />,
+    Layout: "AdminLayout"
+
+  },
+
+  {
     path: '/',
     exact: true,
-    element: <Dashboard Goback={<GoBack/>}  />,
+    element: <Dashboard Goback={<GoBack />} />,
     Layout: "AdminLayout"
 
   },
   {
     path: '/dashboard',
     exact: true,
-    element: <Dashboard Goback={<GoBack/>}  />,
+    element: <Dashboard Goback={<GoBack />} />,
     Layout: "AdminLayout"
 
   },
   {
     path: '/SSLInformation',
     exact: true,
-    element: <SSLInformation Goback={<GoBack/>}  />,
+    element: <SSLInformation Goback={<GoBack />} />,
     Layout: "AdminLayout"
   },
- 
+
   {
     path: '/block',
     exact: true,
-    element: <Block Goback={<GoBack/>}  />,
+    element: <Block Goback={<GoBack />} />,
     Layout: "AdminLayout"
   },
   {
     path: '/Ipwhitelist',
     exact: true,
     Layout: "AdminLayout",
-    element: <Ipwhitelist Goback={<GoBack/>}  />,
+    element: <Ipwhitelist Goback={<GoBack />} />,
   },
   {
     path: '/Blacklist',
     exact: true,
     Layout: "AdminLayout",
-    element: <Blacklist Goback={<GoBack/>}  />,
+    element: <Blacklist Goback={<GoBack />} />,
   },
   {
     path: '/Visitordetails/:ip',
     exact: true,
     Layout: "AdminLayout",
-    element: <Visitordetails Goback={<GoBack/>}  />,
+    element: <Visitordetails Goback={<GoBack />} />,
   },
   {
     path: '/logs/:type',
     exact: true,
     Layout: "AdminLayout",
-    element: <AllLogs Goback={<GoBack/>}  />,
+    element: <AllLogs Goback={<GoBack />} />,
   },
   {
     path: '/SensitiveData/:type',
     exact: true,
     Layout: "AdminLayout",
-    element: <SensitiveData Goback={<GoBack/>}  />,
+    element: <SensitiveData Goback={<GoBack />} />,
   },
   {
-    path:'/Sensitivedataplain',
-    exact:true,
-    Layout:"AdminLayout",
-    element:<SensitiveDataplain Goback={<GoBack/>} />
-  },{
-    path:'/Credentialsplaintext',
-    exact:true,
-    Layout:"AdminLayout",
-    element:<CredentialsPlaintext Goback={<GoBack/>} />
+    path: '/Sensitivedataplain',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <SensitiveDataplain Goback={<GoBack />} />
+  }, {
+    path: '/Credentialsplaintext',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <CredentialsPlaintext Goback={<GoBack />} />
   },
   {
     path: 'Websites',
     exact: true,
     Layout: "AdminLayout",
-    element: <AllWebsites Goback={<GoBack/>}  />,
+    element: <AllWebsites Goback={<GoBack />} />,
   },
   {
     path: '/Sessionnotexpire',
     exact: true,
     Layout: "AdminLayout",
-    element: <Sessionnotexpire Goback={<GoBack/>}  />,
+    element: <Sessionnotexpire Goback={<GoBack />} />,
   },
   {
     path: '/Sessiontimeout',
     exact: true,
     Layout: "AdminLayout",
-    element: <Sessiontimeout Goback={<GoBack/>}  />,
+    element: <Sessiontimeout Goback={<GoBack />} />,
   },
   {
     path: '/Sessiontoken',
     exact: true,
-    element: <Sessiontoken Goback={<GoBack/>}  />,
+    element: <Sessiontoken Goback={<GoBack />} />,
   },
   {
     path: '/Adversaryhijack',
     exact: true,
-    element: <Adversaryhijack Goback={<GoBack/>}  />,
+    element: <Adversaryhijack Goback={<GoBack />} />,
   },
   {
     path: '/Sessionhijackattack',
     exact: true,
-    element: <Sessionhijackattack Goback={<GoBack/>}  />,
+    element: <Sessionhijackattack Goback={<GoBack />} />,
   },
   {
     path: '/NonHtmlContentAccess',
     exact: true,
-    element: <NonHtmlContentAccess Goback={<GoBack/>}  />,
+    element: <NonHtmlContentAccess Goback={<GoBack />} />,
+  },
+  {
+    path: '/SecondFactorAuth',
+    exact: true,
+    element: <SecondFactorAuth Goback={<GoBack />} />,
   },
   {
     path: '/Managementinterface',
     exact: true,
-    element: <Managementinterface Goback={<GoBack/>}  />,
+    element: <Managementinterface Goback={<GoBack />} />,
   },
   {
     path: '/Ssl',
     exact: true,
-    element: <Ssl Goback={<GoBack/>}  />,
+    element: <Ssl Goback={<GoBack />} />,
   },
   {
     path: '/Serverreturnserror',
     exact: true,
-    element: <Serverreturnserror Goback={<GoBack/>}  />,
+    element: <Serverreturnserror Goback={<GoBack />} />,
   },
   {
     path: '/Serverhttperror',
     exact: true,
-    element: <Serverhttperror Goback={<GoBack/>}  />,
+    element: <Serverhttperror Goback={<GoBack />} />,
   },
   {
     path: '/Helpfulerrormessage',
     exact: true,
-    element: <Helpfulerrormessage Goback={<GoBack/>}  />,
+    element: <Helpfulerrormessage Goback={<GoBack />} />,
   },
   {
-    path:"/ServerErrorMessage",
-    exact:true,
-    element:<ServerErrorMessage Goback={<GoBack/>} />
+    path: "/ServerErrorMessage",
+    exact: true,
+    element: <ServerErrorMessage Goback={<GoBack />} />
   },
   {
     path: '/InsecureDirectObjectReferences',
     exact: true,
-    element: <Directorylisting Goback={<GoBack/>}  />,
+    element: <Directorylisting Goback={<GoBack />} />,
   },
   {
     path: '/HTTPparameterpollution',
     exact: true,
-    element: <HTTPparameterpollution Goback={<GoBack/>}  />,
+    element: <HTTPparameterpollution Goback={<GoBack />} />,
   },
   {
     path: '/Serverobotstxtfile',
     exact: true,
-    element: <Serverobotstxtfile Goback={<GoBack/>}  />,
+    element: <Serverobotstxtfile Goback={<GoBack />} />,
   },
   {
     path: '/Arbitrarymethods',
     exact: true,
-    element: <Arbitrarymethods Goback={<GoBack/>}  />,
+    element: <Arbitrarymethods Goback={<GoBack />} />,
   },
   {
     path: '/Passwordplaintext',
     exact: true,
-    element: <Passwordplaintext Goback={<GoBack/>}  />,
+    element: <Passwordplaintext Goback={<GoBack />} />,
   },
   {
     path: '/Olderserverversion',
     exact: true,
-    element: <Olderserverversion Goback={<GoBack/>}  />,
+    element: <Olderserverversion Goback={<GoBack />} />,
   },
   {
     path: '/DangerousHTTPmethods',
     exact: true,
-    element: <DangerousHTTPmethods Goback={<GoBack/>}  />,
+    element: <DangerousHTTPmethods Goback={<GoBack />} />,
   },
   {
     path: '/OPTIONSmethod',
     exact: true,
-    element: <OPTIONSmethod Goback={<GoBack/>}  />,
+    element: <OPTIONSmethod Goback={<GoBack />} />,
   },
   {
     path: '/Weakalgorithm',
     exact: true,
-    element: <Weakalgorithm Goback={<GoBack/>}  />,
+    element: <Weakalgorithm Goback={<GoBack />} />,
   },
   {
     path: '/Adversaryemailidsspaming',
     exact: true,
-    element: <Adversaryemailidsspaming Goback={<GoBack/>}  />,
+    element: <Adversaryemailidsspaming Goback={<GoBack />} />,
   },
   {
     path: '/Adversaryfingerprint',
     exact: true,
-    element: <Adversaryfingerprint Goback={<GoBack/>}  />,
+    element: <Adversaryfingerprint Goback={<GoBack />} />,
   },
   {
     path: '/Serversidesourcedisclosure',
     exact: true,
-    element: <Serversidesourcedisclosure Goback={<GoBack/>}  />,
+    element: <Serversidesourcedisclosure Goback={<GoBack />} />,
   },
   {
     path: '/Criticalinformationinurl',
     exact: true,
-    element: <Criticalinformationinurl Goback={<GoBack/>}  />,
+    element: <Criticalinformationinurl Goback={<GoBack />} />,
   },
   {
     path: '/Defaultwebpageinserver',
     exact: true,
-    element: <Defaultwebpageinserver Goback={<GoBack/>}  />,
+    element: <Defaultwebpageinserver Goback={<GoBack />} />,
   },
   {
     path: '/Sensitivedataaccessible',
     exact: true,
-    element: <Sensitivedataaccessible Goback={<GoBack/>}  />,
+    element: <Sensitivedataaccessible Goback={<GoBack />} />,
   },
   {
     path: '/Sensitiveinformationrevealed',
     exact: true,
-    element: <Sensitiveinformationrevealed Goback={<GoBack/>}  />,
+    element: <Sensitiveinformationrevealed Goback={<GoBack />} />,
   },
   {
     path: '/Cleartextpassword',
     exact: true,
-    element: <Cleartextpassword Goback={<GoBack/>}  />,
+    element: <Cleartextpassword Goback={<GoBack />} />,
   },
   {
     path: '/URLredirection',
     exact: true,
-    element: <URLredirection Goback={<GoBack/>}  />,
+    element: <URLredirection Goback={<GoBack />} />,
   },
   {
     path: '/Crossframescripting',
     exact: true,
-    element: <Crossframescripting Goback={<GoBack/>}  />,
+    element: <Crossframescripting Goback={<GoBack />} />,
   },
   {
     path: '/Crosssitescriptingattack',
     exact: true,
-    element: <Crosssitescriptingattack Goback={<GoBack/>}  />,
+    element: <Crosssitescriptingattack Goback={<GoBack />} />,
   },
   {
     path: '/Storedcrosssitescripting',
     exact: true,
-    element: <Storedcrosssitescripting Goback={<GoBack/>}  />,
+    element: <Storedcrosssitescripting Goback={<GoBack />} />,
   },
   {
     path: '/XSSpossible',
     exact: true,
-    element: <XSSpossible Goback={<GoBack/>}  />,
+    element: <XSSpossible Goback={<GoBack />} />,
   },
   {
     path: '/Sensitivedatastored',
     exact: true,
-    element: <Sensitivedatastored Goback={<GoBack/>}  />,
+    element: <Sensitivedatastored Goback={<GoBack />} />,
   },
   {
-    path:"/WeakCrossDomainPolicy",
-    exact:true,
-    element:<WeakCrossDomainPolicy Goback={<GoBack/>} />
+    path: "/WeakCrossDomainPolicy",
+    exact: true,
+    element: <WeakCrossDomainPolicy Goback={<GoBack />} />
   },
   {
     path: '/Crossdomainpolicy',
     exact: true,
-    element: <Crossdomainpolicy Goback={<GoBack/>}  />,
+    element: <Crossdomainpolicy Goback={<GoBack />} />,
   },
   {
     path: '/Originheader',
     exact: true,
-    element: <Originheader Goback={<GoBack/>}  />,
+    element: <Originheader Goback={<GoBack />} />,
   },
   {
     path: '/AccessControlAllowOrigin',
     exact: true,
-    element: <AccessControlAllowOrigin Goback={<GoBack/>}  />,
+    element: <AccessControlAllowOrigin Goback={<GoBack />} />,
   },
   {
     path: '/XXE',
     exact: true,
-    element: <XXE Goback={<GoBack/>}  />,
+    element: <XXE Goback={<GoBack />} />,
   },
   {
     path: '/PhysicalServerPathDisclousere',
     exact: true,
-    element: <PhysicalServerPathDisclousere Goback={<GoBack/>}  />,
+    element: <PhysicalServerPathDisclousere Goback={<GoBack />} />,
   },
 
 ];
@@ -380,22 +373,22 @@ const PublicRoutes = [
   {
     path: '/login',
     exact: true,
-    element: <UserLogin Goback={<GoBack/>}  />,
+    element: <UserLogin Goback={<GoBack />} />,
   },
   {
     path: '/register',
     exact: true,
-    element: <UserRegister Goback={<GoBack/>}  />,
+    element: <UserRegister Goback={<GoBack />} />,
   },
   {
     path: '*',
     exact: true,
-    element: <ErrorPageHandler Goback={<GoBack/>}  />,
+    element: <ErrorPageHandler Goback={<GoBack />} />,
   },
   {
     path: '/MiscellaneousAttacks',
     exact: true,
-    element: <MiscellaneousAttacks Goback={<GoBack/>}  />,
+    element: <MiscellaneousAttacks Goback={<GoBack />} />,
   },
 ];
 
@@ -411,60 +404,64 @@ export const RoutePages = () => {
     const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
     if (userreducerDetails.isAuthenticated && encrypteddata.token) {
       axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
-   }
+    }
 
     setLoding(false)
 
 
   }, [userreducerDetails,])
 
-const AddWebdomainSelector=['/NonHtmlContentAccess',"/Managementinterface"]
+  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/Managementinterface", "/SecondFactorAuth"]
 
   return (
-    <React.Fragment>{Loader ? <div >..Loading</div> :
-      <Router>
-        <Routes>
-          
-          {
-            PublicRoutes.map((route) => (
+    <React.Fragment>
+      {Loader ? (
+        <div>..Loading</div>
+      ) : (
+        <Router>
+          <Routes>
+            {PublicRoutes.map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+            {ProtectedRoutes.map((route) => (
               <Route
                 key={route.path}
                 path={route.path}
-                element={route.element}
+                element={userreducerDetails.isAuthenticated ? (
+                  <ErrorBoundary>
+                    <Suspense fallback={<LoadingSpinner />}>
+                      <Layout>
+                        {AddWebdomainSelector.includes(route.path) ? (
+                          <>
+                            <WebDomainSelector />
+                            {!userreducerDetails.webdomain ? (
+                              <span className='error'>Please Select Domain</span>
+                            ) : (
+                              route.element
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <DomainSeletor />
+                            {!userreducerDetails.domain ? (
+                              <span className='error'>Please Select Domain</span>
+                            ) : (
+                              route.element
+                            )}
+                          </>
+                        )}
+                      </Layout>
+                    </Suspense>
+                  </ErrorBoundary>
+                ) : (
+                  <Navigate to="/login" />
+                )}
               />
-            ))
-          }
-          {
-          ProtectedRoutes.map((route) => (
-           
-            <Route
-              key={route.path}
-              path={route.path}
-              element={userreducerDetails.isAuthenticated ?
-                <Suspense fallback={<LoadingSpinner />}>
-              <Layout>
-                {
-                 AddWebdomainSelector.includes(route.path)?<>
-                  <WebDomainSelector/>
-                  {!userreducerDetails.webdomain ? <span className='error'>Please Select Domain</span>:route.element}
-                  </>:<>
-                  <DomainSeletor/>
-                  {!userreducerDetails.domain ? <span className='error'>Please Select Domain</span>:route.element}
-                  </>
-                
-                }
-         
-                </Layout>
-                </Suspense>
-                : <Navigate to="/login"  />}
-           />
-           
-          ))}
-        </Routes>
-
-
-      </Router>
-    }</React.Fragment>
+            ))}
+          </Routes>
+        </Router>
+      )}
+    </React.Fragment>
 
   );
 };

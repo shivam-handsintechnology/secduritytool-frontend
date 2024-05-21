@@ -1,8 +1,8 @@
 import Userdata from "../components/Layout/Userdata"
 
- const data=[
+const data = [
   {
-    Category: <Userdata/>,
+    Category: <Userdata />,
     link: window.location.pathname,
     UseCases: []
 
@@ -20,7 +20,7 @@ import Userdata from "../components/Layout/Userdata"
       //   "label": "Session does not expire on closing the browser",
       //   "link":  "/Sessionnotexpire"
       // },
-    
+
       // {
       //   "label": "Session time-out is high (or) not implemented.",
       //   "link":  "/Sessiontimeout"
@@ -33,11 +33,15 @@ import Userdata from "../components/Layout/Userdata"
       //   "label": "An adversary can hijack user sessions by session fixation",
       //   "link":  "/Adversaryhijack"
       // },
-      // {
-      //   "label": "Application is vulnerable to session hijacking attack",
-      //   "link":  "/Sessionhijackattack"
-      // },
-     
+      {
+        "label": "Non-HTML contents directly accessible without logging-in",
+        "link": "/NonHtmlContentAccess"
+      },
+      {
+        "label": "Second factor authentication could be bypassed.",
+        "link": "/SecondFactorAuth"
+      },
+
     ]
   },
   {
@@ -45,23 +49,23 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
       {
         "label": "Application is vulnerable to Command injection attack",
-        "link":"/logs/cmd"
+        "link": "/logs/cmd"
       },
       {
         "label": "Application is vulnerable to HTML injection attack",
-        "link":"/logs/html"
+        "link": "/logs/html"
       },
       {
         "label": "Application is vulnerable to iframe injection attack",
-        "link":"/logs/IFrame"
+        "link": "/logs/IFrame"
       },
       {
         "label": "Application is vulnerable to SQL Injection",
-        "link":"/logs/SQLI"
+        "link": "/logs/SQLI"
       },
       {
         "label": "Application is vulnerable to XML injection",
-        "link":"/logs/XML-Injection"
+        "link": "/logs/XML-Injection"
 
       },
     ]
@@ -72,54 +76,12 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
     ]
   },
-  // {
-  //   "Category": "Business logic flaw",
-  //   "UseCases": [
-  //     {
-  //       "label": "An adversary can access application as a high privileged user by using parameter manipulation"
-  //     },
-  //     {
-  //       "label": "An adversary can carry out sensitive actions on behalf of another user"
-  //     },
-  //     {
-  //       "label": "Maker- Checker functionality is not properly implemented"
-  //     },
-  //     {
-  //       "label": "Transaction parameters could be changed using parameter manipulation and may lead to fraud"
-  //     },
-  //     {
-  //       "label": "An adversary can perform sensitive action using parameter manipulation"
-  //     },
-  //     {
-  //       "label": "On Parameter manipulation adversary exceeds transaction limit."
-  //     },
-  //     {
-  //       "label": "Is process timing flaw present?"
-  //     },
-  //     {
-  //       "label": "Test for limits put on the functions usage"
-  //     },
-  //     {
-  //       "label": "Can session puzzling be used to bypass authentication or authorization?"
-  //     }
-  //   ]
-  // },
+
   {
     "Category": "Error Message",
     "link": "/ServerErrorMessage",
     "UseCases": [
-      // {
-      //   "label": "Server returns HTTP 403 error message",
-      //   "link" : "/Serverreturnserror"
-      // },
-      // {
-      //   "label": "Server returns HTTP error message",
-      //   "link" : "/Serverhttperror"
-      // },
-      // {
-      //   "label": "Helpful error message displayed at login page",
-      //   "link" : "/Helpfulerrormessage"
-      // }
+
     ]
   },
   {
@@ -152,15 +114,15 @@ import Userdata from "../components/Layout/Userdata"
   {
     "Category": "Missing Function Level Access Control",
     "UseCases": [
-      {
-        "label": "An adversary can change the password of other users"
-      },
-      {
-        "label": "Improper access control implementation"
-      },
+      // {
+      //   "label": "An adversary can change the password of other users"
+      // },
+      // {
+      //   "label": "Improper access control implementation"
+      // },
       {
         "label": "Management interface is not restricted for specific IPs",
-        "link" : "/Managementinterface"
+        "link": "/Managementinterface"
       }
     ]
   },
@@ -169,9 +131,9 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
       {
         "label": "Application accepts arbitrary methods",
-        "link" : "/Arbitrarymethods"
+        "link": "/Arbitrarymethods"
       },
-      
+
       // {
       //   "label": "Application displays runtime error message"
       // },
@@ -184,18 +146,18 @@ import Userdata from "../components/Layout/Userdata"
       // {
       //   "label": "Application supports default usernames and passwords for logging in the application."
       // },
-     
+
       {
         "label": "Dangerous HTTP methods are enabled on the server",
-        "link" : "/DangerousHTTPmethods"
+        "link": "/DangerousHTTPmethods"
       },
       {
         "label": "OPTIONS method enabled",
-        "link" : "/OPTIONSmethod"
+        "link": "/OPTIONSmethod"
       },
       {
         "label": "Others",
-        "link" : "/Olderserverversion"
+        "link": "/Olderserverversion"
       },
       // {
       //   "label": "Password is encrypted/encoded using weak algorithm",
@@ -233,26 +195,27 @@ import Userdata from "../components/Layout/Userdata"
       // },
       {
         "label": "Application's server side source code disclosure",
-        "link" : "/Serversidesourcedisclosure"
+        "link": "/Serversidesourcedisclosure"
       },
       // {
       //   "label": "ASP.NET version is revealed in X-AspNet-Version server response header"
       // },
       {
         "label": "Critical information in URL",
-        "link" : "/SensitiveData/url"
+        "link": "/SensitiveData/url"
       },
       {
         "label": "Default web-page present in the server",
-        "link" : "/Defaultwebpageinserver"
+        "link": "/Defaultwebpageinserver"
       },
       {
         "label": "Physical server path disclosure",
-        "link":"/PhysicalServerPathDisclousere"
+        "link": "/PhysicalServerPathDisclousere"
       },
-      // {
-      //   "label": "Private IP address disclosed"
-      // },
+      {
+        "label": "Private IP address disclosed",
+        "link": "/PrivateIPaddressdisclosed"
+      },
       // {
       //   "label": "Sensitive application configuration architecture files available at users machine in clear text"
       // },
@@ -262,25 +225,25 @@ import Userdata from "../components/Layout/Userdata"
       // },
       {
         "label": "Sensitive information revealed in HTTP response",
-        "link" : "/SensitiveData/response"
+        "link": "/SensitiveData/response"
       },
       {
         "label": "Credentials are transmitted to server in plain text",
-        "link" : "/Credentialsplaintext"
+        "link": "/Credentialsplaintext"
       },
       {
         "label": "Sensitive data is transmitted to server in plain text",
-        "link" : "/Sensitivedataplain"
+        "link": "/Sensitivedataplain"
       },
       {
         "label": "Cleartext Password returned in login response",
-        "link" : "/Cleartextpassword"
+        "link": "/Cleartextpassword"
       }
     ]
   },
   {
     "Category": "Unvalidated Redirects and Forwards",
-    "link" : "/URLredirection",
+    "link": "/URLredirection",
     "UseCases": [
     ]
   },
@@ -289,27 +252,27 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
       {
         "label": "Application is vulnerable to cross frame scripting",
-        "link" : "/logs/IFrame"
+        "link": "/logs/IFrame"
       },
       {
         "label": "Application is vulnerable to Cross Site Scripting attack",
-        "link" : "/logs/xss-injection"
+        "link": "/logs/xss-injection"
       },
       {
         "label": "Application is vulnerable to stored Cross Site Scripting attack",
-        "link" : "/logs/xss-injection"
+        "link": "/logs/xss-injection"
       },
       {
         "label": "Is XSS possible via CSS injection?",
-        "link" : "/logs/CSS"
+        "link": "/logs/CSS"
       }
     ]
   },
   {
     "Category": "Miscellaneous Attacks",
-    "link" : "/MiscellaneousAttacks",
+    "link": "/MiscellaneousAttacks",
     "UseCases": [
-     
+
     ]
   },
   {
@@ -317,13 +280,13 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
       {
         "label": "Is sensitive data or session token stored in local data storage of browser?",
-        "link" : "/Sensitivedatastored"
+        "link": "/Sensitivedatastored"
       }
     ]
   },
   {
     "Category": "Weak Cross domain policy",
-    "link" : "/WeakCrossDomainPolicy",
+    "link": "/WeakCrossDomainPolicy",
     "UseCases": [
       // {
       //   "label": "Is \"allow-access-from domain\" in cross-domain.xml policy file set to * or unauthorized domains?",
@@ -344,7 +307,7 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
       {
         "label": "Is \"allow-access-from domain\" in cross-domain.xml policy file set to * or unauthorized domains?",
-        "link" : "/XXE"
+        "link": "/XXE"
       },
     ]
   },
@@ -353,7 +316,7 @@ import Userdata from "../components/Layout/Userdata"
     "UseCases": [
       {
         "label": "",
-        "link" : ""
+        "link": ""
       }
     ]
   }

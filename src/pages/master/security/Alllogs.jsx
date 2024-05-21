@@ -1,65 +1,65 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link,  useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { usePostData, useDataFetch, useDeleteData } from "../../../hooks/DataFetchHook";
 import { PaginationComponent } from "../../../hooks/PaginationComponent";
 import LoadingSpinner from "../../../components/LoaderAndError/loader";
 import { useDispatch, useSelector } from "react-redux";
 
-import { WEBSOCKET_CONNECT,RECEIVE_MESSAGE, socket } from "../../../redux/reducers/websocketReducer";
+import { WEBSOCKET_CONNECT, RECEIVE_MESSAGE, socket } from "../../../redux/reducers/websocketReducer";
 const AllLogs = () => {
   const [isCompleted, setIsCompleted] = useState(true)
   const [totaldatatoacan, setTotaldatatoacan] = useState({
     count: 0,
     message: "",
-    estimatedTime: 0,percentageCompleted:0
+    estimatedTime: 0, percentageCompleted: 0
   })
   const [count, setCount] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
   const PostDomain = usePostData()
   const { handleSubmit, Data } = useDeleteData()
   const { type } = useParams()
-  
+
   const dispatch = useDispatch();
-  const {  messages } = useSelector((state) => state.websocketReducer);
+  const { messages } = useSelector((state) => state.websocketReducer);
   const { domain } = useSelector((state) => state.UserReducer)
   const getAlLLogs = useDataFetch(`injections?limit=${5}&&type=${type}&page=${pageNumber}`, [pageNumber, domain, type, PostDomain.Data, Data])
-   
+
 
 
   useEffect(() => {
-  
-    socket &&   socket.on("sql-injection", ({message,count,percentageCompleted}) => {
+
+    socket && socket.on("sql-injection", ({ message, count, percentageCompleted }) => {
       message && dispatch(RECEIVE_MESSAGE(message));
-  
-      percentageCompleted && setTotaldatatoacan(prev=>({...prev,percentageCompleted}));
+
+      percentageCompleted && setTotaldatatoacan(prev => ({ ...prev, percentageCompleted }));
       setCount(count)
     }
     );
-    socket &&   socket.on("sql-injection-started", ({message,count,percentageCompleted}) => {
+    socket && socket.on("sql-injection-started", ({ message, count, percentageCompleted }) => {
       setIsCompleted(false)
-      percentageCompleted && setTotaldatatoacan(prev=>({...prev,percentageCompleted}));
+      percentageCompleted && setTotaldatatoacan(prev => ({ ...prev, percentageCompleted }));
       message && dispatch(RECEIVE_MESSAGE(message));
     }
     );
-    socket &&   socket.on("sql-injection-completed", ({message,count,percentageCompleted}) => {
+    socket && socket.on("sql-injection-completed", ({ message, count, percentageCompleted }) => {
       setIsCompleted(true)
       setCount(count)
-      percentageCompleted && setTotaldatatoacan(prev=>({...prev,percentageCompleted}));
+      percentageCompleted && setTotaldatatoacan(prev => ({ ...prev, percentageCompleted }));
       message && dispatch(RECEIVE_MESSAGE(message));
     }
     );
-   
+
     socket && socket.on("sql-injection-count", (data) => {
       console.log("message", data);
-      
-      setTotaldatatoacan(prev=>({...prev,...data}));
+
+      setTotaldatatoacan(prev => ({ ...prev, ...data }));
     }
     );
   }, [socket]);
-  console.log(totaldatatoacan.percentageCompleted,"totaldatatoacan")
- 
+  console.log(totaldatatoacan.percentageCompleted, "totaldatatoacan")
+
   let columns = [
     { name: "Id", selector: "_id", sortable: true },
     { name: "Ip", selector: "ip", sortable: true },
@@ -146,25 +146,25 @@ const AllLogs = () => {
                         <button
                           className={`btn btn-primary ${isCompleted ? "" : "disabled"}`}
                           onClick={() => {
-                            socket && socket.emit('sql-injection',`https://${domain}`);
+                            socket && socket.emit('sql-injection', `https://${domain}`);
                           }}
                           disabled={!isCompleted}
                         >
-                        Scan Website
+                          Scan Website
                         </button>
-                      {totaldatatoacan.count > 0 && <>
-                      <p>
-                      Estimated Time: {Math.floor(totaldatatoacan.estimatedTime / 60)} minuts
-                      </p>
-                      <p>
-                      Percentage Completed: {totaldatatoacan.percentageCompleted}%
-                      </p>
-                      <p>
-                      Completed: {`${count}/${totaldatatoacan.count}`}
-                      </p>
-                      </>}
-                      
-                      
+                        {totaldatatoacan.count > 0 && <>
+                          <p>
+                            Estimated Time: {Math.floor(totaldatatoacan.estimatedTime / 60)} minuts
+                          </p>
+                          <p>
+                            Percentage Completed: {totaldatatoacan.percentageCompleted}%
+                          </p>
+                          <p>
+                            Completed: {`${count}/${totaldatatoacan.count}`}
+                          </p>
+                        </>}
+
+
                       </div>
                       <div className="card-body ">
                         {
@@ -177,58 +177,58 @@ const AllLogs = () => {
                   </div>
                 </div>
               </>
-            ):
-            (
-            <>
-             <div className="row">
-              <div className="col-md-12">
-                <div className="card card-primary card-outline">
-                  <div className="card-header">
-                    <h3 className="card-title heading-title text-capitalize">{type} Injection Logs</h3>
-                  </div>
-                  <div className="card-body ">
-                    
-                    {
-                      getAlLLogs.errors.loading ? (
-                        <LoadingSpinner />
-                      ) : getAlLLogs.errors.error ? (
-                        <span className="error">{getAlLLogs.errors.message}</span>
-                      ) :
-                        getAlLLogs.data && getAlLLogs.data.data.length > 0 ? (
-                          <div>
-                            {
-                              type === "html" && <>
-                                <p><strong>Warning:</strong> When sending HTML data, please be aware of the risks associated with HTML injection attacks. HTML injection occurs when malicious code is injected into HTML content, potentially leading to security vulnerabilities such as cross-site scripting (XSS). To mitigate these risks:</p>
-                                <ol>
-                                  <li>Sanitize user input: Use libraries or functions to remove any HTML tags or special characters that could be exploited for injection.</li>
-                                  <li>Encode output: Encode HTML content before displaying it to users to prevent the browser from interpreting it as executable code.</li>
-                                  <li>Consider encryption: If transmitting sensitive HTML data, encrypt it to ensure confidentiality and protect against unauthorized access.</li>
-                                </ol>
-                                <p>By following these best practices, you can enhance the security of your data and applications. If you have any questions or need assistance with secure data handling, feel free to reach out.</p>
-                              </>
-                            }
-                            {/* Render pagination component */}
+            ) :
+              (
+                <>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="card card-primary card-outline">
+                        <div className="card-header">
+                          <h3 className="card-title heading-title text-capitalize">{type} Injection Logs</h3>
+                        </div>
+                        <div className="card-body ">
 
-                            <PaginationComponent
-                              columns={columns}
-                              data={getAlLLogs.data.data}
-                              pageNumber={pageNumber}
-                              setPageNumber={setPageNumber}
-                              totalPages={getAlLLogs.data.totalPages}
-                              showData={true}
-                            />
-                          </div>
-                        ) : (
-                          <h1>No Data Found</h1>
-                        )}
+                          {
+                            getAlLLogs.errors.loading ? (
+                              <LoadingSpinner />
+                            ) : getAlLLogs.errors.error ? (
+                              <span className="error">{getAlLLogs.errors.message}</span>
+                            ) :
+                              getAlLLogs.data && getAlLLogs.data.data.length > 0 ? (
+                                <div>
+                                  {
+                                    type === "html" && <>
+                                      <p><strong>Warning:</strong> When sending HTML data, please be aware of the risks associated with HTML injection attacks. HTML injection occurs when malicious code is injected into HTML content, potentially leading to security vulnerabilities such as cross-site scripting (XSS). To mitigate these risks:</p>
+                                      <ol>
+                                        <li>Sanitize user input: Use libraries or functions to remove any HTML tags or special characters that could be exploited for injection.</li>
+                                        <li>Encode output: Encode HTML content before displaying it to users to prevent the browser from interpreting it as executable code.</li>
+                                        <li>Consider encryption: If transmitting sensitive HTML data, encrypt it to ensure confidentiality and protect against unauthorized access.</li>
+                                      </ol>
+                                      <p>By following these best practices, you can enhance the security of your data and applications. If you have any questions or need assistance with secure data handling, feel free to reach out.</p>
+                                    </>
+                                  }
+                                  {/* Render pagination component */}
+
+                                  <PaginationComponent
+                                    columns={columns}
+                                    data={getAlLLogs.data.data}
+                                    pageNumber={pageNumber}
+                                    setPageNumber={setPageNumber}
+                                    totalPages={getAlLLogs.data.totalPages}
+                                    showData={true}
+                                  />
+                                </div>
+                              ) : (
+                                <h1>No Data Found</h1>
+                              )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            </>
-            )
+                </>
+              )
             }
-           
+
           </div>
         </div>
         {/*===================================================*/}

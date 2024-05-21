@@ -16,8 +16,8 @@ const Directorylisting = () => {
   async function fetchData(url) {
     try {
       // Make API request using directoryPath and name
-      const response = await axios.post('InsecureObjectRefGuard/fetch',{
-        url:url
+      const response = await axios.post('InsecureObjectRefGuard/fetch', {
+        url: url
       });
       // Process response as needed
       return response.status
@@ -33,7 +33,7 @@ const Directorylisting = () => {
       console.log("totalItems", totalItems)
       let completedItems = 0;
       const responses = [];
-     
+
       for (const item of DirectoryListingEnable.data.directoryUrls) {
         // Make API request for the current item
         console.log(item)

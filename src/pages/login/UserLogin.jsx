@@ -15,7 +15,8 @@ export default function UserLogin() {
   const navigateToRegister = () => {
     navigate('/register')
   }
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     // eslint-disable-next-line
     if (email == '') {
       toast.error('please enter email')
@@ -38,8 +39,8 @@ export default function UserLogin() {
           dispatch(setUserDetails({ isAuthenticated: true }))
 
           console.log(response)
-          // window.location.assign('/dashboard')
-          navigate('/dashboard')
+          window.location.assign('/dashboard')
+          // navigate('/dashboard')
         } else {
           toast.error(message)
         }
@@ -62,60 +63,61 @@ export default function UserLogin() {
       <div className="login-box">
 
         {/* /.login-logo */}
-        <div className="card login-card">
-          <div className="card-body login-card-body">
-            <p className="login-box-msg">Sign in to Start Your Session</p>
+        <form onSubmit={handleSubmit}>
+          <div className="card login-card">
+            <div className="card-body login-card-body">
+              <p className="login-box-msg">Sign in to Start Your Session</p>
 
-            <div className="input-group mb-4">
-              <input
-                type="email"
-                className="form-control input-signin"
-                value={email}
-                onChange={(e) => { setemail(e.target.value) }}
-              />
-              <div className="input-group-append">
-                <div className="input-group-text">
-                  <span className="fas fa-envelope" />
+              <div className="input-group mb-4">
+                <input
+                  type="email"
+                  className="form-control input-signin"
+                  value={email}
+                  onChange={(e) => { setemail(e.target.value) }}
+                />
+                <div className="input-group-append">
+                  <div className="input-group-text">
+                    <span className="fas fa-envelope" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="input-group mb-4">
-              <input
-                type="password"
-                className="form-control input-signin"
-                value={password}
-                onChange={(e) => { setPassword(e.target.value) }}
-              />
-              <div className="input-group-append">
-                <div className="input-group-text">
-                  <span className="fas fa-lock" />
+              <div className="input-group mb-4">
+                <input
+                  type="password"
+                  className="form-control input-signin"
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value) }}
+                />
+                <div className="input-group-append">
+                  <div className="input-group-text">
+                    <span className="fas fa-lock" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              {/* <div className="col-8">
+              <div className="row">
+                {/* <div className="col-8">
                 <div className="icheck-primary">
                   <input type="checkbox" id="remember" />
                   <label htmlFor="remember">Remember Me</label>
                 </div>
               </div> */}
+                {/* /.col */}
+                <div className="col-6">
+                  <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block button-sign">
+                    Sign In
+                  </button>
+                </div>
+                <div className="col-6">
+                  <button onClick={navigateToRegister} type="submit" className="btn btn-primary btn-block button-sign">
+                    Register
+                  </button>
+                </div>
+
+              </div>
               {/* /.col */}
-              <div className="col-6">
-                <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-block button-sign">
-                  Sign In
-                </button>
-              </div>
-              <div className="col-6">
-                <button onClick={navigateToRegister} type="submit" className="btn btn-primary btn-block button-sign">
-                  Register
-                </button>
-              </div>
-
-            </div>
-            {/* /.col */}
 
 
-            {/* <div className="social-auth-links text-center mb-3">
+              {/* <div className="social-auth-links text-center mb-3">
                 <p>- OR -</p>
                 <a href="#" className="btn btn-block btn-primary">
                   <i className="fab fa-facebook mr-2" /> Sign in using Facebook
@@ -125,18 +127,19 @@ export default function UserLogin() {
                   Google+
                 </a>
               </div> */}
-            {/* /.social-auth-links */}
-            {/* <p className="mb-1">
+              {/* /.social-auth-links */}
+              {/* <p className="mb-1">
               <a href="forgot-password.html">I forgot my password</a>
             </p> */}
-            {/* <p className="mb-0">
+              {/* <p className="mb-0">
                 <a href="register.html" className="text-center">
                   Register a new membership
                 </a>
               </p> */}
+            </div>
+            {/* /.login-card-body */}
           </div>
-          {/* /.login-card-body */}
-        </div>
+        </form>
       </div>
     </body >
   );

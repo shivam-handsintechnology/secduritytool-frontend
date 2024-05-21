@@ -4,10 +4,10 @@ import useDataFetch from "../../hooks/DataFetchHook";
 import { decryptData } from "../../helpers/commonFunctions";
 
 const url = process.env.NODE_ENV === 'development'
-  ? process.env.REACT_APP_DEVELOPMENT_BASEURL + "AuthSessionGuardian/non-html-content-accessability"
-  : process.env.REACT_APP_PRODUCTION_BASEURL + "AuthSessionGuardian/non-html-content-accessability";
+  ? process.env.REACT_APP_DEVELOPMENT_BASEURL + "AuthSessionGuardian/SecondFactorAuth"
+  : process.env.REACT_APP_PRODUCTION_BASEURL + "AuthSessionGuardian/SecondFactorAuth";
 
-const NonHtmlContentAccess = () => {
+const SecondFactorAuth = () => {
 
   const [events, setEvents] = useState([]);
   const userreducerDetails = useSelector((state) => state.UserReducer);
@@ -37,8 +37,8 @@ const NonHtmlContentAccess = () => {
 
   return (
     <div>
-      <button disabled={isSubmit} onClick={() => handleButtonClick(userreducerDetails.webdomain)}>Scan Non-HTML contents directly accessible without logging-in</button>
-      <h3>Non-HTML contents directly accessible without logging-in </h3>
+      <button disabled={isSubmit} onClick={() => handleButtonClick("lmpfrontend.handsintechnology.in")}>Scan Second Factor Authentication Could Be Bypassed</button>
+      <h3>Second Factor Authentication Could Be Bypassed </h3>
       <ul>
         {events.length > 0 && events.map((event, index) => (
           <>
@@ -54,4 +54,4 @@ const NonHtmlContentAccess = () => {
   );
 };
 
-export default NonHtmlContentAccess;
+export default SecondFactorAuth;
