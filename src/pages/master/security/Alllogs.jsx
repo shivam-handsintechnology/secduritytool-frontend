@@ -8,7 +8,9 @@ import LoadingSpinner from "../../../components/LoaderAndError/loader";
 import { useDispatch, useSelector } from "react-redux";
 
 import { WEBSOCKET_CONNECT, RECEIVE_MESSAGE, socket } from "../../../redux/reducers/websocketReducer";
+import MiddlewareSwitcher from "../../../utils/middlewareSwitcher";
 const AllLogs = () => {
+  const [checked, setChecked] = useState(false)
   const [isCompleted, setIsCompleted] = useState(true)
   const [totaldatatoacan, setTotaldatatoacan] = useState({
     count: 0,
@@ -25,9 +27,6 @@ const AllLogs = () => {
   const { messages } = useSelector((state) => state.websocketReducer);
   const { domain } = useSelector((state) => state.UserReducer)
   const getAlLLogs = useDataFetch(`injections?limit=${5}&&type=${type}&page=${pageNumber}`, [pageNumber, domain, type, PostDomain.Data, Data])
-
-
-
   useEffect(() => {
 
     socket && socket.on("sql-injection", ({ message, count, percentageCompleted }) => {
@@ -104,6 +103,8 @@ const AllLogs = () => {
       {/* <Headers />
     <Menu /> */}
       <div>
+        {type && <MiddlewareSwitcher />}
+
         {/*CONTENT CONTAINER*/}
         {/*===================================================*/}
         <div className="content-header">
@@ -133,8 +134,10 @@ const AllLogs = () => {
         {/*Page content*/}
         {/*===================================================*/}
         <div className="content">
+
           <div className="container-fluid">
-            {type === "SQLI" ? (
+
+            {type === "Sql" ? (
               <>
                 <div className="row">
                   <div className="col-md-12">

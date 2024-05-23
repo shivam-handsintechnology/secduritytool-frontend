@@ -5,20 +5,25 @@ import LoadingSpinner from '../../components/LoaderAndError/loader'
 
 const SensitiveDataplain = () => {
     const UserData = useSelector((state) => state.UserReducer)
-    const sensitiveDataPlain = useDataFetch(`SensitiveDataExposure/server-plain-text?domain=${UserData.domain}`, [UserData.domain])
-    console.log("sensitiveDataPlain", sensitiveDataPlain)
+    const Cleartextpassword = useDataFetch(`SensitiveDataExposure/server-plain-text?domain=${UserData.domain}`, [UserData.domain])
+    console.log("Cleartextpassword", Cleartextpassword)
     return (
         <div>
             {
-                sensitiveDataPlain.errors.loading ? <LoadingSpinner /> :
-                    sensitiveDataPlain.errors.error ? <span className='error'>{sensitiveDataPlain.errors.message}</span>  :
-                        <div>{sensitiveDataPlain.data ? (
+                Cleartextpassword.errors.loading ? <LoadingSpinner /> :
+                    Cleartextpassword.errors.error ? <span className='error'>{Cleartextpassword.errors.message}</span> :
+                        <div>{Cleartextpassword.data ? (
                             <>
-                                {sensitiveDataPlain.data.key.length > 0 ? <div className='text-center'>Sensitive data is transmitted to server in plain text:Yes</div>:<div className='text-center'>Sensitive data is transmitted to server in plain text:No</div>}
+                                {Cleartextpassword.data.key.length > 0 ? <div className='text-center mb-3'>Sensitive data is transmitted to server in plain text:Yes</div> : <div className='text-center'>Sensitive data is transmitted to server in plain text:No</div>}
                                 {
-                                    sensitiveDataPlain.data.key.length > 0 &&
-                                    sensitiveDataPlain.data.key.map((item, index) => (
-<li></li>                                                                                                                     
+                                    Cleartextpassword.data.key.length > 0 &&
+                                    Cleartextpassword.data.key.map((item, index) => (
+                                        <div key={index}>
+                                            <div className='mb-3'><i className=' fa fa-chevron-right  ' style={{
+                                                background: "#002446", borderRadius: "50%",
+                                                padding: "4px", marginRight: "5px", color: 'white', marginLeft: "5px",
+                                            }}></i>{item}</div>
+                                        </div>
                                     ))
 
                                 }

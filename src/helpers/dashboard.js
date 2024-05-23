@@ -49,7 +49,7 @@ const data = [
     "UseCases": [
       {
         "label": "Application is vulnerable to Command injection attack",
-        "link": "/logs/cmd"
+        "link": "/logs/commandline"
       },
       {
         "label": "Application is vulnerable to HTML injection attack",
@@ -57,15 +57,15 @@ const data = [
       },
       {
         "label": "Application is vulnerable to iframe injection attack",
-        "link": "/logs/IFrame"
+        "link": "/logs/iframe"
       },
       {
         "label": "Application is vulnerable to SQL Injection",
-        "link": "/logs/SQLI"
+        "link": "/logs/Sql"
       },
       {
         "label": "Application is vulnerable to XML injection",
-        "link": "/logs/XML-Injection"
+        "link": "/logs/xml"
 
       },
     ]
@@ -252,19 +252,19 @@ const data = [
     "UseCases": [
       {
         "label": "Application is vulnerable to cross frame scripting",
-        "link": "/logs/IFrame"
+        "link": "/logs/iframe"
       },
       {
         "label": "Application is vulnerable to Cross Site Scripting attack",
-        "link": "/logs/xss-injection"
+        "link": "/logs/xss"
       },
       {
         "label": "Application is vulnerable to stored Cross Site Scripting attack",
-        "link": "/logs/xss-injection"
+        "link": "/logs/xss"
       },
       {
         "label": "Is XSS possible via CSS injection?",
-        "link": "/logs/CSS"
+        "link": "/logs/css"
       }
     ]
   },

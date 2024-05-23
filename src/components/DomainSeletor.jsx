@@ -37,7 +37,6 @@ const DomainSeletor = () => {
             totalPages={getAllDomains.data.totalPages}
             showData={true}
           />
-          {!userreducerDetails.domain && <span className='error'>Please Select Domain</span>}
         </div>
       ) : (
         <h1>No Data Found</h1>

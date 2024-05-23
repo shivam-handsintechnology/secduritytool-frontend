@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 
-const useDataFetch = (url, dependencies=[],type=null) => {
+const useDataFetch = (url, dependencies = [], type = null) => {
     const [data, setData] = useState(type);
     const [errors, setErrors] = useState({ loading: false, error: false, message: '', progress: 0 });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setErrors((prev) => ({ ...prev, loading: true , progress: 0, error: false }))
+                setErrors((prev) => ({ ...prev, loading: true, progress: 0, error: false }))
                 const response = await axios.get(url, {
                     onDownloadProgress: progressEvent => {
                         const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -28,21 +28,21 @@ const useDataFetch = (url, dependencies=[],type=null) => {
                         break;
                 }
             } catch (error) {
-                const {response}=error
-                console.log(url+error,error)
-                 let message= error.code=="ECONNREFUSED" ? "Server is down, Please try again later":error.code=="ERR_NETWORK"?"Network Error, Please try again later":response?.data?.message ? response?.data?.message : 'An error occurred'
-                
+                const { response } = error
+                console.log(url + error, error)
+                let message = error.code == "ECONNREFUSED" ? "Server is down, Please try again later" : error.code == "ERR_NETWORK" ? "Network Error, Please try again later" : response?.data?.message ? response?.data?.message : 'An error occurred'
+
 
                 setErrors((prev) => ({
                     ...prev, loading: false,
-                    error: true,progress: 100,
+                    error: true, progress: 100,
                     message: message
                 }))
                 setData(type);
             }
         };
         fetchData();
- 
+
     }, dependencies);
 
     return { data, errors };
@@ -89,7 +89,7 @@ const usePostData = () => {
 
 
     }
- 
+
 
     // You might want to add dependencies to the useEffect if needed
 
@@ -126,9 +126,10 @@ const useDeleteData = () => {
     const [errors, setErrors] = useState({ loading: false, error: false, message: '' });
     const handleSubmit = async (url) => {
         try {
-            setErrors({ loading: true, error: false });
-                 await axios.delete(url).then((response) => {
+            setErrors({ loading: true, error: false, message: '' });
+            await axios.delete(url).then((response) => {
                 const { data, statusCode } = response;
+                console.log("response", response)
                 if (statusCode === 200) {
                     setData(Date.now());
                     toast.success("Deleted Successfully")
@@ -136,12 +137,14 @@ const useDeleteData = () => {
             });
 
         } catch (error) {
-            console.error(error);
+            console.error({ error });
+            let message = error.response ? error.response.data.message : error.message
             setErrors({
                 loading: false,
                 error: true,
-                message: error.data ? error.data.message : 'An error occurred',
+                message: message,
             });
+            toast.error(message)
             setData(null);
         }
     };

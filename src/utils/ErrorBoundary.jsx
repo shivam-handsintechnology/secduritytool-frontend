@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import withNavigation from './WithNavigation';
 
 class ErrorBoundary extends Component {
+    handleNavigation = () => {
+        // Navigate to the desired route
+        this.props.navigate('/target-route');
+    };
+
     constructor(props) {
         super(props);
         this.state = { hasError: false };
@@ -12,14 +18,16 @@ class ErrorBoundary extends Component {
 
     componentDidCatch(error, errorInfo) {
         console.error("Error caught by ErrorBoundary: ", error, errorInfo);
+        // location.assign('/error');
     }
 
     render() {
         if (this.state.hasError) {
-            return <h1>Something went wrong.</h1>;
+            // Return null to avoid rendering the error UI
+            // return location.assign('/error');
         }
         return this.props.children;
     }
 }
 
-export default ErrorBoundary;
+export default withNavigation(ErrorBoundary);

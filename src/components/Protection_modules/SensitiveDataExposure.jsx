@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import useDataFetch from '../../hooks/DataFetchHook';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -13,15 +13,15 @@ const SensitiveDataExposure = () => {
     const fingerprintDetection = useDataFetch(`SensitiveDataExposure/fingerprint-detection?domain=${UserData.domain}`, [UserData.domain]);
     const DefaultWebPage = useDataFetch(`SensitiveDataExposure/DefaultWebPage?domain=${UserData.domain}`, [UserData.domain]);
     // const emailHarvesting = useDataFetch(`SensitiveDataExposure/email-harvesting?domain=${UserData.domain}`, [UserData.domain]);
-    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url&domain=${UserData.domain}&isQuestion=1`, [UserData.domain], []);
-    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response&domain=${UserData.domain}&isQuestion=1`, [UserData.domain], []);
+    const SensitiveKeysinUrl = useDataFetch(`SensitiveDataExposure/sensitive-data?type=url&domain=${UserData.domain}`, [UserData.domain], null);
+    const SensitiveKeysinBody = useDataFetch(`SensitiveDataExposure/sensitive-data?type=response&domain=${UserData.domain}`, [UserData.domain], null);
     const ServerPathDisclosure = useDataFetch(`SensitiveDataExposure/server-path-disclosure?domain=${UserData.domain}`, [UserData.domain], "")
     const ServerFileAvailbleInCLearText = useDataFetch(`SensitiveDataExposure/ServerFileAvailbleInCLearText?domain=${UserData.domain}`, [UserData.domain], [])
     const sensitiveDataPlain = useDataFetch(`SensitiveDataExposure/server-plain-text?domain=${UserData.domain}`, [UserData.domain])
     const Cleartextpassword = useDataFetch(`SensitiveDataExposure/server-plain-text?domain=${UserData.domain}`, [UserData.domain])
-    console.log("sensitiveDataPlain", sensitiveDataPlain)
-    console.log("ServerFileAvailbleInCLearText", ServerFileAvailbleInCLearText)
-    console.log("sensitiveDataPlain", sensitiveDataPlain)
+    console.log("sensitiveDataPlain", sensitiveDataPlain.data && sensitiveDataPlain.data.key)
+
+
 
     // Function to make an API request
     async function fetchData(url, filepath) {
@@ -109,16 +109,17 @@ const SensitiveDataExposure = () => {
                                     DefaultWebPage.errors.error ? <span className='error'> {DefaultWebPage.errors.message}</span> : DefaultWebPage.data && DefaultWebPage.data
                                 }</li>
                                 <li className="list-unstyled">Sensitive keys in URL: {SensitiveKeysinUrl.errors.loading ? <LoadingSpinner /> :
-                                    SensitiveKeysinUrl.errors.error ? <span className='error'> {SensitiveKeysinUrl.errors.message}</span> : SensitiveKeysinUrl.data && SensitiveKeysinUrl.data.length > 0 ? "Yes" : "No"
+                                    SensitiveKeysinUrl.errors.error ? <span className='error'> {SensitiveKeysinUrl.errors.message}</span> : SensitiveKeysinUrl.data &&
+                                        SensitiveKeysinUrl.data.data && SensitiveKeysinUrl.data.data.length > 0 ? "Yes" : "No"
                                 }</li>
                                 <li className="list-unstyled">Sensitive keys in body: {SensitiveKeysinBody.errors.loading ? <LoadingSpinner /> :
-                                    SensitiveKeysinBody.errors.error ? <span className='error'> {SensitiveKeysinBody.errors.message}</span> : SensitiveKeysinBody.data && SensitiveKeysinBody.data.length > 0 ? "Yes" : "No"
+                                    SensitiveKeysinBody.errors.error ? <span className='error'> {SensitiveKeysinBody.errors.message}</span> : SensitiveKeysinBody.data && SensitiveKeysinBody.data.data && SensitiveKeysinBody.data.data.length > 0 ? "Yes" : "No"
                                 }</li>
                                 <li className="list-unstyled">Sensitive data is transmitted to server in plain text: {sensitiveDataPlain.errors.loading ? <LoadingSpinner /> :
-                                    sensitiveDataPlain.errors.error ? <span className='error'> {sensitiveDataPlain.errors.message}</span> : SensitiveKeysinBody.data && SensitiveKeysinBody.data.keys.length > 0 ? "Yes" : "No"
+                                    sensitiveDataPlain.errors.error ? <span className='error'> {sensitiveDataPlain.errors.message}</span> : sensitiveDataPlain.data && sensitiveDataPlain.data.data && sensitiveDataPlain.data.data.length > 0 ? "Yes" : "No"
                                 }</li>
                                 <li className="list-unstyled">Sensitive data is transmitted to server in plain text: {sensitiveDataPlain.errors.loading ? <LoadingSpinner /> :
-                                    sensitiveDataPlain.errors.error ? <span className='error'>{sensitiveDataPlain.errors.message}</span> : sensitiveDataPlain.data && sensitiveDataPlain.data.key.length > 0 ? "Yes" : "No"
+                                    sensitiveDataPlain.errors.error ? <span className='error'>{sensitiveDataPlain.errors.message}</span> : sensitiveDataPlain.data && sensitiveDataPlain.data.data && sensitiveDataPlain.data.data.length > 0 ? "Yes" : "No"
                                 }</li>
 
                                 <li className="list-unstyled">Physical server path disclosure: {ServerPathDisclosure.errors.loading ? <LoadingSpinner /> :
@@ -134,7 +135,7 @@ const SensitiveDataExposure = () => {
                                             Cleartextpassword.errors.error ? <span className='error'>{Cleartextpassword.errors.message}</span> :
                                                 <div>{Cleartextpassword.data && Cleartextpassword.data.password ? (
                                                     <>
-                                                        {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ? "Yes":"No"}
+                                                        {Cleartextpassword.data && Cleartextpassword.data.HashedPassword ? "Yes" : "No"}
                                                     </>
                                                 ) : <div>Password Related Information Not Fund</div>
                                                 }</div>
