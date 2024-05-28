@@ -140,9 +140,10 @@ const data = [
       // {
       //   "label": "File upload functionality flaw"
       // },
-      // {
-      //   "label": "Application is allowing blank / invalid passwords"
-      // },
+      {
+        "label": "Application is allowing blank / invalid passwords",
+        "link": "/BlankPassword"
+      },
       // {
       //   "label": "Application supports default usernames and passwords for logging in the application."
       // },

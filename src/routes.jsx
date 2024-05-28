@@ -69,6 +69,7 @@ import Managementinterface from './pages/Missing_Function_Level_Access_Control/M
 import PrivateIPaddressdisclosed from './pages/Sensitive_Data_Exposure/PrivateIPaddressdisclosed';
 import ErrorBoundary from './utils/ErrorBoundary';
 import SecondFactorAuth from './pages/Broken Authentication/SecondFactorAuth';
+import BlackPasswordValidation from './pages/Security_Misconfiguration/BlackPasswordValidation';
 
 export const ProtectedRoutes = [
 
@@ -367,6 +368,11 @@ export const ProtectedRoutes = [
     exact: true,
     element: <PhysicalServerPathDisclousere Goback={<GoBack />} />,
   },
+  {
+    path: '/BlankPassword',
+    exact: true,
+    element: <BlackPasswordValidation Goback={<GoBack />} />,
+  },
 
 ];
 const PublicRoutes = [
@@ -411,7 +417,7 @@ export const RoutePages = () => {
 
   }, [userreducerDetails,])
 
-  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/Managementinterface", "/SecondFactorAuth"]
+  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/Managementinterface", "/SecondFactorAuth", "/BlankPassword"]
 
   return (
     <React.Fragment>

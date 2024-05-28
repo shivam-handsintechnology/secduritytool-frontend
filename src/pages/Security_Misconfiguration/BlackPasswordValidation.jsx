@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import { Form } from 'react-bootstrap';
 import { useSelector } from "react-redux";
 import { decryptData } from "../../helpers/commonFunctions";
-
+import VideoComponent from "../../hooks/VideoComponent ";
 const url = process.env.NODE_ENV === 'development'
-  ? process.env.REACT_APP_DEVELOPMENT_BASEURL + "AuthSessionGuardian/non-html-content-accessability"
-  : process.env.REACT_APP_PRODUCTION_BASEURL + "AuthSessionGuardian/non-html-content-accessability";
+  ? process.env.REACT_APP_DEVELOPMENT_BASEURL + "AuthSessionGuardian/blankpasswordandusername"
+  : process.env.REACT_APP_PRODUCTION_BASEURL + "AuthSessionGuardian/blankpasswordandusername";
 
-const NonHtmlContentAccess = () => {
+const BlackPasswordValidation = () => {
 
   const [events, setEvents] = useState([]);
   const userreducerDetails = useSelector((state) => state.UserReducer);
   const [isSubmit, setisSubmit] = useState(false)
-  const [ErrorHnadler, setErrorHandler] = useState({
-    errorPageHandler: false,
-    pageNotFoundHandler: false
-  })
-  const handleSwitch = (e) => {
-    setErrorHandler({ ...ErrorHnadler, [e.target.name]: e.target.checked })
-  }
+
   const handleButtonClick = (domain) => {
     setisSubmit(true)
     setEvents([]);
@@ -40,31 +33,11 @@ const NonHtmlContentAccess = () => {
       };
     }
   };
-  console.log("ErrorHnadler", ErrorHnadler)
   return (
     <div>
-      <button disabled={isSubmit} onClick={() => handleButtonClick(userreducerDetails.webdomain)}>Scan Non-HTML contents directly accessible without logging-in</button>
-      <h3>Non-HTML contents directly accessible without logging-in </h3>
-      <Form>
-        <Form.Check // prettier-ignore
-          type="switch"
-          id="custom-switch"
-          name="pageNotFoundHandler"
-          onChange={handleSwitch}
-          checked={ErrorHnadler.pageNotFoundHandler}
-          label="404 Page Handler is enabled"
-        />
-        <br />
-        <Form.Check // prettier-ignore
-          type="switch"
-          id="custom-switch"
-          name="errorPageHandler"
-          onChange={handleSwitch}
-          checked={ErrorHnadler.errorPageHandler}
-          label="Error Page Handler is enabled"
-        />
+      <button disabled={isSubmit} onClick={() => handleButtonClick(userreducerDetails.webdomain)}>Scan Application is allowing blank / invalid passwords</button>
+      <h3>Application is allowing blank / invalid passwords</h3>
 
-      </Form>
       <ul>
         {events.length > 0 && events.map((event, index) => (
           <>
@@ -73,6 +46,12 @@ const NonHtmlContentAccess = () => {
             {
               event.screenshot && <img width='500' height='200' src={`data:image/png;base64,${event.screenshot}`} />
             }
+            {
+              event.video &&
+              <VideoComponent event={event} />
+
+            }
+
           </>
         ))}
       </ul>
@@ -80,4 +59,4 @@ const NonHtmlContentAccess = () => {
   );
 };
 
-export default NonHtmlContentAccess;
+export default BlackPasswordValidation;
