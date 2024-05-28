@@ -1,0 +1,82 @@
+[
+    {
+        "username": "admin",
+        "passwords": [
+            "admin",
+            "password",
+            "1234",
+            "12345",
+            "123456",
+            "12345678",
+            "123456789",
+            "qwerty",
+            "admin123"
+        ]
+    },
+    {
+        "username": "administrator",
+        "passwords": [
+            "admin",
+            "password",
+            "1234",
+            "12345",
+            "123456",
+            "12345678",
+            "123456789",
+            "qwerty",
+            "admin123"
+        ]
+    },
+    {
+        "username": "root",
+        "passwords": [
+            "root",
+            "password",
+            "1234",
+            "12345",
+            "123456",
+            "qwerty",
+            "toor"
+        ]
+    },
+    {
+        "username": "user",
+        "passwords": [
+            "user",
+            "password",
+            "1234",
+            "12345",
+            "123456"
+        ]
+    },
+    {
+        "username": "guest",
+        "passwords": [
+            "guest",
+            "password",
+            "1234",
+            "12345",
+            "123456"
+        ]
+    },
+    {
+        "username": "test",
+        "passwords": [
+            "test",
+            "password",
+            "1234",
+            "12345",
+            "123456"
+        ]
+    },
+    {
+        "username": "demo",
+        "passwords": [
+            "demo",
+            "password",
+            "1234",
+            "12345",
+            "123456"
+        ]
+    }
+]

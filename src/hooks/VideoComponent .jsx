@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDeleteData } from './DataFetchHook';
 
 const VideoComponent = ({ event }) => {
     const [videoUrl, setVideoUrl] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const { Data, errors, handleSubmit } = useDeleteData();
     useEffect(() => {
         if (event.video) {
             // Simulate an asynchronous operation to load/validate the video URL
@@ -30,6 +31,7 @@ const VideoComponent = ({ event }) => {
                 // Otherwise, reject with an error message
                 if (url) {
                     resolve(url);
+
                 } else {
                     reject(new Error('Invalid video URL'));
                 }

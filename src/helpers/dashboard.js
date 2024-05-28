@@ -144,9 +144,10 @@ const data = [
         "label": "Application is allowing blank / invalid passwords",
         "link": "/BlankPassword"
       },
-      // {
-      //   "label": "Application supports default usernames and passwords for logging in the application."
-      // },
+      {
+        "label": "Application supports default usernames and passwords for logging in the application.",
+        "link": "/DefaultUserNamesPassword"
+      },
 
       {
         "label": "Dangerous HTTP methods are enabled on the server",

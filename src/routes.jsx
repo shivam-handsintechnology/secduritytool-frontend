@@ -70,6 +70,7 @@ import PrivateIPaddressdisclosed from './pages/Sensitive_Data_Exposure/PrivateIP
 import ErrorBoundary from './utils/ErrorBoundary';
 import SecondFactorAuth from './pages/Broken Authentication/SecondFactorAuth';
 import BlackPasswordValidation from './pages/Security_Misconfiguration/BlackPasswordValidation';
+import DefaultUserNamesPassword from './pages/Security_Misconfiguration/DefaultUserNamesPassword';
 
 export const ProtectedRoutes = [
 
@@ -373,6 +374,11 @@ export const ProtectedRoutes = [
     exact: true,
     element: <BlackPasswordValidation Goback={<GoBack />} />,
   },
+  {
+    path: '/DefaultUserNamesPassword',
+    exact: true,
+    element: <DefaultUserNamesPassword Goback={<GoBack />} />,
+  },
 
 ];
 const PublicRoutes = [
@@ -417,7 +423,7 @@ export const RoutePages = () => {
 
   }, [userreducerDetails,])
 
-  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/Managementinterface", "/SecondFactorAuth", "/BlankPassword"]
+  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
 
   return (
     <React.Fragment>
