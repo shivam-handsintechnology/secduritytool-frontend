@@ -70,7 +70,7 @@ import PrivateIPaddressdisclosed from './pages/Sensitive_Data_Exposure/PrivateIP
 import ErrorBoundary from './utils/ErrorBoundary';
 import SecondFactorAuth from './pages/Broken Authentication/SecondFactorAuth';
 import BlackPasswordValidation from './pages/Security_Misconfiguration/BlackPasswordValidation';
-import DefaultUserNamesPassword from './pages/Security_Misconfiguration/DefaultUserNamesPassword';
+import DefaultUserNamesPasswordMain from './pages/Security_Misconfiguration/DefaultUserNamesPassword';
 
 export const ProtectedRoutes = [
 
@@ -377,7 +377,7 @@ export const ProtectedRoutes = [
   {
     path: '/DefaultUserNamesPassword',
     exact: true,
-    element: <DefaultUserNamesPassword Goback={<GoBack />} />,
+    element: <DefaultUserNamesPasswordMain Goback={<GoBack />} />,
   },
 
 ];
