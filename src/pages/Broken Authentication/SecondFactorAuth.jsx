@@ -18,7 +18,7 @@ const SecondFactorAuth = () => {
     setEvents([]);
     const encryptedData = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : '';
     if (userreducerDetails.isAuthenticated && encryptedData.token) {
-      const eventSourceUrl = `${url}?domain=${domain}&authorization=Bearer ${encodeURIComponent(encryptedData.token)}`;
+      const eventSourceUrl = `${url}?domain=${userreducerDetails.webdomain}&authorization=Bearer ${encodeURIComponent(encryptedData.token)}`;
       const newEventSource = new EventSource(eventSourceUrl, { withCredentials: true });
       newEventSource.onmessage = (event) => {
         const newEvent = JSON.parse(event.data);

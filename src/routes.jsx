@@ -71,6 +71,8 @@ import ErrorBoundary from './utils/ErrorBoundary';
 import SecondFactorAuth from './pages/Broken Authentication/SecondFactorAuth';
 import BlackPasswordValidation from './pages/Security_Misconfiguration/BlackPasswordValidation';
 import DefaultUserNamesPasswordMain from './pages/Security_Misconfiguration/DefaultUserNamesPassword';
+import LockOutFeature from './pages/MiscellaneousAttacks/LockOutFeature';
+import SqlWildcards from './pages/MiscellaneousAttacks/SqlWildcards';
 
 export const ProtectedRoutes = [
 
@@ -379,6 +381,21 @@ export const ProtectedRoutes = [
     exact: true,
     element: <DefaultUserNamesPasswordMain Goback={<GoBack />} />,
   },
+  {
+    path: '/MiscellaneousAttacks',
+    exact: true,
+    element: <MiscellaneousAttacks Goback={<GoBack />} />,
+  },
+  {
+    path: '/LockOutFeature',
+    exact: true,
+    element: <LockOutFeature Goback={<GoBack />} />,
+  },
+  {
+    path: '/SqlWildcards',
+    exact: true,
+    element: <SqlWildcards Goback={<GoBack />} />,
+  },
 
 ];
 const PublicRoutes = [
@@ -397,11 +414,7 @@ const PublicRoutes = [
     exact: true,
     element: <ErrorPageHandler Goback={<GoBack />} />,
   },
-  {
-    path: '/MiscellaneousAttacks',
-    exact: true,
-    element: <MiscellaneousAttacks Goback={<GoBack />} />,
-  },
+
 ];
 
 
@@ -417,13 +430,10 @@ export const RoutePages = () => {
     if (userreducerDetails.isAuthenticated && encrypteddata.token) {
       axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
     }
-
     setLoding(false)
-
-
   }, [userreducerDetails,])
 
-  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
+  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/SqlWildcards", "/LockOutFeature", "/MiscellaneousAttacks", "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
 
   return (
     <React.Fragment>

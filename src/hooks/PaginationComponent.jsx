@@ -5,7 +5,7 @@ export const PaginationComponent = ({ columns, data, pageNumber, setPageNumber, 
     console.log("columns", columns)
     console.log("data", data)
     console.log("pageNumber", pageNumber)
-    
+
     console.log("totalPages", totalPages)
     const gotoPrevious = () => {
         setPageNumber((prevPage) => Math.max(prevPage - 1, 1));
@@ -34,7 +34,7 @@ export const PaginationComponent = ({ columns, data, pageNumber, setPageNumber, 
                         return <>
                             <td key={column.selector}>
                                 {
-                                    column.cell ?  column.cell(rowData) : rowData[column.selector]}</td>
+                                    column.cell ? column.cell(rowData) : rowData[column.selector]}</td>
 
                         </>
 
@@ -65,7 +65,7 @@ export const PaginationComponent = ({ columns, data, pageNumber, setPageNumber, 
                     {/* <tbody className="text-table-format">{renderRows(TotalNoOfPages ? data : NewData)}</tbody> */}
                 </table>)}
                 <Pagination>
-                    <Pagination.Prev onClick={gotoPrevious} disabled={pageNumber === 1} />
+                    <Pagination.Prev onClick={gotoPrevious} disabled={pageNumber === 1 || totalPages === 1} />
                     {getVisiblePages().map(page => (
                         <Pagination.Item
                             style={{ background: "#2ca2c6" }}
@@ -76,7 +76,7 @@ export const PaginationComponent = ({ columns, data, pageNumber, setPageNumber, 
                             {page}
                         </Pagination.Item>
                     ))}
-                    <Pagination.Next onClick={gotoNext} disabled={pageNumber === totalPages} />
+                    <Pagination.Next onClick={gotoNext} disabled={pageNumber === totalPages || totalPages === 1} />
                 </Pagination>
             </>) : (<></>)}
         </div>

@@ -18,10 +18,10 @@ const HandleEventEmail = ({
 
         if (userreducerDetails.isAuthenticated && encrypted.token) {
             let data = {
-                password: encodeURIComponent(encryptData(password)),
-                domain: encodeURIComponent(encryptData(domain)),
-                email: encodeURIComponent(encryptData(email)),
-                authorization: encodeURIComponent(encryptData(encrypted.token))
+                [encodeURIComponent(encryptData("password"))]: encodeURIComponent(encryptData(password)),
+                [encodeURIComponent(encryptData("domain"))]: encodeURIComponent(encryptData(domain)),
+                [encodeURIComponent(encryptData("email"))]: encodeURIComponent(encryptData(email)),
+                [encodeURIComponent(encryptData("authorization"))]: encodeURIComponent(encryptData(encrypted.token))
             };
 
             const eventSourceUrl = `${url}?data=${JSON.stringify(data)}`;

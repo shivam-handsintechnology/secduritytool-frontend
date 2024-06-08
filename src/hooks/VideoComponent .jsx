@@ -1,42 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useDeleteData } from './DataFetchHook';
 
 const VideoComponent = ({ event }) => {
     const [videoUrl, setVideoUrl] = useState(null);
     const [loading, setLoading] = useState(true);
-    const videoRef = useRef(null); // Create a ref for the video element
-    const { Data, errors, handleSubmit } = useDeleteData();
+    const [playbackRate, setPlaybackRate] = useState(1);
+    const [duration, setDuration] = useState(0);
+    const videoRef = useRef(null);
+    const progressRef = useRef(null);
 
     useEffect(() => {
+        const loadVideo = async () => {
+            try {
+                const url = await fetchVideoUrl(event.video);
+                setVideoUrl(url);
+            } catch (error) {
+                console.error('Error loading video URL:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         if (event.video) {
-            // Simulate an asynchronous operation to load/validate the video URL
-            fetchVideoUrl(event.video)
-                .then(url => {
-                    setVideoUrl(url);
-                    setLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error loading video URL:', error);
-                    setLoading(false);
-                });
+            loadVideo();
         }
     }, [event.video]);
 
     useEffect(() => {
         if (videoRef.current) {
-            videoRef.current.playbackRate = 0.25; // Set the desired playback rate
+            videoRef.current.playbackRate = playbackRate;
         }
-    }, [videoUrl]); // Ensure this runs when the video URL is set
+    }, [playbackRate]);
 
     const fetchVideoUrl = async (url) => {
-        // Here you can add any asynchronous operations needed to validate the URL
-        // For example, you can fetch the URL to ensure it's accessible
-        // Simulating with a resolved promise
         return new Promise((resolve, reject) => {
-            // Simulate network delay
             setTimeout(() => {
-                // If the URL is valid, resolve it
-                // Otherwise, reject with an error message
                 if (url) {
                     resolve(url);
                 } else {
@@ -46,6 +43,37 @@ const VideoComponent = ({ event }) => {
         });
     };
 
+    const handlePlaybackRateChange = (rate) => {
+        setPlaybackRate(rate);
+    };
+
+    const handleForward = (seconds) => {
+        if (videoRef.current) {
+            videoRef.current.currentTime += seconds;
+        }
+    };
+
+    const handleBackward = (seconds) => {
+        if (videoRef.current) {
+            videoRef.current.currentTime -= seconds;
+        }
+    };
+
+    const handleProgressClick = (e) => {
+        if (!videoRef.current) return; // Check if videoRef.current is available
+        const clickPosition = e.nativeEvent.offsetX;
+        const progressBarWidth = progressRef.current.offsetWidth;
+        const seekTime = (clickPosition / progressBarWidth) * duration;
+
+        videoRef.current.currentTime = seekTime;
+    };
+
+    const handleLoadedMetadata = () => {
+        if (videoRef.current) {
+            setDuration(videoRef.current.duration);
+        }
+    };
+
     if (loading) {
         return <p>Loading video...</p>;
     }
@@ -53,18 +81,31 @@ const VideoComponent = ({ event }) => {
     return (
         <>
             {videoUrl ? (
-                <video
-                    controls
-                    autoPlay
-                    ref={videoRef} // Attach the ref to the video element
-                    onError={(e) => console.error('Video error:', e, videoUrl)}
-                >
-                    <source
-                        src={videoUrl}
-                        type="video/webm"
-                        onError={(e) => console.error('Source error:', e, videoUrl)}
-                    />
-                </video>
+                <div>
+                    <video
+                        controls
+                        autoPlay
+                        ref={videoRef}
+                        onDurationChange={handleLoadedMetadata}
+                        onError={(e) => console.error('Video error:', e, videoUrl)}
+                        onLoadedMetadata={handleLoadedMetadata}
+                    >
+                        <source
+                            src={videoUrl}
+                            type="video/mp4" // Adjust the video type if necessary
+                            onError={(e) => console.error('Source error:', e, videoUrl)}
+                        />
+                    </video>
+
+                    <div>
+                        <button onClick={() => handlePlaybackRateChange(0.25)}>0.25x</button>
+                        <button onClick={() => handlePlaybackRateChange(0.5)}>0.5x</button>
+                        <button onClick={() => handlePlaybackRateChange(1)}>1x</button>
+                        <button onClick={() => handlePlaybackRateChange(2)}>2x</button>
+                        <button onClick={() => handleForward(10)}>Forward 10s</button>
+                        <button onClick={() => handleBackward(10)}>Backward 10s</button>
+                    </div>
+                </div>
             ) : (
                 <p>No video available</p>
             )}

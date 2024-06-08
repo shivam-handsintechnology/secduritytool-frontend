@@ -272,9 +272,15 @@ const data = [
   },
   {
     "Category": "Miscellaneous Attacks",
-    "link": "/MiscellaneousAttacks",
     "UseCases": [
-
+      {
+        "label": "Temporary Account Lockout Feature",
+        "link": "/LockOutFeature"
+      },
+      {
+        "label": "All",
+        "link": "/MiscellaneousAttacks"
+      }
     ]
   },
   {

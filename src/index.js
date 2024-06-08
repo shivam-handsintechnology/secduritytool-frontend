@@ -17,25 +17,36 @@ export { imageurl }
 axios.defaults.baseURL = process.env.NODE_ENV === 'development'
   ? process.env.REACT_APP_DEVELOPMENT_BASEURL
   : process.env.REACT_APP_PRODUCTION_BASEURL;
+const processAndEncryptQueryParams = (config) => {
+  if (config.url) {
+    const [baseUrl, queryString] = config.url.split("?");
+    console.log("baseUrl", baseUrl)
+    if (queryString) {
+      const queryObj = {};
+      const queries = queryString.split("&");
+
+      queries.forEach((element) => {
+        const [key, value] = element.split("=");
+        queryObj[encodeURIComponent(encryptData(key))] = encodeURIComponent(encryptData(value));
+      });
+
+      console.log("queryObj", queryObj);
+
+      const encryptedQueryString = {
+        ...queryObj
+      }
+      const newUrl = `${baseUrl}?data=${JSON.stringify(encryptedQueryString)}`;
+      console.log("New URL with encrypted query parameters:", newUrl);
+      config.url = newUrl;
+    }
+  }
+};
 
 axios.interceptors.request.use(config => {
 
   // Encrypt data in config if needed
   // console.log("config",config)
-  // if(config.url){
-  //   let querues=config.url.split("?")
-  //   if(querues.length>1){
-  //     let query=querues[1].split("&")
-  //     let queryObj={}
-  //     query.forEach((element)=>{
-  //       let queryElement=element.split("=")
-  //       queryObj[queryElement[0]]=queryElement[1]
-  //     })
-  //     console.log("queryObj",queryObj)
-  //     config.url=querues[0]+"?encryptData="+encryptData(queryObj)
-  //   }
-
-  // }
+  // processAndEncryptQueryParams(config);
   if (config.data && typeof config.data === 'object') {
     console.log("config.data", config.data)
     config.data = { encryptData: encryptData(config.data) };

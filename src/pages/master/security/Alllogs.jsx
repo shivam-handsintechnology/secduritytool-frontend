@@ -5,60 +5,17 @@ import { Button } from "react-bootstrap";
 import { usePostData, useDataFetch, useDeleteData } from "../../../hooks/DataFetchHook";
 import { PaginationComponent } from "../../../hooks/PaginationComponent";
 import LoadingSpinner from "../../../components/LoaderAndError/loader";
-import { useDispatch, useSelector } from "react-redux";
-
-import { WEBSOCKET_CONNECT, RECEIVE_MESSAGE, socket } from "../../../redux/reducers/websocketReducer";
+import { useSelector } from "react-redux";
 import MiddlewareSwitcher from "../../../utils/middlewareSwitcher";
+import SqlInjectionTester from "../../../components/SqlInjectiontester";
 const AllLogs = () => {
-  const [checked, setChecked] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(true)
-  const [totaldatatoacan, setTotaldatatoacan] = useState({
-    count: 0,
-    message: "",
-    estimatedTime: 0, percentageCompleted: 0
-  })
-  const [count, setCount] = useState(0)
+
   const [pageNumber, setPageNumber] = useState(1)
   const PostDomain = usePostData()
   const { handleSubmit, Data } = useDeleteData()
   const { type } = useParams()
-
-  const dispatch = useDispatch();
-  const { messages } = useSelector((state) => state.websocketReducer);
   const { domain } = useSelector((state) => state.UserReducer)
-  const getAlLLogs = useDataFetch(`injections?limit=${5}&&type=${type}&page=${pageNumber}`, [pageNumber, domain, type, PostDomain.Data, Data])
-  useEffect(() => {
-
-    socket && socket.on("sql-injection", ({ message, count, percentageCompleted }) => {
-      message && dispatch(RECEIVE_MESSAGE(message));
-
-      percentageCompleted && setTotaldatatoacan(prev => ({ ...prev, percentageCompleted }));
-      setCount(count)
-    }
-    );
-    socket && socket.on("sql-injection-started", ({ message, count, percentageCompleted }) => {
-      setIsCompleted(false)
-      percentageCompleted && setTotaldatatoacan(prev => ({ ...prev, percentageCompleted }));
-      message && dispatch(RECEIVE_MESSAGE(message));
-    }
-    );
-    socket && socket.on("sql-injection-completed", ({ message, count, percentageCompleted }) => {
-      setIsCompleted(true)
-      setCount(count)
-      percentageCompleted && setTotaldatatoacan(prev => ({ ...prev, percentageCompleted }));
-      message && dispatch(RECEIVE_MESSAGE(message));
-    }
-    );
-
-    socket && socket.on("sql-injection-count", (data) => {
-      console.log("message", data);
-
-      setTotaldatatoacan(prev => ({ ...prev, ...data }));
-    }
-    );
-  }, [socket]);
-  console.log(totaldatatoacan.percentageCompleted, "totaldatatoacan")
-
+  const getAlLLogs = useDataFetch(`injections?limit=${5}&type=${type}&page=${pageNumber}`, [pageNumber, domain, type, PostDomain.Data, Data])
   let columns = [
     { name: "Id", selector: "_id", sortable: true },
     { name: "Ip", selector: "ip", sortable: true },
@@ -96,7 +53,6 @@ const AllLogs = () => {
       width: "28%",
     },
   ]
-
 
   return (
     <div>
@@ -138,48 +94,7 @@ const AllLogs = () => {
           <div className="container-fluid">
 
             {type === "Sql" ? (
-              <>
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="card card-primary card-outline">
-                      <div className="card-header">
-                        <h3 className="card-title heading-title text-capitalize">
-                          {type} Injection Logs
-                        </h3>
-                        <button
-                          className={`btn btn-primary ${isCompleted ? "" : "disabled"}`}
-                          onClick={() => {
-                            socket && socket.emit('sql-injection', `https://${domain}`);
-                          }}
-                          disabled={!isCompleted}
-                        >
-                          Scan Website
-                        </button>
-                        {totaldatatoacan.count > 0 && <>
-                          <p>
-                            Estimated Time: {Math.floor(totaldatatoacan.estimatedTime / 60)} minuts
-                          </p>
-                          <p>
-                            Percentage Completed: {totaldatatoacan.percentageCompleted}%
-                          </p>
-                          <p>
-                            Completed: {`${count}/${totaldatatoacan.count}`}
-                          </p>
-                        </>}
-
-
-                      </div>
-                      <div className="card-body ">
-                        {
-                          messages.length > 0 && messages.map((message, index) => {
-                            return <div key={index}>{message}</div>;
-                          })
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
+              <SqlInjectionTester />
             ) :
               (
                 <>
