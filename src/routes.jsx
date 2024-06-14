@@ -61,38 +61,18 @@ import SensitiveDataplain from './pages/Sensitive_Data_Exposure/Sensitivedatapla
 import CredentialsPlaintext from './pages/Sensitive_Data_Exposure/Credentialsplaintext';
 import WeakCrossDomainPolicy from './pages/Weak_cross_domain_Policy';
 import MiscellaneousAttacks from './pages/MiscellaneousAttacks';
-import PhysicalServerPathDisclousere from './pages/Sensitive_Data_Exposure/PhysicalServerPathDisclouser';
-import NonHtmlContentAccess from './pages/Broken Authentication/NonHtmlContentAccess';
-import WebDomainSelector from './components/WebDomainSelector';
-import LoadingSpinner from './components/LoaderAndError/loader';
-import Managementinterface from './pages/Missing_Function_Level_Access_Control/Managementinterface';
-import PrivateIPaddressdisclosed from './pages/Sensitive_Data_Exposure/PrivateIPaddressdisclosed';
-import ErrorBoundary from './utils/ErrorBoundary';
-import SecondFactorAuth from './pages/Broken Authentication/SecondFactorAuth';
-import BlackPasswordValidation from './pages/Security_Misconfiguration/BlackPasswordValidation';
-import DefaultUserNamesPasswordMain from './pages/Security_Misconfiguration/DefaultUserNamesPassword';
-import LockOutFeature from './pages/MiscellaneousAttacks/LockOutFeature';
-import SqlWildcards from './pages/MiscellaneousAttacks/SqlWildcards';
-import Checkout from './components/checkout';
+import AboutUs from './pages/AboutUs';
+import PublicLayout from './components/Layout/PublicLayout';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsandCondition from './pages/TermsandCondition';
+import PriceDetail from './pages/PriceDetail';
+import Cancellation from './pages/Cancellation';
+import ContactUs from './pages/ContactUs';
 
 export const ProtectedRoutes = [
 
 
-  {
-    path: '/PrivateIPaddressdisclosed',
-    exact: true,
-    element: <PrivateIPaddressdisclosed Goback={<GoBack />} />,
-    Layout: "AdminLayout"
 
-  },
-
-  {
-    path: '/',
-    exact: true,
-    element: <Dashboard Goback={<GoBack />} />,
-    Layout: "AdminLayout"
-
-  },
   {
     path: '/dashboard',
     exact: true,
@@ -186,21 +166,6 @@ export const ProtectedRoutes = [
     path: '/Sessionhijackattack',
     exact: true,
     element: <Sessionhijackattack Goback={<GoBack />} />,
-  },
-  {
-    path: '/NonHtmlContentAccess',
-    exact: true,
-    element: <NonHtmlContentAccess Goback={<GoBack />} />,
-  },
-  {
-    path: '/SecondFactorAuth',
-    exact: true,
-    element: <SecondFactorAuth Goback={<GoBack />} />,
-  },
-  {
-    path: '/Managementinterface',
-    exact: true,
-    element: <Managementinterface Goback={<GoBack />} />,
   },
   {
     path: '/Ssl',
@@ -417,9 +382,44 @@ const PublicRoutes = [
     element: <UserRegister Goback={<GoBack />} />,
   },
   {
+    path: '/aboutus',
+    exact: true,
+    element: <AboutUs Goback={<GoBack />} />,
+  },
+  {
+    path: '/policy',
+    exact: true,
+    element: <PrivacyPolicy Goback={<GoBack />} />,
+  },
+  {
+    path: '/termsandcondition',
+    exact: true,
+    element: <TermsandCondition Goback={<GoBack />} />,
+  },
+  {
+    path: '/cancellation',
+    exact: true,
+    element: <Cancellation Goback={<GoBack />} />,
+  },
+  {
+    path: '/contactus',
+    exact: true,
+    element: <ContactUs Goback={<GoBack />} />,
+  },
+  {
+    path: '/pricedetail',
+    exact: true,
+    element: <PriceDetail Goback={<GoBack />} />,
+  },
+  {
     path: '*',
     exact: true,
     element: <ErrorPageHandler Goback={<GoBack />} />,
+  },
+  {
+    path: '/MiscellaneousAttacks',
+    exact: true,
+    element: <MiscellaneousAttacks Goback={<GoBack />} />,
   },
 
 ];
@@ -435,58 +435,48 @@ export const RoutePages = () => {
     }
     setLoding(false)
   }, [userreducerDetails,])
+  useEffect(() => {
 
-  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/SqlWildcards", "/LockOutFeature", "/MiscellaneousAttacks", "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
+
+  }, [])
+  const letSkipDomainSelectorPages = ['/login', '/register', '*', '/XSSpossible']
 
   return (
-    <React.Fragment>
-      {Loader ? (
-        <div>..Loading</div>
-      ) : (
-        <Router>
-          <Routes>
-            {PublicRoutes.map((route) => (
-              <Route key={route.path} path={route.path} element={route.element} />
-            ))}
-            {ProtectedRoutes.map((route) => (
+    <React.Fragment>{Loader ? <div >..Loading</div> :
+      <Router>
+        <Routes>
+
+          {
+
+            PublicRoutes.map((route) => (
               <Route
                 key={route.path}
                 path={route.path}
-                element={userreducerDetails.isAuthenticated ? (
-                  <ErrorBoundary>
-                    <Suspense fallback={<LoadingSpinner />}>
-                      <Layout>
-                        {AddWebdomainSelector.includes(route.path) ? (
-                          <>
-                            <WebDomainSelector />
-                            {!userreducerDetails.webdomain ? (
-                              <span className='error'>Please Select Domain</span>
-                            ) : (
-                              route.element
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            <DomainSeletor />
-                            {!userreducerDetails.domain ? (
-                              <span className='error'>Please Select Domain</span>
-                            ) : (
-                              route.element
-                            )}
-                          </>
-                        )}
-                      </Layout>
-                    </Suspense>
-                  </ErrorBoundary>
-                ) : (
-                  <Navigate to="/login" />
-                )}
+                element={<PublicLayout>
+                  {route.element}
+                </PublicLayout>}
+              />
+            ))
+          }
+          {
+            ProtectedRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={userreducerDetails.isAuthenticated ? <Layout>
+                  {
+                    letSkipDomainSelectorPages.includes(route.path) ? '' : <DomainSeletor />
+                  }
+                  {userreducerDetails.domain ? route.element : <span className='error'>Please Select Domain</span>}
+                </Layout>
+                  : <Navigate to="/login" />}
               />
             ))}
-          </Routes>
-        </Router>
-      )}
-    </React.Fragment>
+        </Routes>
+
+
+      </Router>
+    }</React.Fragment>
 
   );
 };
