@@ -73,6 +73,7 @@ import BlackPasswordValidation from './pages/Security_Misconfiguration/BlackPass
 import DefaultUserNamesPasswordMain from './pages/Security_Misconfiguration/DefaultUserNamesPassword';
 import LockOutFeature from './pages/MiscellaneousAttacks/LockOutFeature';
 import SqlWildcards from './pages/MiscellaneousAttacks/SqlWildcards';
+import Checkout from './components/checkout';
 
 export const ProtectedRoutes = [
 
@@ -397,12 +398,18 @@ export const ProtectedRoutes = [
     element: <SqlWildcards Goback={<GoBack />} />,
   },
 
+
 ];
 const PublicRoutes = [
   {
     path: '/login',
     exact: true,
     element: <UserLogin Goback={<GoBack />} />,
+  },
+  {
+    path: '/checkout',
+    exact: true,
+    element: <Checkout Goback={<GoBack />} />,
   },
   {
     path: '/register',
@@ -416,10 +423,6 @@ const PublicRoutes = [
   },
 
 ];
-
-
-
-
 export const RoutePages = () => {
   const userreducerDetails = useSelector((state) => state.UserReducer)
   const [Loader, setLoding] = useState(true)

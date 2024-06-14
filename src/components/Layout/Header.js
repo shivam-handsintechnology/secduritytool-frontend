@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUserDetails } from "../../redux/reducers/UserReducer";
-import axios from "axios";
 
 export default function Header(props) {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const userreducerDetails = useSelector(state => state.UserReducer)
-
   const handleLogout = () => {
     sessionStorage.clear()
     dispatch(setUserDetails({ isAuthenticated: false }))
@@ -17,7 +14,6 @@ export default function Header(props) {
   }
 
   return (
-
     <nav className="main-header navbar navbar-expand navbar-white navbar-light" >
       {/* Left navbar links */}
       <ul className="navbar-nav">

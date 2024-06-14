@@ -10,12 +10,15 @@ export default function UserLogin() {
 
   const [email, setemail] = useState('')
   const [password, setPassword] = useState('')
+  const [otp, setOtp] = useState("")
+  const [isOtp, setIsOtp] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const navigateToRegister = () => {
     navigate('/register')
   }
   const handleSubmit = async (e) => {
+    let obj = { email, password }
     e.preventDefault()
     // eslint-disable-next-line
     if (email == '') {
@@ -25,24 +28,27 @@ export default function UserLogin() {
     else if (password == '') {
       toast.error("please enter password")
     } else {
-      await axios.post(`auth/login`, { email: email, password }, {
+      if (isOtp) {
+        obj["otp"] = otp
+      }
+      await axios.post(`auth/login`, obj, {
         headers: {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
         console.log(response)
         const { data, message, statusCode } = response
-        if (statusCode && statusCode === 200) {
+        console.log({ data, message, statusCode })
+        if (statusCode === 201) {
+          setIsOtp(false)
           toast.success(message)
           let decryptedData = encryptData({ token: data.token })
           sessionStorage.setItem('token', decryptedData)
           dispatch(setUserDetails({ isAuthenticated: true }))
-
-          console.log(response)
-          window.location.assign('/dashboard')
-          // navigate('/dashboard')
-        } else {
-          toast.error(message)
+          navigate('/dashboard')
+        } else if (statusCode === 200) {
+          setIsOtp(true)
+          toast.success(message)
         }
       })
         .catch((error) => {
@@ -67,33 +73,52 @@ export default function UserLogin() {
           <div className="card login-card">
             <div className="card-body login-card-body">
               <p className="login-box-msg">Sign in to Start Your Session</p>
+              {
+                isOtp ? <>
+                  <div className="input-group mb-4">
+                    <input
+                      type="text"
+                      className="form-control input-signin"
+                      placeholder="OTP"
+                      value={otp}
+                      onChange={(e) => { setOtp(e.target.value) }}
+                    />
+                    <div className="input-group-append">
+                      <div className="input-group-text">
+                        <span className="fas fa-lock" />
+                      </div>
+                    </div>
+                  </div>
+                </> : <>
+                  <div className="input-group mb-4">
+                    <input
+                      type="email"
+                      className="form-control input-signin"
+                      value={email}
+                      onChange={(e) => { setemail(e.target.value) }}
+                    />
+                    <div className="input-group-append">
+                      <div className="input-group-text">
+                        <span className="fas fa-envelope" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="input-group mb-4">
+                    <input
+                      type="password"
+                      className="form-control input-signin"
+                      value={password}
+                      onChange={(e) => { setPassword(e.target.value) }}
+                    />
+                    <div className="input-group-append">
+                      <div className="input-group-text">
+                        <span className="fas fa-lock" />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              }
 
-              <div className="input-group mb-4">
-                <input
-                  type="email"
-                  className="form-control input-signin"
-                  value={email}
-                  onChange={(e) => { setemail(e.target.value) }}
-                />
-                <div className="input-group-append">
-                  <div className="input-group-text">
-                    <span className="fas fa-envelope" />
-                  </div>
-                </div>
-              </div>
-              <div className="input-group mb-4">
-                <input
-                  type="password"
-                  className="form-control input-signin"
-                  value={password}
-                  onChange={(e) => { setPassword(e.target.value) }}
-                />
-                <div className="input-group-append">
-                  <div className="input-group-text">
-                    <span className="fas fa-lock" />
-                  </div>
-                </div>
-              </div>
               <div className="row">
                 {/* <div className="col-8">
                 <div className="icheck-primary">

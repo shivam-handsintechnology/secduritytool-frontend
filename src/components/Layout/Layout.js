@@ -5,7 +5,10 @@ import UserLayout from './UserLayout';
 import axios from 'axios';
 import { decryptData } from '../../helpers/commonFunctions';
 import { setUserDetails } from '../../redux/reducers/UserReducer';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const Layout = ({ children }) => {
+  const navigate = useNavigate()
   const statedata = useSelector((state) => state.UserReducer)
   const dispatch = useDispatch()
   const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
@@ -20,6 +23,17 @@ const Layout = ({ children }) => {
     }
     ).catch((error) => {
       console.log(error)
+      if (error.response && error.response.status === 403) {
+        toast.error("Session Expired", { autoClose: 3000 })
+        sessionStorage.removeItem('token')
+        navigate('/login')
+      } else if (error.response && error.response.status === 405) {
+        toast.error(error.response.data.message, { autoClose: 3000 })
+        navigate('/checkout')
+      }
+
+
+
     })
   }
   useEffect(() => {
