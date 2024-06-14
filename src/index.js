@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react';
 import './index.css';
+import './App.css';
+
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { ToastContainer } from 'react-toastify';
