@@ -2,13 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
+import useDataFetch from '../../hooks/DataFetchHook';
 
 const Userdata = () => {
-    const userreducerDetails = useSelector((state) => state.UserReducer)
+  const userreducerDetails = useSelector((state) => state.UserReducer)
+  let subsriptiondata = useDataFetch(`subscription/getSubscriptionDetails`, [userreducerDetails.isAuthenticated],)
   return (
     <>
-    
-    <Link to="/dashboard" className="brand-link">
+
+      <Link to="/dashboard" className="brand-link">
         <img
           src="http://handsintechnology.in/1assets/images/bg/shapes/logo12.png"
           alt="AdminLTE Logo"
@@ -16,21 +18,21 @@ const Userdata = () => {
           style={{ opacity: "1" }}
         />
       </Link>
-    <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-    <div className="image">
-    {/*  eslint-disable-next-line */}
-      <img
-        src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
-        className="img-circle elevation-2"
-        alt="photo"
-      />
-    </div>
-    <div className="info">
-      <Link className="d-block">
-        {userreducerDetails.isAuthenticated && userreducerDetails?.email}
-      </Link>
-    </div>
-  </div>
+      <div className="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div className="image">
+          {/*  eslint-disable-next-line */}
+          <img
+            src={userreducerDetails.isAuthenticated && userreducerDetails?.profilepic}
+            className="img-circle elevation-2"
+            alt="photo"
+          />
+        </div>
+        <div className="info">
+          <Link className="d-block">
+            {userreducerDetails.isAuthenticated && userreducerDetails?.email}
+          </Link>
+        </div>
+      </div>
     </>
   )
 }

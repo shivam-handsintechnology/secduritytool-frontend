@@ -7,31 +7,53 @@ export default function UserRegister() {
   // const history=useNavigate()
   const [email, setemail] = useState("")
   const [password, setPassword] = useState("")
-  console.log(email, password)
+  const [name, setName] = useState("")
+  const [otp, setOtp] = useState("")
+  const [isOtp, setIsOtp] = useState(false)
   const handleSubmit = async () => {
     // eslint-disable-next-line
+    let obj = { email, password, name }
+
+    if (name == '') {
+      toast.error('please enter name')
+    }
     if (email == '') {
       toast.error('please enter email')
     }
     // eslint-disable-next-line
     else if (password == '') {
       toast.error("please enter password")
-    } else {
-      await axios.post(`auth/register`, { email, password }, {
+    } else if (isOtp && otp == '') {
+      toast.error("please enter otp")
+    }
+    if (isOtp && otp == '') {
+      toast.error('please enter otp')
+    }
+    else {
+      if (isOtp) {
+        obj["otp"] = otp
+      }
+      await axios.post(`auth/register`, obj, {
         headers: {
           'Content-Type': 'application/json'
         }
       }).then((response) => {
         const { data, message, statusCode } = response
         if (statusCode === 200) {
+          setIsOtp(true)
           toast.success(message)
-          navigate('/login')
-        } else if (statusCode >= 400) {
-          toast.error(message)
+        } else if (statusCode === 201) {
+          setIsOtp(false)
+          toast.success(message)
+          navigate('/login', { replace: true })
         }
       })
         .catch((error) => {
           toast.error(error.response.data)
+          if (error.response.data.message) {
+            toast.error(error.response.data.message)
+          }
+          toast.error(error.message)
           console.log(error.response.data)
         })
     }
@@ -44,32 +66,69 @@ export default function UserRegister() {
         <div className="card login-card" >
           <div className="card-body login-card-body">
             <p className="login-box-msg">Register</p>
-            <div className="input-group mb-4">
-              <input
-                type="email"
-                className="form-control input-signin"
-                value={email}
-                onChange={(e) => { setemail(e.target.value) }}
-              />
-              <div className="input-group-append">
-                <div className="input-group-text">
-                  <span className="fas fa-envelope" />
+            <>
+              {isOtp ? <>
+                <div className="input-group mb-4">
+                  <input
+                    type="text"
+                    className="form-control input-signin"
+                    placeholder="OTP"
+                    value={otp}
+                    onChange={(e) => { setOtp(e.target.value) }}
+                  />
+                  <div className="input-group-append">
+                    <div className="input-group-text">
+                      <span className="fas fa-lock" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="input-group mb-4">
-              <input
-                type="password"
-                className="form-control input-signin"
-                value={password}
-                onChange={(e) => { setPassword(e.target.value) }}
-              />
-              <div className="input-group-append">
-                <div className="input-group-text">
-                  <span className="fas fa-lock" />
+              </> : <>
+                <div className="input-group mb-4">
+                  <input
+                    type="text"
+                    className="form-control input-signin"
+                    value={name}
+                    placeholder="Name"
+                    onChange={(e) => { setName(e.target.value) }}
+                  />
+                  <div className="input-group-append">
+                    <div className="input-group-text">
+                      <span className="fas fa-envelope" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+                <div className="input-group mb-4">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="form-control input-signin"
+                    value={email}
+                    onChange={(e) => { setemail(e.target.value) }}
+                  />
+                  <div className="input-group-append">
+                    <div className="input-group-text">
+                      <span className="fas fa-envelope" />
+                    </div>
+                  </div>
+                </div>
+                <div className="input-group mb-4">
+                  <input
+                    type="password"
+                    className="form-control input-signin"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value) }}
+                  />
+                  <div className="input-group-append">
+                    <div className="input-group-text">
+                      <span className="fas fa-lock" />
+                    </div>
+                  </div>
+                </div>
+              </>
+              }
+            </>
+
             <div className="row">
               {/* <div className="col-8">
                 <div className="icheck-primary">

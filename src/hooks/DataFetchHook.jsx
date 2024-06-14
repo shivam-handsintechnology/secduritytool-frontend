@@ -55,45 +55,35 @@ export default useDataFetch;
 const usePostData = () => {
     const [Data, setData] = useState(null);
     const [errors, setErrors] = useState({ loading: false, error: false, message: '' });
-    const handleSubmit = async (e, url, data) => {
-        try {
-            setErrors({ loading: true, error: false });
-            await axios.post(url, data).then((response) => {
-                const { data, statusCode, message } = response;
-                if (statusCode === 200) {
-                    setData(data);
-                    toast.success(message)
+    const handleSubmit = (e, url, data) => {
+        if (e) e.preventDefault()
+        return new Promise(async (resolve, reject) => {
+            try {
+                setErrors({ loading: true, error: false });
+                const response = await axios.post(url, data).then((response) => {
+                    const { data, statusCode } = response;
+                    if (statusCode === 200) {
+                        setData(data);
+                        resolve(data)
+                    }
+                });
 
-                } else {
-                    setErrors({
-                        loading: false,
-                        error: true,
-                        message: message,
-                    });
-                    toast.error(message)
-
-                }
-
-            });
-
-        } catch (error) {
-            console.error(error);
-            setErrors({
-                loading: false,
-                error: true,
-                message: error.data ? error.data.message : 'An error occurred',
-            });
-            setData(null);
-            toast.error(error.data ? error.data.message : 'An error occurred')
+            } catch (error) {
+                console.error(error);
+                setErrors({
+                    loading: false,
+                    error: true,
+                    message: error.data ? error.data.message : 'An error occurred',
+                });
+                setData(null);
+                reject(error)
+            }
         }
+        )
 
 
     }
-
-
     // You might want to add dependencies to the useEffect if needed
-
-
     return { Data, errors, handleSubmit };
 };
 const usePutData = () => {

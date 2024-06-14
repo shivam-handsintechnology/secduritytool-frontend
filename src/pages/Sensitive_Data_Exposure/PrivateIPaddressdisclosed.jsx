@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from "react-redux";
-import useDataFetch, { usePostData } from "../../hooks/DataFetchHook";
+import useDataFetch from "../../hooks/DataFetchHook";
 import LoadingSpinner from '../../components/LoaderAndError/loader';
 const PrivateIPaddressdisclosed = () => {
     const userreducerDetails = useSelector((state) => state.UserReducer);
