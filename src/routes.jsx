@@ -68,6 +68,12 @@ import TermsandCondition from './pages/TermsandCondition';
 import PriceDetail from './pages/PriceDetail';
 import Cancellation from './pages/Cancellation';
 import ContactUs from './pages/ContactUs';
+import PhysicalServerPathDisclousere from './pages/Sensitive_Data_Exposure/PhysicalServerPathDisclouser';
+import SqlWildcards from "./pages/MiscellaneousAttacks/SqlWildcards"
+import LockOutFeature from "./pages/MiscellaneousAttacks/LockOutFeature"
+import BlackPasswordValidation from "./pages/Security_Misconfiguration/BlackPasswordValidation"
+import DefaultUserNamesPasswordMain from "./pages/Security_Misconfiguration/DefaultUserNamesPassword"
+import Checkout from './components/checkout';
 
 export const ProtectedRoutes = [
 
