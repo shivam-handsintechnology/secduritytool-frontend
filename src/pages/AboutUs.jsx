@@ -1,19 +1,30 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
+import OurCompany from './OurCompany';
+import WhyChoose from './WhyChoose';
+import Teams from './Teams';
 
 const AboutUs = () => {
     return (
         <div>
 
-            <Container>
-                <div>
-                    <h1 className='text-center mt-4 mb-5'>
-                        About Us
-                    </h1>
-                </div>
-                <div className='mb-4'>
+            <div>
+                <section class="section-top">
                     <Row>
-                        <Col><img src='/asset/pic1.jpg' className='aboutimg' /></Col>
+                        <Col >
+                            <div class="section-top-title wow " >
+                                <h1 className='text-center'>ABOUT US</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                </section>
+            </div>
+            <div className='mb-4 mt-5'>
+                <OurCompany />
+
+                <Container className='pb-5 pt-5'>
+                    <Row>
+                        <Col><img src='/asset/pic1.png' className='aboutimg' /></Col>
                         <Col className='align-content-center'>
                             <div><h3 className='text-center mb-4'><b>About Security Tool</b></h3></div>
                             <div>
@@ -23,8 +34,12 @@ const AboutUs = () => {
                             </div>
                         </Col>
                     </Row>
-                    <Row className='mt-4 '>
+                </Container>
 
+                <WhyChoose />
+
+                <Container className='mt-5 mb-5 pb-5'>
+                    <Row >
                         <Col className='align-content-center'>
                             <div><h3 className='text-center mb-4'><b> Our Vision</b></h3></div>
                             <div>
@@ -33,10 +48,13 @@ const AboutUs = () => {
                                 </p>
                             </div>
                         </Col>
-                        <Col><img src='/asset/pic1.jpg' className='aboutimg' /></Col>
+                        <Col><img src='/asset/computer.png' className='aboutimg' /></Col>
                     </Row>
-                </div>
-            </Container>
+                </Container>
+                <Teams />
+
+            </div>
+
         </div>
     )
 }

@@ -11,97 +11,48 @@ const PriceDetail = () => {
 
     return (
         <div>
-
+            <div>
+                <section class="section-top">
+                    <Row>
+                        <Col >
+                            <div class="section-top-title wow " >
+                                <h1 className='text-center'>Our pricing</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                </section>
+            </div>
             <Container>
-                <div>
-                    <p className='margin-gap text-center '>   <h4 className='text-height mb-4'>SECURITY, PERFORMANCE, & MORE</h4></p>
+               
+                <section className='pt-5'>
                     <div>
-                        <Row>
-                            <Col lg={3}>
-                                <div className='box'>
-                                    <p>
-                                        <h5><b>24/7 email & phone support</b></h5>
-                                        <p className='mt-3'>
-                                            Award winning, global, 24/7/365 email & emergency phone support (Enterprise plans). Plus on-demand resources, guides & best practice implementation.
-
-                                        </p>
-                                    </p>
-                                </div>
-                            </Col>
-                            <Col lg={3}>
-                                <div className='box'>
-                                    <p>
-                                        <h5><b>24/7 email & phone support</b></h5>
-                                        <p>
-                                            Award winning, global, 24/7/365 email & emergency phone support (Enterprise plans). Plus on-demand resources, guides & best practice implementation.
-
-                                        </p>
-                                    </p>
-                                </div>
-                            </Col>
-                            <Col lg={3}>
-                                <div className='box'>
-                                    <p>
-                                        <h5><b>24/7 email & phone support</b></h5>
-                                        <p>
-                                            Award winning, global, 24/7/365 email & emergency phone support (Enterprise plans). Plus on-demand resources, guides & best practice implementation.
-
-                                        </p>
-                                    </p>
-                                </div>
-                            </Col>
-                            <Col lg={3}>
-                                <div className='box'>
-                                    <p>
-                                        <h5><b>24/7 email & phone support</b></h5>
-                                        <p>
-                                            Award winning, global, 24/7/365 email & emergency phone support (Enterprise plans). Plus on-demand resources, guides & best practice implementation.
-
-                                        </p>
-                                    </p>
-                                </div>
-                            </Col>
-
-                        </Row>
-                    </div>
-
-                </div>
-                <section>
-                    <div>
-                        <Row>
-                            <Col lg={4} className=' align-content-center'>
-                                <div >
-                                    <h3 className='text-height'>Includes everything from the Pro plan & much more:</h3>
-                                </div>
-                            </Col>
-                            <Col className='mt-5'>
-                                <div className="top">
-                                    <div className="toggle-btn">
-                                        <span style={{ margin: '0.8em' }}>Annually</span>
-                                        <label className="switch">
-                                            <input
-                                                type="checkbox"
-                                                checked={!isAnnual}
-                                                onChange={handleToggle}
-                                            />
-                                            <span className="slider round"></span>
-                                        </label>
-                                        <span style={{ margin: '0.8em' }}>Monthly</span>
+                        <Row className='justify-content-center'>
+                            <div class="section-title text-center">
+                                <span>Pricing Plan</span>
+                                <h2>Our best pricing plan for <br />your solution</h2>
+                            </div>	
+                            <Col lg={4} className='mt-5 mb-5'>
+                               
+                                <div class="pricingTable">
+                                    <div class="pricingTable-header">
+                                        <h3 class="title">Business</h3>
                                     </div>
-                                </div>
-
-                                <div className="package-container">
-                                    <div className="packages">
-                                        <h1>Buisness</h1>
-                                        <h2 className="text1" style={{ display: isAnnual ? 'block' : 'none' }}>$ 108 </h2>
-                                        <h2 className="text2" style={{ display: isAnnual ? 'none' : 'block' }}>$ 9</h2>
-                                        <ul className="list">
-                                            <li className="first">2000 Subscribers</li>
-                                            <li>12,000 Emails/month</li>
-                                            <li>Multi-User Accounts</li>
-                                            <li>Email Support</li>
-                                        </ul>
-                                        <a href="#" className="button button1">Start Now</a>
+                                    <div class="pricing-icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                    <ul class="pricing-content">
+                                        <li>5 website</li>
+                                        <li>50GB Disk Space</li>
+                                        <li>50 Email Accounts</li>
+                                        <li>50GB Monthly Bandwidth</li>
+                                        <li>10 Subdomains</li>
+                                    </ul>
+                                    <div class="price-value">
+                                        <span class="amount">$9</span>
+                                        <span class="duration"> /mo</span>
+                                    </div>
+                                    <div>
+                                        <a href="#" class="btn_one">Purchase Now</a>
                                     </div>
                                 </div>
                             </Col>

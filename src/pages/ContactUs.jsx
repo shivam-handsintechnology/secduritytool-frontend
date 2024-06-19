@@ -3,8 +3,8 @@ import React from 'react'
 const ContactUs = () => {
     return (
         <div>
-            <body className="hold-transition login-page">
-                <div className="login-box">
+            <body className="hold-transition login-page justify-content-center">
+                <div className="login-box justify-content-center">
 
                     {/* /.login-logo */}
                     <div className="card login-card">
@@ -18,7 +18,7 @@ const ContactUs = () => {
                                 />
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fas fa-user" />
+                                        <span className="fa fa-user" />
                                     </div>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@ const ContactUs = () => {
                                 />
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fas fa-envelope" />
+                                        <span className="fa fa-envelope" />
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@ const ContactUs = () => {
                                 />
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span className="fa fa-phone-volume" />
+                                        <span className="fa fa-phone" />
                                     </div>
                                 </div>
                             </div>
@@ -53,11 +53,7 @@ const ContactUs = () => {
                                     className="form-control input-signin mt-0"
                                    Row="4"
                                 />
-                                <div className="input-group-append">
-                                    <div className="input-group-text">
-                                     
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div className="row">
 

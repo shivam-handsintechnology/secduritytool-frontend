@@ -85,7 +85,7 @@ export default function UserLogin() {
                     />
                     <div className="input-group-append">
                       <div className="input-group-text">
-                        <span className="fas fa-lock" />
+                        <span className="fa fa-lock" />
                       </div>
                     </div>
                   </div>
@@ -99,7 +99,7 @@ export default function UserLogin() {
                     />
                     <div className="input-group-append">
                       <div className="input-group-text">
-                        <span className="fas fa-envelope" />
+                        <span className="fa fa-envelope" />
                       </div>
                     </div>
                   </div>
@@ -112,7 +112,7 @@ export default function UserLogin() {
                     />
                     <div className="input-group-append">
                       <div className="input-group-text">
-                        <span className="fas fa-lock" />
+                        <span className="fa fa-lock" />
                       </div>
                     </div>
                   </div>
