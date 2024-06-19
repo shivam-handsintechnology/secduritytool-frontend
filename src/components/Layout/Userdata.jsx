@@ -6,7 +6,6 @@ import useDataFetch from '../../hooks/DataFetchHook';
 
 const Userdata = () => {
   const userreducerDetails = useSelector((state) => state.UserReducer)
-  let subsriptiondata = useDataFetch(`subscription/getSubscriptionDetails`, [userreducerDetails.isAuthenticated],)
   return (
     <>
 
@@ -18,21 +17,25 @@ const Userdata = () => {
           style={{ opacity: "1" }}
         />
       </Link>
-      <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div className="image">
-          {/*  eslint-disable-next-line */}
-          <img
-            src={userreducerDetails.isAuthenticated && userreducerDetails?.profilepic}
-            className="img-circle elevation-2"
-            alt="photo"
-          />
+      <Link to="/Profile" >
+        <div className="user-panel mt-3 pb-3 mb-3 d-flex">
+
+          <div className="image">
+            {/*  eslint-disable-next-line */}
+            <img
+              src={userreducerDetails.isAuthenticated && userreducerDetails?.profilepic}
+              className="img-circle elevation-2"
+              alt="photo"
+            />
+          </div>
+          <div className="info">
+            <Link className="d-block">
+              {userreducerDetails.isAuthenticated && userreducerDetails?.email}
+            </Link>
+          </div>
+
         </div>
-        <div className="info">
-          <Link className="d-block">
-            {userreducerDetails.isAuthenticated && userreducerDetails?.email}
-          </Link>
-        </div>
-      </div>
+      </Link>
     </>
   )
 }

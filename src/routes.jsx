@@ -76,6 +76,10 @@ import DefaultUserNamesPasswordMain from "./pages/Security_Misconfiguration/Defa
 import Checkout from './components/checkout';
 import Home from './pages/Home';
 
+import Profile from './pages/login/Profile';
+import ErrorBoundary from './utils/ErrorBoundary';
+import LoadingSpinner from './components/LoaderAndError/loader';
+import WebDomainSelector from './components/WebDomainSelector';
 export const ProtectedRoutes = [
 
 
@@ -369,6 +373,16 @@ export const ProtectedRoutes = [
     exact: true,
     element: <SqlWildcards Goback={<GoBack />} />,
   },
+  {
+    path: '/Profile',
+    exact: true,
+    element: <Profile Goback={<GoBack />} />,
+  },
+  {
+    path: '/MiscellaneousAttacks',
+    exact: true,
+    element: <MiscellaneousAttacks Goback={<GoBack />} />,
+  },
 
 
 ];
@@ -429,11 +443,8 @@ const PublicRoutes = [
     exact: true,
     element: <ErrorPageHandler Goback={<GoBack />} />,
   },
-  {
-    path: '/MiscellaneousAttacks',
-    exact: true,
-    element: <MiscellaneousAttacks Goback={<GoBack />} />,
-  },
+
+
 
 ];
 export const RoutePages = () => {
@@ -452,7 +463,7 @@ export const RoutePages = () => {
 
 
   }, [])
-  const letSkipDomainSelectorPages = ['/login', '/register', '*', '/XSSpossible']
+  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/SqlWildcards", "/LockOutFeature", "/MiscellaneousAttacks", "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
 
   return (
     <React.Fragment>{Loader ? <div >..Loading</div> :
@@ -472,19 +483,43 @@ export const RoutePages = () => {
             ))
           }
           {
+
             ProtectedRoutes.map((route) => (
               <Route
                 key={route.path}
                 path={route.path}
-                element={userreducerDetails.isAuthenticated ? <Layout>
-                  {
-                    letSkipDomainSelectorPages.includes(route.path) ? '' : <DomainSeletor />
-                  }
-                  {userreducerDetails.domain ? route.element : <span className='error'>Please Select Domain</span>}
-                </Layout>
-                  : <Navigate to="/login" />}
+                element={userreducerDetails.isAuthenticated ? (
+                  <ErrorBoundary>
+                    <Suspense fallback={<LoadingSpinner />}>
+                      <Layout>
+                        {AddWebdomainSelector.includes(route.path) ? (
+                          <>
+                            <WebDomainSelector />
+                            {!userreducerDetails.webdomain ? (
+                              <span className='error'>Please Select Domain</span>
+                            ) : (
+                              route.element
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <DomainSeletor />
+                            {!userreducerDetails.domain ? (
+                              <span className='error'>Please Select Domain</span>
+                            ) : (
+                              route.element
+                            )}
+                          </>
+                        )}
+                      </Layout>
+                    </Suspense>
+                  </ErrorBoundary>
+                ) : (
+                  <Navigate to="/login" />
+                )}
               />
-            ))}
+            ))
+          }
         </Routes>
 
 
