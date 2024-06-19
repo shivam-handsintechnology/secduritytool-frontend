@@ -83,16 +83,19 @@ const VideoComponent = ({ event }) => {
             {videoUrl ? (
                 <div>
                     <video
-                        controls
+
                         autoPlay
                         ref={videoRef}
                         onDurationChange={handleLoadedMetadata}
                         onError={(e) => console.error('Video error:', e, videoUrl)}
                         onLoadedMetadata={handleLoadedMetadata}
+                        controls
                     >
                         <source
                             src={videoUrl}
-                            type="video/mp4" // Adjust the video type if necessary
+                            controls
+
+                            // type="video/mp4" // Adjust the video type if necessary
                             onError={(e) => console.error('Source error:', e, videoUrl)}
                         />
                     </video>
