@@ -74,6 +74,7 @@ import LockOutFeature from "./pages/MiscellaneousAttacks/LockOutFeature"
 import BlackPasswordValidation from "./pages/Security_Misconfiguration/BlackPasswordValidation"
 import DefaultUserNamesPasswordMain from "./pages/Security_Misconfiguration/DefaultUserNamesPassword"
 import Checkout from './components/checkout';
+import Home from './pages/Home';
 
 export const ProtectedRoutes = [
 
@@ -388,6 +389,11 @@ const PublicRoutes = [
     element: <UserRegister Goback={<GoBack />} />,
   },
   {
+    path: '/',
+    exact: true,
+    element: <Home Goback={<GoBack />} />,
+  },
+  {
     path: '/aboutus',
     exact: true,
     element: <AboutUs Goback={<GoBack />} />,
@@ -412,6 +418,7 @@ const PublicRoutes = [
     exact: true,
     element: <ContactUs Goback={<GoBack />} />,
   },
+  
   {
     path: '/pricedetail',
     exact: true,
