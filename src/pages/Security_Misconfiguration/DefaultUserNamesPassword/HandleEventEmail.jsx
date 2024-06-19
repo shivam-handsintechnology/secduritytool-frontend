@@ -21,7 +21,7 @@ const HandleEventEmail = ({
                 [encodeURIComponent(encryptData("password"))]: encodeURIComponent(encryptData(password)),
                 [encodeURIComponent(encryptData("domain"))]: encodeURIComponent(encryptData(domain)),
                 [encodeURIComponent(encryptData("email"))]: encodeURIComponent(encryptData(email)),
-                [encodeURIComponent(encryptData("authorization"))]: encodeURIComponent(encryptData(encrypted.token))
+                [encodeURIComponent(encryptData("authorization"))]: encodeURIComponent(encryptData("Bearer " + encrypted.token))
             };
 
             const eventSourceUrl = `${url}?data=${JSON.stringify(data)}`;

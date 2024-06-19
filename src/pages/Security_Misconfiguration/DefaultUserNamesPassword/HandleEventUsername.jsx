@@ -22,7 +22,7 @@ const HandleEventUsername = ({
                 [encodeURIComponent(encryptData("username"))]: encodeURIComponent(encryptData(username)),
                 [encodeURIComponent(encryptData("password"))]: encodeURIComponent(encryptData(password)),
                 [encodeURIComponent(encryptData("domain"))]: encodeURIComponent(encryptData(domain)),
-                [encodeURIComponent(encryptData("authorization"))]: encodeURIComponent(encryptData(encrypted.token))
+                [encodeURIComponent(encryptData("authorization"))]: encodeURIComponent(encryptData("Bearer " + encrypted.token))
             };
 
             const eventSourceUrl = `${url}?data=${JSON.stringify(data)}`;
