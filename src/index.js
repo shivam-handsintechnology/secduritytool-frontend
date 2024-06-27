@@ -19,6 +19,7 @@ export { imageurl }
 axios.defaults.baseURL = process.env.NODE_ENV === 'development'
   ? process.env.REACT_APP_DEVELOPMENT_BASEURL
   : process.env.REACT_APP_PRODUCTION_BASEURL;
+axios.defaults.headers.common['X-Origin'] = window.location.protocol + "//" + window.location.host
 const processAndEncryptQueryParams = (config) => {
   if (config.url) {
     const [baseUrl, queryString] = config.url.split("?");
@@ -47,8 +48,8 @@ const processAndEncryptQueryParams = (config) => {
 axios.interceptors.request.use(config => {
 
   // Encrypt data in config if needed
-  // console.log("config",config)
-  // processAndEncryptQueryParams(config);
+  console.log("config", config)
+  processAndEncryptQueryParams(config);
   if (config.data && typeof config.data === 'object') {
     console.log("config.data", config.data)
     config.data = { encryptData: encryptData(config.data) };
