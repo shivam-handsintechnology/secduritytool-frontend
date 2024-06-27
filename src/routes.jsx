@@ -80,6 +80,8 @@ import Profile from './pages/login/Profile';
 import ErrorBoundary from './utils/ErrorBoundary';
 import LoadingSpinner from './components/LoaderAndError/loader';
 import WebDomainSelector from './components/WebDomainSelector';
+import NonHtmlContentAccess from "./pages/Broken Authentication/NonHtmlContentAccess"
+import SecondFactorAuth from "./pages/Broken Authentication/SecondFactorAuth"
 export const ProtectedRoutes = [
 
 
@@ -383,6 +385,16 @@ export const ProtectedRoutes = [
     exact: true,
     element: <MiscellaneousAttacks Goback={<GoBack />} />,
   },
+  {
+    path: '/NonHtmlContentAccess',
+    exact: true,
+    element: <NonHtmlContentAccess Goback={<GoBack />} />,
+  },
+  {
+    path: '/SecondFactorAuth',
+    exact: true,
+    element: <SecondFactorAuth Goback={<GoBack />} />,
+  },
 
 
 ];
@@ -432,7 +444,7 @@ const PublicRoutes = [
     exact: true,
     element: <ContactUs Goback={<GoBack />} />,
   },
-  
+
   {
     path: '/pricedetail',
     exact: true,
@@ -466,12 +478,10 @@ export const RoutePages = () => {
   const AddWebdomainSelector = ['/NonHtmlContentAccess', "/SqlWildcards", "/LockOutFeature", "/MiscellaneousAttacks", "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
 
   return (
-    <React.Fragment>{Loader ? <div >..Loading</div> :
+    <React.Fragment>{Loader ? <LoadingSpinner /> :
       <Router>
         <Routes>
-
           {
-
             PublicRoutes.map((route) => (
               <Route
                 key={route.path}
