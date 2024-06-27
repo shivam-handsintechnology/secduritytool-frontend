@@ -49,7 +49,7 @@ axios.interceptors.request.use(config => {
 
   // Encrypt data in config if needed
   console.log("config", config)
-  processAndEncryptQueryParams(config);
+  // processAndEncryptQueryParams(config);
   if (config.data && typeof config.data === 'object') {
     console.log("config.data", config.data)
     config.data = { encryptData: encryptData(config.data) };
