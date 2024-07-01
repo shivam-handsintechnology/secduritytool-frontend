@@ -364,6 +364,10 @@ a.home-nav.nav-link {
   width: 100px;
 }
 
+.img-fluid {
+  width: 100%;
+}
+
 .amount {
   font-size: 2.8em;
   font-weight: bolder;
@@ -1164,7 +1168,88 @@ body {
   background: #1a2237;
 }
 
-.input-group-text{
+.input-group-text {
   padding: 0.875rem 0.75rem;
 }
+
+.section-button {
+  box-shadow: 0 1px 0 0px #cbcbcb;
+  padding: 10px;
+  padding-right: 85px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  color: #000 !important;
+  font-size: 13px;
+}
+
+.nav-link .section-button:hover {
+  color: #000;
+}
+
+.text-center.section-button.active {
+  background-image: linear-gradient(to right, #070532, #74799B);
+  box-shadow: 0 1px 0 0px #cbcbcb;
+  padding: 10px;
+  padding-right: 85px;
+  font-size: 13px;
+  color: white !important;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: revert-layer;
+}
+
+.left-list {
+  list-style: none;
+}
+
+.ml-40 {
+  margin-left: 60px;
+}
+
+.box-doc-left {
+  background-color: white;
+  padding-right: 0;
+}
+
+.text-center.section-button.active .vector-icon {
+  filter: none;
+  width: 20px;
+  padding-right: 7px
+}
+
+.vector-icon {
+  filter: invert(1);
+  width: 25px;
+  padding-right: 7px
+}
+
+.text-center.section-button.vector-icon.active {
+  filter: none;
+}
+
+.text-head {
+  color: #070532;
+  font-weight: 600;
+}
+
+.text-describe {
+  color: #000;
+  font-family: system-ui;
+  font-weight: 500;
+}
+
+.text-describe-head {
+  font-size: 20px;
+  font-weight: 500;
+  color: #0e0d39;
+  font-family: sans-serif;
+}
+
+.line {
+  display: inline-flex;
+  align-items: center;
+}
+
+
+
 /* Landing css End */

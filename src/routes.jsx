@@ -80,6 +80,7 @@ import Profile from './pages/login/Profile';
 import ErrorBoundary from './utils/ErrorBoundary';
 import LoadingSpinner from './components/LoaderAndError/loader';
 import WebDomainSelector from './components/WebDomainSelector';
+import Documents from './pages/Documents';
 export const ProtectedRoutes = [
 
 
@@ -421,6 +422,11 @@ const PublicRoutes = [
     path: '/termsandcondition',
     exact: true,
     element: <TermsandCondition Goback={<GoBack />} />,
+  },
+  {
+    path: '/documents',
+    exact: true,
+    element: <Documents Goback={<GoBack />} />,
   },
   {
     path: '/cancellation',
