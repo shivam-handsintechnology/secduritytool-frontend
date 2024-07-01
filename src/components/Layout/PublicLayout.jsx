@@ -17,7 +17,7 @@ const PublicLayout = ({ children }) => {
                                 <Nav.Link as={Link} to="/" className='home-nav'>Home</Nav.Link>
                                 <Nav.Link as={Link} to='/aboutus' className='home-nav'>About</Nav.Link>
                                 <Nav.Link as={Link} to='/aboutus' className='home-nav'>Services</Nav.Link>
-                                <Nav.Link as={Link} to='/aboutus' className='home-nav'>Documentation</Nav.Link>
+                                <Nav.Link as={Link} to='/documents' className='home-nav'>Documentation</Nav.Link>
                                 <Nav.Link as={Link} to="/pricedetail" className='home-nav'>Pricing</Nav.Link>
                                 <Nav.Link as={Link} to="" className='home-nav'>Contact US</Nav.Link>
                             </Nav>
