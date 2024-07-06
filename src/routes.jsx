@@ -91,533 +91,521 @@ export const ProtectedRoutes = [
     path: '/dashboard',
     exact: true,
     element: <Dashboard Goback={< GoBack />} />,
-Layout: "AdminLayout"
+    Layout: "AdminLayout"
 
   },
-{
-  path: '/SSLInformation',
+  {
+    path: '/SSLInformation',
     exact: true,
-      element: <SSLInformation Goback={
-        <GoBack />} / >,
-        Layout: "AdminLayout"
+    element: <SSLInformation Goback={
+      <GoBack />} />,
+    Layout: "AdminLayout"
   },
 
   {
     path: '/block',
-      exact: true,
-        element: <Block Goback={
-          <GoBack />} / >,
-          Layout: "AdminLayout"
-    },
-    {
-      path: '/Ipwhitelist',
-        exact: true,
-          Layout: "AdminLayout",
-            element: <Ipwhitelist Goback={
-              <GoBack />} / >,
+    exact: true,
+    element: <Block Goback={
+      <GoBack />} />,
+    Layout: "AdminLayout"
   },
-      {
-        path: '/Blacklist',
-          exact: true,
-            Layout: "AdminLayout",
-              element: <Blacklist Goback={
-                <GoBack />} / >,
+  {
+    path: '/Ipwhitelist',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <Ipwhitelist Goback={
+      <GoBack />} />,
   },
-        {
-          path: '/Visitordetails/:ip',
-            exact: true,
-              Layout: "AdminLayout",
-                element: <Visitordetails Goback={
-                  <GoBack />} / >,
+  {
+    path: '/Blacklist',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <Blacklist Goback={
+      <GoBack />} />,
   },
-          {
-            path: '/logs/:type',
-              exact: true,
-                Layout: "AdminLayout",
-                  element: <AllLogs Goback={
-                    <GoBack />} / >,
+  {
+    path: '/Visitordetails/:ip',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <Visitordetails Goback={
+      <GoBack />} />,
   },
-            {
-              path: '/SensitiveData/:type',
-                exact: true,
-                  Layout: "AdminLayout",
-                    element: <SensitiveData Goback={
-                      <GoBack />} / >,
+  {
+    path: '/logs/:type',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <AllLogs Goback={
+      <GoBack />} />,
   },
-              {
-                path: '/Sensitivedataplain',
-                  exact: true,
-                    Layout: "AdminLayout",
-                      element: <SensitiveDataplain Goback={
-                        <GoBack />} / >
+  {
+    path: '/SensitiveData/:type',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <SensitiveData Goback={
+      <GoBack />} />,
+  },
+  {
+    path: '/Sensitivedataplain',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <SensitiveDataplain Goback={
+      <GoBack />} />
   }, {
-                  path: '/Credentialsplaintext',
-                    exact: true,
-                      Layout: "AdminLayout",
-                        element: <CredentialsPlaintext Goback={
-                          <GoBack />} / >
+    path: '/Credentialsplaintext',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <CredentialsPlaintext Goback={
+      <GoBack />} />
   },
-                  {
-                    path: 'Websites',
-                      exact: true,
-                        Layout: "AdminLayout",
-                          element: <AllWebsites Goback={
-                            <GoBack />} / >,
+  {
+    path: 'Websites',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <AllWebsites Goback={
+      <GoBack />} />,
   },
-                    {
-                      path: '/Sessionnotexpire',
-                        exact: true,
-                          Layout: "AdminLayout",
-                            element: <Sessionnotexpire Goback={
-                              <GoBack />} / >,
+  {
+    path: '/Sessionnotexpire',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <Sessionnotexpire Goback={
+      <GoBack />} />,
   },
-                      {
-                        path: '/Sessiontimeout',
-                          exact: true,
-                            Layout: "AdminLayout",
-                              element: <Sessiontimeout Goback={
-                                <GoBack />} / >,
+  {
+    path: '/Sessiontimeout',
+    exact: true,
+    Layout: "AdminLayout",
+    element: <Sessiontimeout Goback={
+      <GoBack />} />,
   },
-                        {
-                          path: '/Sessiontoken',
-                            exact: true,
-                              element: <Sessiontoken Goback={
-                                <GoBack />} / >,
+  {
+    path: '/Sessiontoken',
+    exact: true,
+    element: <Sessiontoken Goback={
+      <GoBack />} />,
   },
-                          {
-                            path: '/Adversaryhijack',
-                              exact: true,
-                                element: <Adversaryhijack Goback={
-                                  <GoBack />} / >,
+  {
+    path: '/Adversaryhijack',
+    exact: true,
+    element: <Adversaryhijack Goback={
+      <GoBack />} />,
   },
-                            {
-                              path: '/Sessionhijackattack',
-                                exact: true,
-                                  element: <Sessionhijackattack Goback={
-                                    <GoBack />} / >,
+  {
+    path: '/Sessionhijackattack',
+    exact: true,
+    element: <Sessionhijackattack Goback={
+      <GoBack />} />,
   },
-                              {
-                                path: '/Ssl',
-                                  exact: true,
-                                    element: <Ssl Goback={
-                                      <GoBack />} / >,
+  {
+    path: '/Ssl',
+    exact: true,
+    element: <Ssl Goback={
+      <GoBack />} />,
   },
-                                {
-                                  path: '/Serverreturnserror',
-                                    exact: true,
-                                      element: <Serverreturnserror Goback={
-                                        <GoBack />} / >,
+  {
+    path: '/Serverreturnserror',
+    exact: true,
+    element: <Serverreturnserror Goback={
+      <GoBack />} />,
   },
-                                  {
-                                    path: '/Serverhttperror',
-                                      exact: true,
-                                        element: <Serverhttperror Goback={
-                                          <GoBack />} / >,
+  {
+    path: '/Serverhttperror',
+    exact: true,
+    element: <Serverhttperror Goback={
+      <GoBack />} />,
   },
-                                    {
-                                      path: '/Helpfulerrormessage',
-                                        exact: true,
-                                          element: <Helpfulerrormessage Goback={
-                                            <GoBack />} / >,
+  {
+    path: '/Helpfulerrormessage',
+    exact: true,
+    element: <Helpfulerrormessage Goback={
+      <GoBack />} />,
   },
-                                      {
-                                        path: "/ServerErrorMessage",
-                                          exact: true,
-                                            element: <ServerErrorMessage Goback={
-                                              <GoBack />} / >
+  {
+    path: "/ServerErrorMessage",
+    exact: true,
+    element: <ServerErrorMessage Goback={
+      <GoBack />} />
   },
-                                        {
-                                          path: '/InsecureDirectObjectReferences',
-                                            exact: true,
-                                              element: <Directorylisting Goback={
-                                                <GoBack />} / >,
+  {
+    path: '/InsecureDirectObjectReferences',
+    exact: true,
+    element: <Directorylisting Goback={
+      <GoBack />} />,
   },
-                                          {
-                                            path: '/HTTPparameterpollution',
-                                              exact: true,
-                                                element: <HTTPparameterpollution Goback={
-                                                  <GoBack />} / >,
+  {
+    path: '/HTTPparameterpollution',
+    exact: true,
+    element: <HTTPparameterpollution Goback={
+      <GoBack />} />,
   },
-                                            {
-                                              path: '/Serverobotstxtfile',
-                                                exact: true,
-                                                  element: <Serverobotstxtfile Goback={
-                                                    <GoBack />} / >,
+  {
+    path: '/Serverobotstxtfile',
+    exact: true,
+    element: <Serverobotstxtfile Goback={
+      <GoBack />} />,
   },
-                                              {
-                                                path: '/Arbitrarymethods',
-                                                  exact: true,
-                                                    element: <Arbitrarymethods Goback={
-                                                      <GoBack />} / >,
+  {
+    path: '/Arbitrarymethods',
+    exact: true,
+    element: <Arbitrarymethods Goback={
+      <GoBack />} />,
   },
-                                                {
-                                                  path: '/Passwordplaintext',
-                                                    exact: true,
-                                                      element: <Passwordplaintext Goback={
-                                                        <GoBack />} / >,
+  {
+    path: '/Passwordplaintext',
+    exact: true,
+    element: <Passwordplaintext Goback={
+      <GoBack />} />,
   },
-                                                  {
-                                                    path: '/Olderserverversion',
-                                                      exact: true,
-                                                        element: <Olderserverversion Goback={
-                                                          <GoBack />} / >,
+  {
+    path: '/Olderserverversion',
+    exact: true,
+    element: <Olderserverversion Goback={
+      <GoBack />} />,
   },
-                                                    {
-                                                      path: '/DangerousHTTPmethods',
-                                                        exact: true,
-                                                          element: <DangerousHTTPmethods Goback={
-                                                            <GoBack />} / >,
+  {
+    path: '/DangerousHTTPmethods',
+    exact: true,
+    element: <DangerousHTTPmethods Goback={
+      <GoBack />} />,
   },
-                                                      {
-                                                        path: '/OPTIONSmethod',
-                                                          exact: true,
-                                                            element: <OPTIONSmethod Goback={
-                                                              <GoBack />} / >,
+  {
+    path: '/OPTIONSmethod',
+    exact: true,
+    element: <OPTIONSmethod Goback={
+      <GoBack />} />,
   },
-                                                        {
-                                                          path: '/Weakalgorithm',
-                                                            exact: true,
-                                                              element: <Weakalgorithm Goback={
-                                                                <GoBack />} / >,
+  {
+    path: '/Weakalgorithm',
+    exact: true,
+    element: <Weakalgorithm Goback={
+      <GoBack />} />,
   },
-                                                          {
-                                                            path: '/Adversaryemailidsspaming',
-                                                              exact: true,
-                                                                element: <Adversaryemailidsspaming Goback={
-                                                                  <GoBack />} / >,
+  {
+    path: '/Adversaryemailidsspaming',
+    exact: true,
+    element: <Adversaryemailidsspaming Goback={
+      <GoBack />} />,
   },
-                                                            {
-                                                              path: '/Adversaryfingerprint',
-                                                                exact: true,
-                                                                  element: <Adversaryfingerprint Goback={
-                                                                    <GoBack />} / >,
+  {
+    path: '/Adversaryfingerprint',
+    exact: true,
+    element: <Adversaryfingerprint Goback={
+      <GoBack />} />,
   },
-                                                              {
-                                                                path: '/Serversidesourcedisclosure',
-                                                                  exact: true,
-                                                                    element: <Serversidesourcedisclosure Goback={
-                                                                      <GoBack />} / >,
+  {
+    path: '/Serversidesourcedisclosure',
+    exact: true,
+    element: <Serversidesourcedisclosure Goback={
+      <GoBack />} />,
   },
-                                                                {
-                                                                  path: '/Criticalinformationinurl',
-                                                                    exact: true,
-                                                                      element: <Criticalinformationinurl Goback={
-                                                                        <GoBack />} / >,
+  {
+    path: '/Criticalinformationinurl',
+    exact: true,
+    element: <Criticalinformationinurl Goback={
+      <GoBack />} />,
   },
-                                                                  {
-                                                                    path: '/Defaultwebpageinserver',
-                                                                      exact: true,
-                                                                        element: <Defaultwebpageinserver Goback={
-                                                                          <GoBack />} / >,
+  {
+    path: '/Defaultwebpageinserver',
+    exact: true,
+    element: <Defaultwebpageinserver Goback={
+      <GoBack />} />,
   },
-                                                                    {
-                                                                      path: '/Sensitivedataaccessible',
-                                                                        exact: true,
-                                                                          element: <Sensitivedataaccessible Goback={
-                                                                            <GoBack />} / >,
+  {
+    path: '/Sensitivedataaccessible',
+    exact: true,
+    element: <Sensitivedataaccessible Goback={
+      <GoBack />} />,
   },
-                                                                      {
-                                                                        path: '/Sensitiveinformationrevealed',
-                                                                          exact: true,
-                                                                            element: <Sensitiveinformationrevealed Goback={
-                                                                              <GoBack />} / >,
+  {
+    path: '/Sensitiveinformationrevealed',
+    exact: true,
+    element: <Sensitiveinformationrevealed Goback={
+      <GoBack />} />,
   },
-                                                                        {
-                                                                          path: '/Cleartextpassword',
-                                                                            exact: true,
-                                                                              element: <Cleartextpassword Goback={
-                                                                                <GoBack />} / >,
+  {
+    path: '/Cleartextpassword',
+    exact: true,
+    element: <Cleartextpassword Goback={
+      <GoBack />} />,
   },
-                                                                          {
-                                                                            path: '/URLredirection',
-                                                                              exact: true,
-                                                                                element: <URLredirection Goback={
-                                                                                  <GoBack />} / >,
+  {
+    path: '/URLredirection',
+    exact: true,
+    element: <URLredirection Goback={
+      <GoBack />} />,
   },
-                                                                            {
-                                                                              path: '/Crossframescripting',
-                                                                                exact: true,
-                                                                                  element: <Crossframescripting Goback={
-                                                                                    <GoBack />} / >,
+  {
+    path: '/Crossframescripting',
+    exact: true,
+    element: <Crossframescripting Goback={
+      <GoBack />} />,
   },
-                                                                              {
-                                                                                path: '/Crosssitescriptingattack',
-                                                                                  exact: true,
-                                                                                    element: <Crosssitescriptingattack Goback={
-                                                                                      <GoBack />} / >,
+  {
+    path: '/Crosssitescriptingattack',
+    exact: true,
+    element: <Crosssitescriptingattack Goback={
+      <GoBack />} />,
   },
-                                                                                {
-                                                                                  path: '/Storedcrosssitescripting',
-                                                                                    exact: true,
-                                                                                      element: <Storedcrosssitescripting Goback={
-                                                                                        <GoBack />} / >,
+  {
+    path: '/Storedcrosssitescripting',
+    exact: true,
+    element: <Storedcrosssitescripting Goback={
+      <GoBack />} />,
   },
-                                                                                  {
-                                                                                    path: '/XSSpossible',
-                                                                                      exact: true,
-                                                                                        element: <XSSpossible Goback={
-                                                                                          <GoBack />} / >,
+  {
+    path: '/XSSpossible',
+    exact: true,
+    element: <XSSpossible Goback={
+      <GoBack />} />,
   },
-                                                                                    {
-                                                                                      path: '/Sensitivedatastored',
-                                                                                        exact: true,
-                                                                                          element: <Sensitivedatastored Goback={
-                                                                                            <GoBack />} / >,
+  {
+    path: '/Sensitivedatastored',
+    exact: true,
+    element: <Sensitivedatastored Goback={
+      <GoBack />} />,
   },
-                                                                                      {
-                                                                                        path: "/WeakCrossDomainPolicy",
-                                                                                          exact: true,
-                                                                                            element: <WeakCrossDomainPolicy Goback={
-                                                                                              <GoBack />} / >
+  {
+    path: "/WeakCrossDomainPolicy",
+    exact: true,
+    element: <WeakCrossDomainPolicy Goback={
+      <GoBack />} />
   },
-                                                                                        {
-                                                                                          path: '/Crossdomainpolicy',
-                                                                                            exact: true,
-                                                                                              element: <Crossdomainpolicy Goback={
-                                                                                                <GoBack />} / >,
+  {
+    path: '/Crossdomainpolicy',
+    exact: true,
+    element: <Crossdomainpolicy Goback={
+      <GoBack />} />,
   },
-                                                                                          {
-                                                                                            path: '/Originheader',
-                                                                                              exact: true,
-                                                                                                element: <Originheader Goback={
-                                                                                                  <GoBack />} / >,
+  {
+    path: '/Originheader',
+    exact: true,
+    element: <Originheader Goback={
+      <GoBack />} />,
   },
-                                                                                            {
-                                                                                              path: '/AccessControlAllowOrigin',
-                                                                                                exact: true,
-                                                                                                  element: <AccessControlAllowOrigin Goback={
-                                                                                                    <GoBack />} / >,
+  {
+    path: '/AccessControlAllowOrigin',
+    exact: true,
+    element: <AccessControlAllowOrigin Goback={
+      <GoBack />} />,
   },
-                                                                                              {
-                                                                                                path: '/XXE',
-                                                                                                  exact: true,
-                                                                                                    element: <XXE Goback={
-                                                                                                      <GoBack />} / >,
+  {
+    path: '/XXE',
+    exact: true,
+    element: <XXE Goback={
+      <GoBack />} />,
   },
-                                                                                                {
-                                                                                                  path: '/PhysicalServerPathDisclousere',
-                                                                                                    exact: true,
-                                                                                                      element: <PhysicalServerPathDisclousere Goback={
-                                                                                                        <GoBack />} / >,
+  {
+    path: '/PhysicalServerPathDisclousere',
+    exact: true,
+    element: <PhysicalServerPathDisclousere Goback={
+      <GoBack />} />,
   },
-                                                                                                  {
-                                                                                                    path: '/BlankPassword',
-                                                                                                      exact: true,
-                                                                                                        element: <BlackPasswordValidation Goback={
-                                                                                                          <GoBack />} / >,
+  {
+    path: '/BlankPassword',
+    exact: true,
+    element: <BlackPasswordValidation Goback={
+      <GoBack />} />,
   },
-                                                                                                    {
-                                                                                                      path: '/DefaultUserNamesPassword',
-                                                                                                        exact: true,
-                                                                                                          element: <DefaultUserNamesPasswordMain Goback={
-                                                                                                            <GoBack />} / >,
+  {
+    path: '/DefaultUserNamesPassword',
+    exact: true,
+    element: <DefaultUserNamesPasswordMain Goback={
+      <GoBack />} />,
   },
-                                                                                                      {
-                                                                                                        path: '/MiscellaneousAttacks',
-                                                                                                          exact: true,
-                                                                                                            element: <MiscellaneousAttacks Goback={
-                                                                                                              <GoBack />} / >,
+  {
+    path: '/MiscellaneousAttacks',
+    exact: true,
+    element: <MiscellaneousAttacks Goback={
+      <GoBack />} />,
   },
-                                                                                                        {
-                                                                                                          path: '/LockOutFeature',
-                                                                                                            exact: true,
-                                                                                                              element: <LockOutFeature Goback={
-                                                                                                                <GoBack />} / >,
+  {
+    path: '/LockOutFeature',
+    exact: true,
+    element: <LockOutFeature Goback={
+      <GoBack />} />,
   },
-                                                                                                          {
-                                                                                                            path: '/SqlWildcards',
-                                                                                                              exact: true,
-                                                                                                                element: <SqlWildcards Goback={
-                                                                                                                  <GoBack />} / >,
+  {
+    path: '/SqlWildcards',
+    exact: true,
+    element: <SqlWildcards Goback={
+      <GoBack />} />,
   },
-                                                                                                            {
-                                                                                                              path: '/Profile',
-                                                                                                                exact: true,
-                                                                                                                  element: <Profile Goback={
-                                                                                                                    <GoBack />} / >,
+  {
+    path: '/Profile',
+    exact: true,
+    element: <Profile Goback={
+      <GoBack />} />,
   },
-                                                                                                              {
-                                                                                                                path: '/MiscellaneousAttacks',
-                                                                                                                  exact: true,
-                                                                                                                    element: <MiscellaneousAttacks Goback={
-                                                                                                                      <GoBack />} / >,
+  {
+    path: '/MiscellaneousAttacks',
+    exact: true,
+    element: <MiscellaneousAttacks Goback={
+      <GoBack />} />,
   },
-                                                                                                                {
-                                                                                                                  path: '/NonHtmlContentAccess',
-                                                                                                                    exact: true,
-                                                                                                                      element: <NonHtmlContentAccess Goback={
-                                                                                                                        <GoBack />} / >,
+  {
+    path: '/NonHtmlContentAccess',
+    exact: true,
+    element: <NonHtmlContentAccess Goback={
+      <GoBack />} />,
   },
-                                                                                                                  {
-                                                                                                                    path: '/SecondFactorAuth',
-                                                                                                                      exact: true,
-                                                                                                                        element: <SecondFactorAuth Goback={
-                                                                                                                          <GoBack />} / >,
+  {
+    path: '/SecondFactorAuth',
+    exact: true,
+    element: <SecondFactorAuth Goback={
+      <GoBack />} />,
   },
 
 
 ];
-                                                                                                                    const PublicRoutes = [
-                                                                                                                      {
-                                                                                                                        path: '/login',
-                                                                                                                        exact: true,
-                                                                                                                        element: <UserLogin Goback={< GoBack />} />,
-                                                                                                                },
-                                                                                                                {
-                                                                                                                  path: '/checkout',
-                                                                                                                    exact: true,
-                                                                                                                      element: <Checkout Goback={
-                                                                                                                        <GoBack />} / >,
+const PublicRoutes = [
+  {
+    path: '/login',
+    exact: true,
+    element: <UserLogin Goback={< GoBack />} />,
   },
-                                                                                                                  {
-                                                                                                                    path: '/register',
-                                                                                                                      exact: true,
-                                                                                                                        element: <UserRegister Goback={
-                                                                                                                          <GoBack />} / >,
+  {
+    path: '/checkout',
+    exact: true,
+    element: <Checkout Goback={
+      <GoBack />} />,
   },
-                                                                                                                    {
-                                                                                                                      path: '/',
-                                                                                                                        exact: true,
-                                                                                                                          element: <Home Goback={
-                                                                                                                            <GoBack />} / >,
+  {
+    path: '/register',
+    exact: true,
+    element: <UserRegister Goback={
+      <GoBack />} />,
   },
-                                                                                                                      {
-                                                                                                                        path: '/aboutus',
-                                                                                                                          exact: true,
-                                                                                                                            element: <AboutUs Goback={
-                                                                                                                              <GoBack />} / >,
+  {
+    path: '/',
+    exact: true,
+    element: <Home Goback={
+      <GoBack />} />,
   },
-                                                                                                                        {
-                                                                                                                          path: '/policy',
-                                                                                                                            exact: true,
-                                                                                                                              element: <PrivacyPolicy Goback={
-                                                                                                                                <GoBack />} / >,
+  {
+    path: '/aboutus',
+    exact: true,
+    element: <AboutUs Goback={
+      <GoBack />} />,
   },
-                                                                                                                          {
-                                                                                                                            path: '/termsandcondition',
-                                                                                                                              exact: true,
-                                                                                                                                element: <TermsandCondition Goback={
-                                                                                                                                  <GoBack />} / >,
+  {
+    path: '/policy',
+    exact: true,
+    element: <PrivacyPolicy Goback={
+      <GoBack />} />,
   },
-                                                                                                                            {
-                                                                                                                              path: '/documents',
-                                                                                                                                exact: true,
-                                                                                                                                  element: <Documents Goback={
-                                                                                                                                    <GoBack />} / >,
+  {
+    path: '/termsandcondition',
+    exact: true,
+    element: <TermsandCondition Goback={
+      <GoBack />} />,
   },
-                                                                                                                              {
-                                                                                                                                path: '/cancellation',
-                                                                                                                                  exact: true,
-                                                                                                                                    element: <Cancellation Goback={
-                                                                                                                                      <GoBack />} / >,
+  {
+    path: '/documents',
+    exact: true,
+    element: <Documents Goback={
+      <GoBack />} />,
   },
-                                                                                                                                {
-                                                                                                                                  path: '/contactus',
-                                                                                                                                    exact: true,
-                                                                                                                                      element: <ContactUs Goback={
-                                                                                                                                        <GoBack />} / >,
+  {
+    path: '/cancellation',
+    exact: true,
+    element: <Cancellation Goback={
+      <GoBack />} />,
+  },
+  {
+    path: '/contactus',
+    exact: true,
+    element: <ContactUs Goback={
+      <GoBack />} />,
   },
 
-                                                                                                                                  {
-                                                                                                                                    path: '/pricedetail',
-                                                                                                                                      exact: true,
-                                                                                                                                        element: <PriceDetail Goback={
-                                                                                                                                          <GoBack />} / >,
+  {
+    path: '/pricedetail',
+    exact: true,
+    element: <PriceDetail Goback={
+      <GoBack />} />,
   },
-                                                                                                                                    {
-                                                                                                                                      path: '*',
-                                                                                                                                        exact: true,
-                                                                                                                                          element: <ErrorPageHandler Goback={
-                                                                                                                                            <GoBack />} / >,
+  {
+    path: '*',
+    exact: true,
+    element: <ErrorPageHandler Goback={
+      <GoBack />} />,
   },
 
 
 
 ];
-                                                                                                                                      export const RoutePages = () => {
-                                                                                                                                        const userreducerDetails = useSelector((state) => state.UserReducer)
-                                                                                                                                        const [Loader, setLoding] = useState(true)
+export const RoutePages = () => {
+  const userreducerDetails = useSelector((state) => state.UserReducer)
+  const [Loader, setLoding] = useState(true)
 
-                                                                                                                                        useEffect(() => {
-                                                                                                                                          setLoding(true)
-                                                                                                                                          const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
-                                                                                                                                          if (userreducerDetails.isAuthenticated && encrypteddata.token) {
-                                                                                                                                            axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
-                                                                                                                                          }
-                                                                                                                                          setLoding(false)
-                                                                                                                                        }, [userreducerDetails,])
-                                                                                                                                        useEffect(() => {
-
-
-                                                                                                                                        }, [])
-                                                                                                                                        const AddWebdomainSelector = ['/NonHtmlContentAccess', "/SqlWildcards", "/LockOutFeature", "/MiscellaneousAttacks", "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
-
-                                                                                                                                        return (
-                                                                                                                                          <React.Fragment>{ Loader?<LoadingSpinner /> :
-                                                                                                                                        <Router>
-                                                                                                                                          <Routes>
-                                                                                                                                          {
-                                                                                                                                            PublicRoutes.map((route) => (
-                                                                                                                                              <Route
-                key= { route.path }
-                path = { route.path }
-                element = {<PublicLayout>
-                  { route.element }
-                                                                                                                                              < /PublicLayout>}
-                                                                                                                                              />
-            ))
-                                                                                                                                          }
-                                                                                                                                        {
-
-                                                                                                                                          ProtectedRoutes.map((route) => (
-                                                                                                                                            <Route
-                key= { route.path }
-                path = { route.path }
-                element = {
-                                                                                                                                              userreducerDetails.isAuthenticated ? (
-                                                                                                                                                <ErrorBoundary>
-                                                                                                                                                <Suspense fallback= {< LoadingSpinner />} >
-                                                                                                                                            <Layout>
-                                                                                                                                            {
-                                                                                                                                              AddWebdomainSelector.includes(route.path) ? (
-                                                                                                                                                <>
-                                                                                                                                                <WebDomainSelector />
-                            {!userreducerDetails.webdomain ? (
-                                                                                                                                            <span className= 'error' > Please Select Domain < /span>
-                                                                                                                                          ) : (
-                                                                                                                                            route.element
-                                                                                                                                          )
-                                                                                                                                        }
-                                                                                                                                        </>
-                        ) : (
-                                                                                                                                        <>
-                                                                                                                                        <DomainSeletor />
-                            {
-                                                                                                                                        !userreducerDetails.domain ? (
-                                                                                                                                          <span className= 'error' > Please Select Domain < /span>
-                            ) : (
-                                                                                                                                          route.element
-                                                                                                                                        )
-                                                                                                                                      }
-                                                                                                                                      </>
-                        )
-                                                                                                                                    }
-                                                                                                                                    </Layout>
-                                                                                                                                      < /Suspense>
-                                                                                                                                      < /ErrorBoundary>
-                ) : (
-                                                                                                                                      <Navigate to= "/login" />
-                )
-                                                                                                                                  }
-                                                                                                                                  />
-            ))
-                                                                                                                                }
-                                                                                                                                </Routes>
+  useEffect(() => {
+    setLoding(true)
+    const encrypteddata = sessionStorage.getItem('token') ? decryptData(sessionStorage.getItem('token')) : ''
+    if (userreducerDetails.isAuthenticated && encrypteddata.token) {
+      axios.defaults.headers.common['Authorization'] = "Bearer " + encrypteddata.token
+    }
+    setLoding(false)
+  }, [userreducerDetails,])
+  useEffect(() => {
 
 
-                                                                                                                                  < /Router>
-                                                                                                                              } </React.Fragment>
+  }, [])
+  const AddWebdomainSelector = ['/NonHtmlContentAccess', "/SqlWildcards", "/LockOutFeature", "/MiscellaneousAttacks", "/Managementinterface", "/SecondFactorAuth", "/BlankPassword", "/DefaultUserNamesPassword"]
 
+  return (
+    <React.Fragment>
+      {Loader ? (
+        <LoadingSpinner />
+      ) : (
+        <Router>
+          <Routes>
+            {PublicRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<PublicLayout>{route.element}</PublicLayout>}
+              />
+            ))}
+            {ProtectedRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  userreducerDetails.isAuthenticated ? (
+                    <ErrorBoundary>
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Layout>
+                          {AddWebdomainSelector.includes(route.path) ? (
+                            <>
+                              <WebDomainSelector />
+                              {!userreducerDetails.webdomain ? (
+                                <span className="error">Please Select Domain</span>
+                              ) : (
+                                route.element
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              <DomainSeletor />
+                              {!userreducerDetails.domain ? (
+                                <span className="error">Please Select Domain</span>
+                              ) : (
+                                route.element
+                              )}
+                            </>
+                          )}
+                        </Layout>
+                      </Suspense>
+                    </ErrorBoundary>
+                  ) : (
+                    <Navigate to="/login" />
+                  )
+                }
+              />
+            ))}
+          </Routes>
+        </Router>
+      )}
+    </React.Fragment>
   );
-                                                                                                                            };
-
+}
