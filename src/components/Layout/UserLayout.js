@@ -1,6 +1,5 @@
 
 import React from 'react'
-import "./adminlte.css"
 import Headers from "./Header";
 import Menu from './Menu';
 import Footer from './Footer';

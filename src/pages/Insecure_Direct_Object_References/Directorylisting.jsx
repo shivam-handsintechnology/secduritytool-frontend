@@ -87,7 +87,7 @@ const Directorylisting = () => {
 
         <li>
           <b>HTTP parameter pollution</b>
-          {httpparameterpollution.errors.loading ? <LoadingSpinner /> : httpparameterpollution.errors.error ? httpparameterpollution.errors.message : robottxt.data}
+          {httpparameterpollution.errors.loading ? <LoadingSpinner /> : httpparameterpollution.errors.error ? httpparameterpollution.errors.message : robottxt.data?.isHttp}
         </li>
         <li>
           <b>The remote server contains a ‘robots.txt’ file</b>
