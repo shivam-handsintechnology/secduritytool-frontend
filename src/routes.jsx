@@ -534,6 +534,7 @@ const PublicRoutes = [
 
 
 ];
+console.log("PublicRoutes", PublicRoutes)
 export const RoutePages = () => {
   const userreducerDetails = useSelector((state) => state.UserReducer)
   const [Loader, setLoding] = useState(true)
