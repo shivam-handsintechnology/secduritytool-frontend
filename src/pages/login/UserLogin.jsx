@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/reducers/UserReducer";
 import { encryptData } from "../../helpers/commonFunctions";
+
 export default function UserLogin() {
 
   const [email, setemail] = useState('')

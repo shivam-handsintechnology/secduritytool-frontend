@@ -8,9 +8,9 @@ const UserLayout = ({ children }) => {
 
     return (
         <React.Fragment>
-            <Headers />
+            {/* <Headers /> */}
             <Menu />
-            <div className="content-wrapper">
+            <div className='dashboard-content'>
                 {children}
             </div>
             <Footer />

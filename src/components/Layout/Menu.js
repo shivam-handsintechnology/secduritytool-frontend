@@ -1,65 +1,54 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import data from "../../helpers/dashboard"
-import { Dropdown } from "react-bootstrap";
+import data from "../../helpers/dashboard";
+
 export default function Menu() {
-  const userreducerDetails = useSelector((state) => state.UserReducer)
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState([]);
+  const userreducerDetails = useSelector((state) => state.UserReducer);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(data.map(category => ({ name: category.Category, isOpen: false })));
 
   const toggleSubMenu = (name) => {
-    let temp = [...isSubMenuOpen];
-    // eslint-disable-next-line array-callback-return
-    temp.map((item)=>{
-      if(item.name === name){
-        item.isOpen = !item.isOpen;
-      }
-    })
-    setIsSubMenuOpen(temp);
-    
+    setIsSubMenuOpen(prevState => prevState.map(item =>
+      item.name === name ? { ...item, isOpen: !item.isOpen } : item
+    ));
   };
+
   const isOpen = (name) => {
-   let isOpen = false;
-   // eslint-disable-next-line array-callback-return
-   isSubMenuOpen.find((item)=>{
-      if(item.name === name){
-        isOpen = item.isOpen;
-      }
-    })
-    return isOpen;
+    const foundItem = isSubMenuOpen.find(item => item.name === name);
+    return foundItem ? foundItem.isOpen : false;
   };
+
   return (
-    <aside className="main-sidebar sidebar-dark-primary elevation-4">
-      <div className="sidebar">
-        <nav className="mt-2">
-          <ul className="nav nav-pills nav-sidebar nav-legacy flex-column" data-widget="treeview" role="menu">
-        
-            {data.map((category, index) => (
-              <li key={index} className={`nav-item ${isOpen(`category-${index}`) ? 'menu-open' : ''}`}>
-               {
-                
-                category.link? <Link to={`${category.link}`} className="nav-link">
-                <i className="fas fa-flag" />&nbsp; <p>{category.Category} <i className="fas fa-angle-right right" /></p>
-              </Link> :<Link  className="nav-link" onClick={() => toggleSubMenu(`category-${index}`)}>
-                  <i className="fas fa-flag" />&nbsp; <p>{category.Category} <i className="fas fa-angle-right right" /></p>
+    <div className="sidebar">
+      <nav>
+        <ul className="nav">
+          {data.map((category, index) => (
+            <li key={index} className={`nav-item ${isOpen(category.Category) ? 'menu-open' : ''}`}>
+              {category.link ? (
+                <Link to={`${category.link}`} className="nav-link">
+                  {category.Category}
                 </Link>
-               }
-                 
+              ) : (
+                <div className="nav-link" onClick={() => toggleSubMenu(category.Category)}>
+                  {category.Category}
+                  <i className={`fas fa-angle-right right ${isOpen(category.Category) ? 'open' : ''}`} />
+                </div>
+              )}
+              {isOpen(category.Category) && (
                 <ul className="nav nav-treeview">
                   {category.UseCases.map((useCase, i) => (
                     <li key={i} className="nav-item">
                       <Link to={`${useCase.link}`} className="nav-link">
-                        <i className="far fa-file-alt" />&nbsp; <p>{useCase.label}</p>
+                        {useCase.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
-              </li>
-            ))}
-
-          </ul>
-        </nav>
-      </div>
-    </aside>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 }
